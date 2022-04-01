@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="isib.demo_crossfit_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>isib.demo.crossfit.tables.Jury</class>
+    <class>isib.demo.crossfit.tables.Epreuve</class>
+    <class>isib.demo.crossfit.tables.Inscrit</class>
+    <class>isib.demo.crossfit.tables.Clients</class>
+    <class>isib.demo.crossfit.tables.Sites</class>
+    <class>isib.demo.crossfit.tables.Test</class>
+    <class>isib.demo.crossfit.tables.Dates</class>
+    <class>isib.demo.crossfit.tables.Competition</class>
+    <class>isib.demo.crossfit.Sites</class>
+    <class>isib.demo.crossfit.OtherClass.Test</class>
+    <class>isib.demo.crossfit.Tables.Sites</class>
+    <class>isib.demo.crossfit.Tables.Epreuve</class>
+    <class>isib.demo.crossfit.Tables.Inscrit</class>
+    <class>isib.demo.crossfit.Tables.Competition</class>
+    <class>isib.demo.crossfit.Tables.Clients</class>
+    <class>isib.demo.crossfit.Tables.Jury</class>
+    <class>isib.demo.crossfit.Tables.Test</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/crossfit?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="isib"/>
+    </properties>
+  </persistence-unit>
+</persistence>

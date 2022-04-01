@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+      
+        <form action="#" th:action="@{/msg}" th:object="${newMessage}" method="POST">
+          
+            <p> author: </p>
+            <input type="text" th:field="*{author}">
+           <p> message: </p>
+            <input type="text" th:field="*{message}">
+            <input type="submit" value="Save"> 
+         
+        </form>
+        
+      <div th:each="item:${usermsg2}"> 
+            <b>Sport    :</b>  <p th:text="${item.message}"></p>
+            <b>conçu par:</b>  <p th:text="${item.author}"></p>
+            <b>DATE     :</b>  <p th:text="${item.timeStamp}"></P>
+        </div>
+    </body>
+</html>
