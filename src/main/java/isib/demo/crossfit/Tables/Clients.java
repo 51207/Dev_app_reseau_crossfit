@@ -5,6 +5,7 @@
 package isib.demo.crossfit.Tables;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -46,8 +47,12 @@ import org.springframework.beans.factory.annotation.Autowired;
     @NamedQuery(name = "Clients.findByCommune", query = "SELECT c FROM Clients c WHERE c.commune = :commune"),
     @NamedQuery(name = "Clients.findByTel", query = "SELECT c FROM Clients c WHERE c.tel = :tel"),
     @NamedQuery(name = "Clients.findByUsername", query = "SELECT c FROM Clients c WHERE c.username = :username"),
-    @NamedQuery(name = "Clients.findByPasswordclient", query = "SELECT c FROM Clients c WHERE c.passwordclient = :passwordclient")
-//    ,@NamedQuery(name = "Clients.findnameByadress", query = "SELECT c.prenom ,c.nom FROM Clients c WHERE c.cp = :cp")
+    @NamedQuery(name = "Clients.findByPasswordclient", query = "SELECT c FROM Clients c WHERE c.passwordclient = :passwordclient"),
+     
+    /**ajoutée*/
+    @NamedQuery(name = "Clients.findClientsCount", query = "SELECT count(c)  FROM Clients c"),
+    @NamedQuery(name = "Clients.findByLastAndFirstName", query = "SELECT c FROM Clients c WHERE c.nom = :nom AND c.prenom = :prenom" ),
+     
 })
 
  
@@ -226,7 +231,10 @@ public class Clients implements Serializable {
         return "isib.demo.crossfit.Tables.Clients[ nic=" + nic + " ]";
     }
     
-   public List<Clients> findall(EntityManager em){
+    
+    //***methods***
+    
+   public List<Clients> findAll(EntityManager em){
     
      Query query  = em.createNamedQuery("Clients.findAll", Clients.class);
     
@@ -234,22 +242,70 @@ public class Clients implements Serializable {
     return results;
     }
      
-   public void findById(EntityManager em, int id){
+   public void findByNic(EntityManager em, int id){
    
          Clients c = em.find(Clients.class,id);
          System.out.println("===find by id =====");
          System.out.println(c.getNom());
    
-    
-    
-    
-    
     }
 
-  
+   public void findByNom(EntityManager em, String name){
+     Clients c = em.find(Clients.class,name);
+      System.out.println("===find by name =====");
+         System.out.println(c.getNic());
+   }
+   public void findByTel(EntityManager em, String tel){
+     Clients c = em.find(Clients.class,tel);
+      System.out.println("===find by tel =====");
+         System.out.println(c.getNic());
+   }
+     public void findByPrenom(EntityManager em, String prenom){
+     Clients c = em.find(Clients.class,prenom);
+      System.out.println("===find by prenom =====");
+         System.out.println("celui qui posede ce numero est"+c.getNic());
+   }
     
+      public void findByRue(EntityManager em, String rue){
+     Clients c = em.find(Clients.class,rue);
+      System.out.println("===find by rue =====");
+         System.out.println(c.getNic());
+         System.out.println(c.getNic() +"habite à la rue"+c.getRue()+" "+c.getNumero()+" "+ c.getCp()+"  "+c.getCommune());
+   }
+       public List<Clients> findByCp(EntityManager em, String cp){
+            System.out.println("===cp =====");
+          List<Clients> result= em.createNamedQuery("Clients.findByCp",Clients.class)  
+            .setParameter("cp", cp)
+            .getResultList();
+           //setparameter permet de dire que la condition dans la requete est cp dans le where
+          
+            return result;
+   }
+     
+     public Long findClientsCount(EntityManager em){
+         
+        return (Long)em.createNamedQuery("Clients.findClientsCount").getSingleResult();
+   
+     }
     
-    
+       public void findByLastAndFirstName(EntityManager em, String nom, String prenom){
+            Clients solution = null;
+          
+            Clients result= em.createNamedQuery("Clients.findByLastAndFirstName",Clients.class)  
+            .setParameter("nom", nom)
+            .setParameter("prenom", prenom)
+            .getSingleResult();
+            
+            if(result != null){
+              solution= result;
+              System.out.println("il est dans une compettion");
+            }
+            
+         
+       } 
+       
+       
+       
     
     
 }

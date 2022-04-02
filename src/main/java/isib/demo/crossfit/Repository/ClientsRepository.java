@@ -5,7 +5,9 @@
 package isib.demo.crossfit.Repository;
 
 import isib.demo.crossfit.Tables.Clients;
+import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityManager;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -14,5 +16,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ClientsRepository extends CrudRepository<Clients, Integer> {
     
-  // public Optional<String> findnameByadress();
+  public Long findClientsCount(EntityManager em);
+  public void findByLastAndFirstName(EntityManager em, String nom, String prenom);
 }
