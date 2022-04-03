@@ -6,11 +6,13 @@ package isib.demo.crossfit.Repository;
 
 import isib.demo.crossfit.Tables.Epreuve;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author aliou
  */
+@Repository
 public interface EpreuveRepository extends CrudRepository<Epreuve, Integer> {
     
 }

@@ -6,11 +6,13 @@ package isib.demo.crossfit.Repository;
 
 import isib.demo.crossfit.Tables.Competition;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author aliou
  */
+@Repository
 public interface CompetitionRepository extends CrudRepository<Competition, Integer> {
     
 }
