@@ -28,7 +28,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Epreuve.findAll", query = "SELECT e FROM Epreuve e"),
     @NamedQuery(name = "Epreuve.findByNie", query = "SELECT e FROM Epreuve e WHERE e.nie = :nie"),
     @NamedQuery(name = "Epreuve.findByNEpreuve", query = "SELECT e FROM Epreuve e WHERE e.nEpreuve = :nEpreuve"),
-    @NamedQuery(name = "Epreuve.findByTimes", query = "SELECT e FROM Epreuve e WHERE e.times = :times")})
+    @NamedQuery(name = "Epreuve.findByTimes", query = "SELECT e FROM Epreuve e WHERE e.times = :times"),
+    @NamedQuery(name = "Epreuve.GetEpreuvebyNom", query = "SELECT e FROM Epreuve e WHERE e.nEpreuve = :nEpreuve"),
+    @NamedQuery(name = "Epreuve.GetEpreuveCount", query = "SELECT count(e)  FROM Epreuve e")})
 public class Epreuve implements Serializable {
 
     private static final long serialVersionUID = 1L;

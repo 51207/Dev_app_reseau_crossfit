@@ -30,7 +30,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Jury.findByPrenomJury", query = "SELECT j FROM Jury j WHERE j.prenomJury = :prenomJury"),
     @NamedQuery(name = "Jury.findByTel", query = "SELECT j FROM Jury j WHERE j.tel = :tel"),
     @NamedQuery(name = "Jury.findByUserJury", query = "SELECT j FROM Jury j WHERE j.userJury = :userJury"),
-    @NamedQuery(name = "Jury.findByPasswordJury", query = "SELECT j FROM Jury j WHERE j.passwordJury = :passwordJury")})
+    @NamedQuery(name = "Jury.findByPasswordJury", query = "SELECT j FROM Jury j WHERE j.passwordJury = :passwordJury"),
+    @NamedQuery(name = "Jury.GetJuryCount", query = "SELECT count(j) FROM Jury j"),
+    @NamedQuery(name = "Jury.GetJurybyNomPrenom", query = "SELECT j FROM Jury j WHERE j.nomJury = :nomJury AND j.prenomJury = :prenomJury")
+})
 public class Jury implements Serializable {
 
     private static final long serialVersionUID = 1L;

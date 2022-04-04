@@ -26,7 +26,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Test.findByTnic", query = "SELECT t FROM Test t WHERE t.testPK.tnic = :tnic"),
     @NamedQuery(name = "Test.findByTJury", query = "SELECT t FROM Test t WHERE t.testPK.tJury = :tJury"),
     @NamedQuery(name = "Test.findByTnie", query = "SELECT t FROM Test t WHERE t.testPK.tnie = :tnie"),
-    @NamedQuery(name = "Test.findByNote", query = "SELECT t FROM Test t WHERE t.note = :note")})
+    @NamedQuery(name = "Test.findByNote", query = "SELECT t FROM Test t WHERE t.note = :note"),
+    @NamedQuery(name = "Test.GetClientSupNote", query = "SELECT t.testPK.tnic, t.testPK.tnie, t.testPK.tJury,  t.note  FROM Test t WHERE t.testPK.tDates = :tDates AND t.testPK.tnie = :tnie AND t.note > :note "),
+    @NamedQuery(name = "Test.GetClientsByDate", query = "SELECT Distinct t.testPK.tnic FROM Test t WHERE t.testPK.tnic = :tnic AND t.testPK.tDates = :tDates"),
+    @NamedQuery(name = "Test.GetClientEpreuve", query = "SELECT t.testPK.tnic, t.testPK.tJury,  t.note  FROM Test t WHERE t.testPK.tDates = :tDates AND t.testPK.tnie = :tnie"),
+    @NamedQuery(name = "Test.GetDeletebyNomEpreuveDateJury", query = "SELECT t  FROM Test t WHERE t.testPK.tnie = :tnie AND t.testPK.tDates = :tDates")})
+
 public class Test implements Serializable {
 
     private static final long serialVersionUID = 1L;

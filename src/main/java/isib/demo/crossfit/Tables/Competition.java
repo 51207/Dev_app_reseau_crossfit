@@ -43,7 +43,10 @@ import org.springframework.beans.factory.annotation.Autowired;
     @NamedQuery(name = "Competition.findByPrenomOrganisateur", query = "SELECT c FROM Competition c WHERE c.prenomOrganisateur = :prenomOrganisateur"),
     @NamedQuery(name = "Competition.findByNomcompetition", query = "SELECT c FROM Competition c WHERE c.nomcompetition = :nomcompetition"),
     @NamedQuery(name = "Competition.findByUser", query = "SELECT c FROM Competition c WHERE c.user = :user"),
-    @NamedQuery(name = "Competition.findByPassword", query = "SELECT c FROM Competition c WHERE c.password = :password")})
+    @NamedQuery(name = "Competition.findByPassword", query = "SELECT c FROM Competition c WHERE c.password = :password"),
+
+    @NamedQuery(name = "Competition.GetCompetitionbyNameCompetition", query = "SELECT c FROM Competition c WHERE c.nomOrganisateur = :nomOrganisateur AND c.prenomOrganisateur = :prenomOrganisateur"),
+    @NamedQuery(name = "Competition.GetCompetitionCount", query = "SELECT count(c)  FROM Competition c")})
 public class Competition implements Serializable {
 
     

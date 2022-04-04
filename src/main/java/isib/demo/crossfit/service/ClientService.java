@@ -22,146 +22,111 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClientService {
 
+    private final ClientsRepository clientRepository;
+
     @Autowired
-    private ClientsRepository clientRepository;
-    
+    public ClientService(ClientsRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
+
     @PersistenceContext
     private EntityManager em;
     
-    public Iterable<Clients> GetFindAll(){
     
-    Iterable<Clients> result= clientRepository.findAll();
-    
-    return result;
+    //get all clients
+    public Iterable<Clients> GetFindAll() {
+
+        Iterable<Clients> result = clientRepository.findAll();
+
+        return result;
     }
-    
-    
-   
-    public Clients finbyid(Clients c){
-    
-     Clients s =  em.find(Clients.class,c.getNic());
-     return s;
+
+    //update
+    public Clients UpdateClients(Clients client) {
+
+        //control de l'existe du NIC
+        Clients c = em.find(Clients.class, client.getNic());
+        if (c != null) {
+            c = clientRepository.save(client);
+        }
+
+        return c;
     }
+
+    //Get Client by nic
+    public Clients GetByNic(Clients c) {
+
+        Clients s = em.find(Clients.class, c.getNic());
+        return s;
+    }
+
+    //Create
+    public void CreateClients(Clients client) {
+
+        clientRepository.save(client);
+
+    }
+
+    //get clients by cp
+    public Iterable<Clients> findByCp(String cp) {
+        
+        Iterable<Clients> result = em.createNamedQuery("Clients.findByCp", Clients.class)
+                .setParameter("cp", cp)
+                .getResultList();
+
+        return result;
+    }
+
+    //recuperer NIC en encodant nom , prenom , tel 
+    public Clients findByLastAndFirstName(String nom, String prenom, String tel) {
+
+        Clients result = em.createNamedQuery("Clients.findByLastAndFirstName", Clients.class)
+                .setParameter(2, nom)
+                .setParameter(3, prenom)
+                .setParameter(8, tel)
+                .getSingleResult();
+
+        return result;
+    }
+
+    //nombres de clients in DB
+    public Long findClientsCount() {
+
+        return (Long) em.createNamedQuery("Clients.findClientsCount").getSingleResult();
+    }
+
     
-  /* public void DeleteClient(Clients c, Integer nic){
-   
+    //find client by adresse=>Rue
+    public Clients findByRue(String rue) {
+        Clients c = em.getReference(Clients.class, 4L);
        
-          System.out.println("======");
-       System.out.println("nic: "+finbyid(c).getNic().toString() );
-        clientRepository.deleteById(nic);
-    
-   } */
-    
-    public void CreateClients(Clients client){
-        
-        Clients c = em.find(Clients.class,client.getNic());
-      
-        /*Clients c2 = em.find(Clients.class,2);
-        Clients c3 = em.find(Clients.class,3);
-        Clients c4 = em.find(Clients.class,4);
-        Clients c5 = em.find(Clients.class,5);
-        Clients c6 = em.find(Clients.class,6);
-        Clients c7 = em.find(Clients.class,7);
-        Clients c8 = em.find(Clients.class,8);
-        Clients c9 = em.find(Clients.class,9);
-        Clients c10 = em.find(Clients.class,10);*/
-        
-        
-        if(c == null){
-             System.out.println("dans la condition");
-          // if(   c2 != null &&  c3 != null &&  c4 != null  &&  c5 != null &&  c6 != null && c7 != null &&    c8 != null  &&  c9 != null &&  c10 !=null  )
-           //{
-            clientRepository.save(client);
-            System.out.println("inserted");
-            
-            //}
-        
-       }else{
-            System.out.println("Cet identiiant existe deja");
+        if (c != null) {
+            return c;
+        } else {
+            return null;
         }
     }
-    
-     public Iterable<Clients> findByCp(String cp){
-        
-       
-         //6L : correspond au "cp"
-        
-          Iterable<Clients> result= em.createNamedQuery("Clients.findByCp",Clients.class)  
-            .setParameter("cp", cp)
-            .getResultList();
-           //setparameter permet de dire que la condition dans la requete est cp dans le where
-           return result;
-         
-      }
-    
-     public Long findClientsCount(){
-         
-        return (Long)em.createNamedQuery("Clients.findClientsCount").getSingleResult();
-   
-     }
+
   
-       public Clients  findByRue( String rue){
-            Clients c = em.getReference(Clients.class,4L);
-             //4L : correspond au "cp"
-            if( c != null){
-            return c;
-            }else{
-                return null;}
-       }
-    
-         public Clients findByLastAndFirstName( String nom, String prenom){
-            Clients solution = null;
-          
-            Clients result= em.createNamedQuery("Clients.findByLastAndFirstName",Clients.class)  
-            .setParameter("nom", nom)
-            .setParameter("prenom", prenom)
-            .getSingleResult();
-            
-            if(result != null){
-              solution= result;
+    //delete client
+    public void DeleteClients(Integer NIC) {
+
+        //control de l'existe du NIC
+        Clients c = em.find(Clients.class, NIC);
+        
+         //verification si le client est inscrit dans une competition 
+        //à faire après
+        try {
+            System.out.println("======");
+            System.out.println("nic: " + c.getNic().toString());
+            if (c != null) {
+                clientRepository.delete(c);
+                System.out.println("======");
+                System.out.println("clients deleted");
             }
-            
-          return solution;
-       }
-         
-  
-         
-         
-public void DeleteClients(Integer NIC){
-   
-        
-         Clients c = em.find(Clients.class,NIC);
-        try{
-         System.out.println("======");
-        System.out.println("nic: "+c.getNic().toString() );
-         if(c != null){
-            clientRepository.delete(c);
-         System.out.println("======");
-         System.out.println("clients deleted");
-         }
-       }catch(Exception e){e.printStackTrace();}
-}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-
-
-  
- public void UpdateNomPrenom(Integer nic,String nom, String prenom){
-   Clients c = em.find(Clients.class,nic );
-   
-   if(c != null){
-    this.em.createNamedQuery("Clients.UpdateClientNamePrenom",Clients.class).setParameter(2, nom).setParameter(3, prenom).executeUpdate() ;
-   }
-    /*try{
-     
-      clientRepository.save(client);  
-      System.out.println("updated");
-     }
-     catch (Exception e)
-     {
-      e.printStackTrace();
-     }*/
-  }
-         
-         
-         
 }

@@ -8,6 +8,8 @@ import isib.demo.crossfit.Repository.ClientsRepository;
 import isib.demo.crossfit.Repository.CompetitionRepository;
 import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Competition;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,96 +19,92 @@ import org.springframework.stereotype.Service;
  *
  * @author aliou
  */
-
 @Service
 public class CompetitionService {
-     @Autowired
-    private CompetitionRepository CompetitionRepository;
-    
+
+    private final CompetitionRepository competitionRepository;
+
+    //constructeur
+    @Autowired
+    public CompetitionService(CompetitionRepository competitionRepository) {
+        this.competitionRepository = competitionRepository;
+    }
+
+    //context de persistence
     @PersistenceContext
     private EntityManager em;
-    
-    public Iterable<Competition> GetFindAll(){
-    
-    Iterable<Competition> result= CompetitionRepository.findAll();
-    
-    return result;
+
+    //Get all competition 
+    public Iterable<Competition> GetFindAll() {
+
+        Iterable<Competition> result = competitionRepository.findAll();
+
+        return result;
     }
-    
-    
-    
-    
-    
-    public Clients finbyid(Clients c){
-    
-     Clients s =  em.find(Clients.class,c.getNic());
-     return s;
+
+    //create
+    public void CreateCompetition(Competition competition) {
+
+        competitionRepository.save(competition);
+        System.out.println("inserted");
     }
-    
- 
-    
-    public void CreateCompetition(Competition competition){
-        
-        Clients c = em.find(Clients.class,competition.getNCompetition());
-      
-        
-        if(c == null){
-             System.out.println("dans la condition");
-         
-            CompetitionRepository.save(competition);
-            System.out.println("inserted");
-         
-       }else{
-            System.out.println("Cet identiiant existe deja");
+
+    //delete    
+    public void DeleteCompetition(Integer Ncompetition) {
+
+        Competition c = em.find(Competition.class, Ncompetition);
+        try {
+            System.out.println("======");
+            System.out.println("nic: " + c.getNCompetition().toString());
+            if (c != null) {
+                competitionRepository.delete(c);
+                System.out.println("======");
+                System.out.println("competitions deleted");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-    
-     public Iterable<Competition> findByCp(String cp){
-        
-       
-         //6L : correspond au "cp"
-        
-          Iterable<Competition> result= em.createNamedQuery("Clients.findByCp",Competition.class)  
-            .setParameter("cp", cp)
-            .getResultList();
-           //setparameter permet de dire que la condition dans la requete est cp dans le where
-           return result;
-         
-      }
-    
-     public Long findCompetitionCount(){
-         
-        return (Long)em.createNamedQuery("Competition.findClientsCount").getSingleResult();
-   
-     }
-  
-       public Competition  findByRue( String rue){
-            Competition c = em.getReference(Competition.class,4L);
-             //4L : correspond au "cp"
-            if( c != null){
+
+    //update 
+    public Competition UpdateCompetition(Competition competition) {
+        //verifier que le client existe dans la bd
+        Competition c = em.find(Competition.class, competition.getNCompetition());
+        if (c != null) {
+
+            //modifier
+            return competitionRepository.save(competition);
+        } else {
+            return null;
+        }
+    }
+
+    //nombre de competition crée
+    public Long GetCompetitionCount() {
+
+        return (Long) em.createNamedQuery("Competition.GetCompetitionCount").getSingleResult();
+    }
+
+    //obtenir l'objet (ou l'id) competition en encodant le nom de la competition
+    public Competition GetIdCompetition(String nomcompetition) {
+
+        Competition c = em.createNamedQuery("Competition.findByNomcompetition", Competition.class)
+                .setParameter(4, nomcompetition).getSingleResult();
+
+        if (c != null) {
             return c;
-            }else{
-                return null;}
-       }
-    
-        
-         
-  
-         
-         
-public void DeleteCompetition(Integer NIC){
-   
-        
-         Competition c = em.find(Competition.class,NIC);
-        try{
-         System.out.println("======");
-        System.out.println("nic: "+c.getNCompetition().toString() );
-         if(c != null){
-            CompetitionRepository.delete(c);
-         System.out.println("======");
-         System.out.println("clients deleted");
-         }
-       }catch(Exception e){e.printStackTrace();}
-}
+        } else {
+            return null;
+        }
+    }
+
+    //get all name o competition
+    public List<String> GetAllNameofCompetition() {
+        List<String> result = new ArrayList<>();
+        for (Competition item : GetFindAll()) {
+            result.add(item.getNomcompetition());
+        }
+        return result;
+    }
 
 }

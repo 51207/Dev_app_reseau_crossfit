@@ -14,5 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SitesRepository extends CrudRepository<Sites, Integer> {
-    
+    public Long GetSitesCount();
+    //public Sites GetSitesbyCp();
 }

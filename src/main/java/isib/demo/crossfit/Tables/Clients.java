@@ -50,11 +50,8 @@ import org.springframework.beans.factory.annotation.Autowired;
     @NamedQuery(name = "Clients.findByPasswordclient", query = "SELECT c FROM Clients c WHERE c.passwordclient = :passwordclient"),
     
     /**ajoutée*/
-   
-   @NamedQuery(name = "Clients.DeleteClient", query = "Delete From Clients c WHERE c.nic = :nic"),
-   @NamedQuery(name = "Clients.UpdateClientNamePrenom", query = "Update From Clients c SET  c.nom = :nom, c.prenom = :prenom WHERE c.nic = :nic"),
     @NamedQuery(name = "Clients.findClientsCount", query = "SELECT count(c)  FROM Clients c"),
-    @NamedQuery(name = "Clients.findByLastAndFirstName", query = "SELECT c FROM Clients c WHERE c.nom = :nom AND c.prenom = :prenom" )
+    @NamedQuery(name = "Clients.findByLastAndFirstName", query = "SELECT c.nic FROM Clients c WHERE c.nom = :nom AND c.prenom = :prenom AND c.tel = :tel" )
 })
 
  
@@ -235,6 +232,9 @@ public class Clients implements Serializable {
     
     
     //***methods***
+    
+   
+    
     /*
    public List<Clients> findAll(EntityManager em){
     

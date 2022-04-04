@@ -14,5 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface JuryRepository extends CrudRepository<Jury, Integer> {
-    
+     public Long GetJuryCount();
+    public Jury GetJurybyNomPrenom();
 }

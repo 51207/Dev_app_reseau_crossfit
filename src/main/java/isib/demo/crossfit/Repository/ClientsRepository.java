@@ -18,11 +18,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientsRepository extends CrudRepository<Clients, Integer> {
     
-// public void InsertClient();
- public void DeleteClient(Clients c , Integer nic);
- public void UpdateClientNamePrenom(Integer nic);
- 
-  public Long findClientsCount(EntityManager em);
-  public void findByLastAndFirstName(EntityManager em, String nom, String prenom);
+  public Long findClientsCount();
+  public void findByLastAndFirstName(String nom, String prenom,String Commune);
   
 }

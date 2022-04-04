@@ -31,7 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Sites.findByRueSites", query = "SELECT s FROM Sites s WHERE s.rueSites = :rueSites"),
     @NamedQuery(name = "Sites.findByNumeroSites", query = "SELECT s FROM Sites s WHERE s.numeroSites = :numeroSites"),
     @NamedQuery(name = "Sites.findByCPSites", query = "SELECT s FROM Sites s WHERE s.cPSites = :cPSites"),
-    @NamedQuery(name = "Sites.findByCommuneSites", query = "SELECT s FROM Sites s WHERE s.communeSites = :communeSites")})
+    @NamedQuery(name = "Sites.findByCommuneSites", query = "SELECT s FROM Sites s WHERE s.communeSites = :communeSites"),
+    @NamedQuery(name = "Sites.GetSitesCount", query = "SELECT count(s)  FROM Sites s")
+})
 public class Sites implements Serializable {
 
     private static final long serialVersionUID = 1L;

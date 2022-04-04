@@ -4,6 +4,7 @@
  */
 package isib.demo.crossfit.Repository;
 
+import isib.demo.crossfit.Tables.Competition;
 import isib.demo.crossfit.Tables.Epreuve;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EpreuveRepository extends CrudRepository<Epreuve, Integer> {
     
+     public Long GetEpreuveCount();
+    public Epreuve GetEpreuvebyNom();
 }
