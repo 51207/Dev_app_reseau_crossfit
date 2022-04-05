@@ -8,6 +8,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,11 +30,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Test.findByTJury", query = "SELECT t FROM Test t WHERE t.testPK.tJury = :tJury"),
     @NamedQuery(name = "Test.findByTnie", query = "SELECT t FROM Test t WHERE t.testPK.tnie = :tnie"),
     @NamedQuery(name = "Test.findByNote", query = "SELECT t FROM Test t WHERE t.note = :note"),
+    
     @NamedQuery(name = "Test.GetClientSupNote", query = "SELECT t.testPK.tnic, t.testPK.tnie, t.testPK.tJury,  t.note  FROM Test t WHERE t.testPK.tDates = :tDates AND t.testPK.tnie = :tnie AND t.note > :note "),
     @NamedQuery(name = "Test.GetClientsByDate", query = "SELECT Distinct t.testPK.tnic FROM Test t WHERE t.testPK.tnic = :tnic AND t.testPK.tDates = :tDates"),
     @NamedQuery(name = "Test.GetClientEpreuve", query = "SELECT t.testPK.tnic, t.testPK.tJury,  t.note  FROM Test t WHERE t.testPK.tDates = :tDates AND t.testPK.tnie = :tnie"),
     @NamedQuery(name = "Test.GetDeletebyNomEpreuveDateJury", query = "SELECT t  FROM Test t WHERE t.testPK.tnie = :tnie AND t.testPK.tDates = :tDates")})
-
 public class Test implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,6 +42,21 @@ public class Test implements Serializable {
     protected TestPK testPK;
     @Column(name = "note")
     private Integer note;
+    @JoinColumns({
+        @JoinColumn(name = "TNIC", referencedColumnName = "NIC", insertable = false, updatable = false),
+       })
+    @ManyToOne(optional = false)
+    private Clients clients;
+    @JoinColumns({
+        @JoinColumn(name = "TNIE", referencedColumnName = "NIE", insertable = false, updatable = false),
+        })
+    @ManyToOne(optional = false)
+    private Epreuve epreuve;
+    @JoinColumns({
+        @JoinColumn(name = "TJury", referencedColumnName = "NIJury", insertable = false, updatable = false),
+        })
+    @ManyToOne(optional = false)
+    private Jury jury;
 
     public Test() {
     }
@@ -65,6 +83,30 @@ public class Test implements Serializable {
 
     public void setNote(Integer note) {
         this.note = note;
+    }
+
+    public Clients getClients() {
+        return clients;
+    }
+
+    public void setClients(Clients clients) {
+        this.clients = clients;
+    }
+
+    public Epreuve getEpreuve() {
+        return epreuve;
+    }
+
+    public void setEpreuve(Epreuve epreuve) {
+        this.epreuve = epreuve;
+    }
+
+    public Jury getJury() {
+        return jury;
+    }
+
+    public void setJury(Jury jury) {
+        this.jury = jury;
     }
 
     @Override

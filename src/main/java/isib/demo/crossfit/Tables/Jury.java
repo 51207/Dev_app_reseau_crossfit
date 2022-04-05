@@ -5,7 +5,9 @@
 package isib.demo.crossfit.Tables;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +15,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,9 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Jury.findByTel", query = "SELECT j FROM Jury j WHERE j.tel = :tel"),
     @NamedQuery(name = "Jury.findByUserJury", query = "SELECT j FROM Jury j WHERE j.userJury = :userJury"),
     @NamedQuery(name = "Jury.findByPasswordJury", query = "SELECT j FROM Jury j WHERE j.passwordJury = :passwordJury"),
+    
     @NamedQuery(name = "Jury.GetJuryCount", query = "SELECT count(j) FROM Jury j"),
-    @NamedQuery(name = "Jury.GetJurybyNomPrenom", query = "SELECT j FROM Jury j WHERE j.nomJury = :nomJury AND j.prenomJury = :prenomJury")
-})
+    @NamedQuery(name = "Jury.GetJurybyNomPrenom", query = "SELECT j FROM Jury j WHERE j.nomJury = :nomJury AND j.prenomJury = :prenomJury")})
 public class Jury implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,6 +61,8 @@ public class Jury implements Serializable {
     @Basic(optional = false)
     @Column(name = "password_jury")
     private String passwordJury;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jury")
+    private Collection<Test> testCollection;
 
     public Jury() {
     }
@@ -120,6 +126,15 @@ public class Jury implements Serializable {
 
     public void setPasswordJury(String passwordJury) {
         this.passwordJury = passwordJury;
+    }
+
+    @XmlTransient
+    public Collection<Test> getTestCollection() {
+        return testCollection;
+    }
+
+    public void setTestCollection(Collection<Test> testCollection) {
+        this.testCollection = testCollection;
     }
 
     @Override

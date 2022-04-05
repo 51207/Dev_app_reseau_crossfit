@@ -26,9 +26,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Inscrit.findByINCompetition", query = "SELECT i FROM Inscrit i WHERE i.inscritPK.iNCompetition = :iNCompetition"),
     @NamedQuery(name = "Inscrit.findByINic", query = "SELECT i FROM Inscrit i WHERE i.inscritPK.iNic = :iNic"),
     @NamedQuery(name = "Inscrit.findByIdate", query = "SELECT i FROM Inscrit i WHERE i.inscritPK.idate = :idate"),
+    
     @NamedQuery(name = "Inscrit.GetInscritCount", query = "SELECT count(i)  FROM Inscrit i WHERE i.inscritPK.idate = :idate"),
     @NamedQuery(name = "Inscrit.GetInscritbyNomCompetition", query = "SELECT i.clients FROM Inscrit i WHERE i.inscritPK.iNCompetition = :iNCompetition"),
-    @NamedQuery(name = "Inscrit.GetInscritbyNomDateCompetition", query = "SELECT i FROM Inscrit i WHERE i.inscritPK.iNic = :iNic AND i.inscritPK.iNic = :iNic AND i.inscritPK.iNCompetition = :iNCompetition")})
+    @NamedQuery(name = "Inscrit.GetInscritbyNomDateCompetition", query = "SELECT i FROM Inscrit i WHERE i.inscritPK.iNic = :iNic AND i.inscritPK.iNic = :iNic AND i.inscritPK.iNCompetition = :iNCompetition"),
+})
 public class Inscrit implements Serializable {
 
     private static final long serialVersionUID = 1L;

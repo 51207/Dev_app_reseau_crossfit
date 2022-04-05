@@ -7,12 +7,14 @@ package isib.demo.crossfit.Tables;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -46,6 +48,8 @@ public class Epreuve implements Serializable {
     private String times;
     @ManyToMany(mappedBy = "epreuveCollection")
     private Collection<Competition> competitionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "epreuve")
+    private Collection<Test> testCollection;
 
     public Epreuve() {
     }
@@ -91,6 +95,15 @@ public class Epreuve implements Serializable {
 
     public void setCompetitionCollection(Collection<Competition> competitionCollection) {
         this.competitionCollection = competitionCollection;
+    }
+
+    @XmlTransient
+    public Collection<Test> getTestCollection() {
+        return testCollection;
+    }
+
+    public void setTestCollection(Collection<Test> testCollection) {
+        this.testCollection = testCollection;
     }
 
     @Override

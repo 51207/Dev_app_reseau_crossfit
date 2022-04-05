@@ -19,6 +19,15 @@
     <class>isib.demo.crossfit.Tables.Clients</class>
     <class>isib.demo.crossfit.Tables.Jury</class>
     <class>isib.demo.crossfit.Tables.Test</class>
+    <class>isib.demo.crossfit.Tables.newpackage.Test</class>
+    <class>isib.demo.crossfit.Tables.newpackage.Clients</class>
+    <class>isib.demo.crossfit.Tables.newpackage.Epreuve</class>
+    <class>isib.demo.crossfit.Tables.newpackage.Inscrit</class>
+    <class>isib.demo.crossfit.Tables.newpackage.Competition</class>
+    <class>isib.demo.crossfit.Tables.newpackage.Jury</class>
+    <class>isib.demo.crossfit.Tables.newpackage.Sites</class>
+    <class>isib.demo.crossfit.Tables.newpackage.Usercompetition</class>
+    <class>isib.demo.crossfit.Tables.Usercompetition</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/crossfit?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

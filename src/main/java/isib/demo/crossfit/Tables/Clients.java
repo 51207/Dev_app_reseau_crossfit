@@ -5,29 +5,20 @@
 package isib.demo.crossfit.Tables;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.Table;
-import javax.websocket.Session;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -48,17 +39,11 @@ import org.springframework.beans.factory.annotation.Autowired;
     @NamedQuery(name = "Clients.findByTel", query = "SELECT c FROM Clients c WHERE c.tel = :tel"),
     @NamedQuery(name = "Clients.findByUsername", query = "SELECT c FROM Clients c WHERE c.username = :username"),
     @NamedQuery(name = "Clients.findByPasswordclient", query = "SELECT c FROM Clients c WHERE c.passwordclient = :passwordclient"),
-    
-    /**ajoutée*/
-    @NamedQuery(name = "Clients.findClientsCount", query = "SELECT count(c)  FROM Clients c"),
-    @NamedQuery(name = "Clients.findByLastAndFirstName", query = "SELECT c.nic FROM Clients c WHERE c.nom = :nom AND c.prenom = :prenom AND c.tel = :tel" )
-})
 
- 
-    
+    @NamedQuery(name = "Clients.findClientsCount", query = "SELECT count(c)  FROM Clients c"),
+    @NamedQuery(name = "Clients.findByLastAndFirstName", query = "SELECT c.nic FROM Clients c WHERE c.nom = :nom AND c.prenom = :prenom AND c.tel = :tel" )})
 public class Clients implements Serializable {
 
-    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -93,6 +78,8 @@ public class Clients implements Serializable {
     @Column(name = "passwordclient")
     private String passwordclient;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clients")
+    private Collection<Test> testCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clients")
     private Collection<Inscrit> inscritCollection;
 
     public Clients() {
@@ -114,8 +101,7 @@ public class Clients implements Serializable {
         this.username = username;
         this.passwordclient = passwordclient;
     }
-    
-   
+
     public Integer getNic() {
         return nic;
     }
@@ -197,6 +183,15 @@ public class Clients implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Test> getTestCollection() {
+        return testCollection;
+    }
+
+    public void setTestCollection(Collection<Test> testCollection) {
+        this.testCollection = testCollection;
+    }
+
+    @XmlTransient
     public Collection<Inscrit> getInscritCollection() {
         return inscritCollection;
     }
@@ -229,132 +224,5 @@ public class Clients implements Serializable {
     public String toString() {
         return "isib.demo.crossfit.Tables.Clients[ nic=" + nic + " ]";
     }
-    
-    
-    //***methods***
-    
-   
-    
-    /*
-   public List<Clients> findAll(EntityManager em){
-    
-     Query query  = em.createNamedQuery("Clients.findAll", Clients.class);
-    
-     List<Clients> results = query.getResultList();
-    return results;
-    }
-     
-   public void findByNic(EntityManager em, int id){
-   
-         Clients c = em.find(Clients.class,id);
-         System.out.println("===find by id =====");
-         System.out.println(c.getNom());
-   
-    }
-
-   public void findByNom(EntityManager em, String name){
-     Clients c = em.find(Clients.class,name);
-      System.out.println("===find by name =====");
-         System.out.println(c.getNic());
-   }
-   public void findByTel(EntityManager em, String tel){
-     Clients c = em.find(Clients.class,tel);
-      System.out.println("===find by tel =====");
-         System.out.println(c.getNic());
-   }
-     public void findByPrenom(EntityManager em, String prenom){
-     Clients c = em.find(Clients.class,prenom);
-      System.out.println("===find by prenom =====");
-         System.out.println("celui qui posede ce numero est"+c.getNic());
-   }
-    
-      public void findByRue(EntityManager em, String rue){
-     Clients c = em.find(Clients.class,rue);
-      System.out.println("===find by rue =====");
-         System.out.println(c.getNic());
-         System.out.println(c.getNic() +"habite à la rue"+c.getRue()+" "+c.getNumero()+" "+ c.getCp()+"  "+c.getCommune());
-   }
-       public List<Clients> findByCp(EntityManager em, String cp){
-            System.out.println("===cp =====");
-          List<Clients> result= em.createNamedQuery("Clients.findByCp",Clients.class)  
-            .setParameter("cp", cp)
-            .getResultList();
-           //setparameter permet de dire que la condition dans la requete est cp dans le where
-          
-            return result;
-   }
-     
-     public Long findClientsCount(EntityManager em){
-         
-        return (Long)em.createNamedQuery("Clients.findClientsCount").getSingleResult();
-   
-     }
-    
-       public void findByLastAndFirstName(EntityManager em, String nom, String prenom){
-            Clients solution = null;
-          
-            Clients result= em.createNamedQuery("Clients.findByLastAndFirstName",Clients.class)  
-            .setParameter("nom", nom)
-            .setParameter("prenom", prenom)
-            .getSingleResult();
-            
-            if(result != null){
-              solution= result;
-              System.out.println("il est dans une compettion");
-            }
-            
-         
-       } 
-       
-       
-  public void AddClients(EntityManager em,Clients newclient){
-  
-  
-  try{
-         Clients c = em.getReference(Clients.class,newclient.getNic());
-         if(c != null){
-      
-         System.out.println("L' ID "+ newclient.getNic().toString() +"existe deja");
-         }
-         else{
-             em.persist(newclient);
-          }     
-     }
-     catch (Exception e)
-     {
-      e.printStackTrace();
-     }
-  }
-  
- public void UpdateClients(Clients client){
-   
-   try{
-        
-     }
-     catch (Exception e)
-     {
-      e.printStackTrace();
-     }
-  }
-     
-       
-    public void DeleteClients(EntityManager em,Integer NIC){
-     try{
-         Clients c = em.getReference(Clients.class,NIC);
-         if(c != null){
-      
-         em.remove(c);
-         }
-         else{
-             System.out.println("L' ID "+ NIC +"n'existe pas ");
-             }     
-     }
-     catch (Exception e)
-     {
-      e.printStackTrace();
-     }
-     
-  }
-    */
     
 }

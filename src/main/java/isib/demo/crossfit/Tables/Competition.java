@@ -6,13 +6,10 @@ package isib.demo.crossfit.Tables;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,12 +19,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -49,8 +43,6 @@ import org.springframework.beans.factory.annotation.Autowired;
     @NamedQuery(name = "Competition.GetCompetitionCount", query = "SELECT count(c)  FROM Competition c")})
 public class Competition implements Serializable {
 
-    
-    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -198,5 +190,4 @@ public class Competition implements Serializable {
         return "isib.demo.crossfit.Tables.Competition[ nCompetition=" + nCompetition + " ]";
     }
     
-   
 }
