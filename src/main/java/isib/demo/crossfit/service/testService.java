@@ -67,6 +67,16 @@ public class testService {
         }
     }
 
+    public Optional<List<Test>> GetAllTestById(Integer id) {
+        Test c = em.find(Test.class, id);
+        Optional<Test> res = Optional.of(c);
+        Optional< List<Test>> result=null;
+        if(res.isPresent()){
+            List<Test> s = em.createNamedQuery("Test.findByTnic",Test.class).setParameter(2,id).getResultList();
+            result = Optional.of(s);
+        }
+        return result;
+    }
 
     //delete    
     public void DeleteTest(Test test) {

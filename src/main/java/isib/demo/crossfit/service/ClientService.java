@@ -6,13 +6,17 @@ package isib.demo.crossfit.service;
 
 import isib.demo.crossfit.Repository.ClientsRepository;
 import isib.demo.crossfit.Tables.Clients;
+import isib.demo.crossfit.Tables.Inscrit;
+import isib.demo.crossfit.Tables.Test;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,6 +36,8 @@ public class ClientService {
     @PersistenceContext
     private EntityManager em;
     
+    private testService testservice;
+    private InscritService incritService;
     
     //get all clients
     public Iterable<Clients> GetFindAll() {
@@ -42,15 +48,13 @@ public class ClientService {
     }
 
     //update
-    public Clients UpdateClients(Clients client) {
+    public Optional<Clients> UpdateClients(Clients client) {
 
         //control de l'existe du NIC
         Clients c = em.find(Clients.class, client.getNic());
-        if (c != null) {
-            c = clientRepository.save(client);
-        }
+        Optional<Clients> result = Optional.of(c);
 
-        return c;
+        return result;
     }
 
     //Get Client by nic
@@ -88,7 +92,8 @@ public class ClientService {
 
         return result;
     }
-
+    
+ 
     //nombres de clients in DB
     public Long findClientsCount() {
 
@@ -109,24 +114,50 @@ public class ClientService {
 
   
     //delete client
-    public void DeleteClients(Integer NIC) {
+    public void DeleteClient(Optional<List<Test>> test, Optional<List<Inscrit>> inscrit, Clients client) {
 
         //control de l'existe du NIC
-        Clients c = em.find(Clients.class, NIC);
-        
-         //verification si le client est inscrit dans une competition 
-        //à faire après
-        try {
-            System.out.println("======");
-            System.out.println("nic: " + c.getNic().toString());
-            if (c != null) {
-                clientRepository.delete(c);
-                System.out.println("======");
-                System.out.println("clients deleted");
+        Clients c = em.find(Clients.class, client.getNic());
+        Optional<Clients> result = Optional.of(c);
+        //verification si le client est inscrit dans une competition s'il a des notes aussi
+
+        //supprimer toutes ses notes
+        if (test.isPresent()) {
+
+            for (var item : test.get()) {
+                testservice.DeleteTest(item);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            //supprimer ces inscriptions
+          if(inscrit.isPresent()){ 
+            for (var item2 : inscrit.get()) {
+
+                incritService.DeleteInscrit(item2);
+            }
+          }
+          
+          if(result.isEmpty()){
+          
+                clientRepository.delete(result.get());
+          }
+          
         }
+        
+      
     }
+    
+    
+    
+    
+    
+     public Optional<List<String>> GetListJury(String nomClient ,String date){
+         
+        // TypedQuery<List<String>> query = em.createQuery("Select j.nomJury from Clients c join c.testCollection t join t.jury j where c.nom=:nom and t.testPK.tDates=:date");
+          List<String> c = clientRepository.GetListJury(nomClient, date);
+          Optional<List<String>> result = Optional.of(c);
+         return result;
+     }
+    
+    
+    
 
 }

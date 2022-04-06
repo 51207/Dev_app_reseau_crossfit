@@ -9,6 +9,7 @@ import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Competition;
 import isib.demo.crossfit.Tables.Inscrit;
 import isib.demo.crossfit.Tables.InscritPK;
+import isib.demo.crossfit.Tables.Test;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -72,6 +73,12 @@ public class InscritService {
         }
     }
     
+    //DELETE
+     public void DeleteInscrit(Inscrit inscrit) {
+
+                inscritRepository.delete(inscrit);        
+    }
+    
     //update 
     public Inscrit UpdateInscrit(Inscrit inscrit) {
         //modifier
@@ -85,6 +92,18 @@ public class InscritService {
         }
     }
 
+    
+    //recuperer tous les objets inscrit dont le nic = id
+     public Optional<List<Inscrit>> GetAllInscritById(Integer id) {
+        Inscrit c = em.find(Inscrit.class, id);
+        Optional<Inscrit> res = Optional.of(c);
+        Optional< List<Inscrit>> result=null;
+        if(res.isPresent()){
+            List<Inscrit> s = em.createNamedQuery("Inscrit.findByINic",Inscrit.class).setParameter(2,id).getResultList();
+            result = Optional.of(s);
+        }
+        return result;
+    }
     
    //nouvelle inscription
     public Inscrit InsertToCompetition(Competition compet,Clients client ,String date) {

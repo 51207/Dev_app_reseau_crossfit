@@ -11,6 +11,7 @@ import isib.demo.crossfit.service.ClientService;
 import isib.demo.crossfit.service.CompetitionService;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -55,7 +56,10 @@ public class Testclass implements CommandLineRunner {
         listeclienttest();
         //System.out.println("=============delete=============");
         //clientservice.DeleteClients(10024);
-       
+       Optional<List<String>> c = clientservice.GetListJury("Traoré","2021-04-11");
+       if( c.isPresent()){
+           System.out.println("liste des jury"+c.get());
+       };
     }
     
     

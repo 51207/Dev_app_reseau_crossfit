@@ -5,7 +5,11 @@
 package isib.demo.crossfit.Repository;
 
 import isib.demo.crossfit.Tables.Sites;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,4 +20,6 @@ import org.springframework.stereotype.Repository;
 public interface SitesRepository extends CrudRepository<Sites, Integer> {
     public Long GetSitesCount();
     //public Sites GetSitesbyCp();
+    @Query(value="Select distinct s FROM Sites s join s.dNCompetition  c join  c.inscritCollection i where i.inscritPK.idate =:date")
+    public Sites GetAdressOfCompetition(@Param("date")String date);
 }

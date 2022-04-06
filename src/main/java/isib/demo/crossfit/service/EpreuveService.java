@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,21 +24,19 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EpreuveService {
-    
-    
+
     private final EpreuveRepository epreuveRepository;
-    
+
     //constructeur
     @Autowired
     public EpreuveService(EpreuveRepository epreuveRepository) {
         this.epreuveRepository = epreuveRepository;
     }
-    
+
     //context de persistence
     @PersistenceContext
     private EntityManager em;
 
-    
     //Get all Epreuve 
     public Iterable<Epreuve> GetFindAll() {
 
@@ -45,15 +44,13 @@ public class EpreuveService {
 
         return result;
     }
-        
-   
 
     //update 
     public Epreuve UpdateEpreuve(Epreuve epreuve) {
         //verifier que le client existe dans la bd
         Epreuve c = em.find(Epreuve.class, epreuve.getNie());
         if (c != null) {
-            
+
             //modifier
             return epreuveRepository.save(epreuve);
         } else {
@@ -68,7 +65,7 @@ public class EpreuveService {
         System.out.println("inserted");
     }
 
-      //delete    
+    //delete    
     public void DeleteEpreuve(Integer NIE) {
 
         Epreuve c = em.find(Epreuve.class, NIE);
@@ -84,39 +81,44 @@ public class EpreuveService {
             e.printStackTrace();
         }
     }
-    
+
     //nombre de competition crée
-     public Long GetEpreuveCount() {
+    public Long GetEpreuveCount() {
 
         return (Long) em.createNamedQuery("Epreuve.GetEpreuveCount").getSingleResult();
     }
-     
-     
-     //obtenir l'objet Epreuve en encodant le nom 
+
+    //obtenir l'objet Epreuve en encodant le nom de l'epreuve
     public Optional<Epreuve> GetEpreuvebyNom(String nom) {
-        
+
         Epreuve c = em.createNamedQuery("Epreuve.GetEpreuvebyNom", Epreuve.class)
                 .setParameter(2, nom)
                 .getSingleResult();
         Optional<Epreuve> result = Optional.of(c);
         return result;
     }
- 
-    
-    public Optional<ArrayList>GetNoteepreuve(String nom , String nompreuve , int IdEpreuve , String dates ){
-    
-   
-    List<Object[]> c =epreuveRepository.GetNoteepreuve(nom, nompreuve, dates);
-     List<Object[]> d =epreuveRepository.GetJuryWhoJudgeOneEpreuve(nom, IdEpreuve, dates);
-     
-     ArrayList p = new ArrayList() ;
-     p.add(c);
-     p.add(d);
-     Optional result = Optional.of(p);
-    
-    return result;
+
+    //je recupere le nom du client , le jury qui a jugé sa performance , la note, et la date de la competition
+    //Idepreuve signifie que je dois mettre l'id de l'epreuve,du coup je prefere utiliser la methode juste en haut qui pourra me renvoyer l'id
+    public Optional<List<Object[]>> GetJuryWhoJudgeOneEpreuve(String nomclient, Integer Idepreuve, String date) {
+
+        List<Object[]> c = epreuveRepository.GetJuryWhoJudgeOneEpreuve(nomclient, Idepreuve, date);
+        Optional< List<Object[]>> result = Optional.of(c);
+        return result;
     }
-    
- 
-  
+
+    //obtenir la note de l'eleve , la date du test , le jury qui a noté
+    public Optional<ArrayList> GetNoteepreuve(String nom, String nompreuve, int IdEpreuve, String dates) {
+
+        List<Object[]> c = epreuveRepository.GetNoteepreuve(nom, nompreuve, dates);
+        List<Object[]> d = epreuveRepository.GetJuryWhoJudgeOneEpreuve(nom, IdEpreuve, dates);
+
+        ArrayList p = new ArrayList();
+        p.add(c);
+        p.add(d);
+        Optional result = Optional.of(p);
+
+        return result;
+    }
+
 }

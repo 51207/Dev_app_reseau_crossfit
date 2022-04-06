@@ -6,9 +6,12 @@ package isib.demo.crossfit.service;
 
 import isib.demo.crossfit.Repository.SitesRepository;
 import isib.demo.crossfit.Tables.Sites;
+import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 /**
@@ -73,20 +76,25 @@ public class SitesServices {
      
      
      //obtenir l'objet Epreuve en encodant le nom 
-    public Sites GetSitesbyCp(String cp) {
+    public Optional<Sites> GetSitesbyCp(String cp) {
         
         Sites c = em.createNamedQuery("Sites.findByCPSites", Sites.class)
                 .setParameter(2, cp)
                 .getSingleResult();
 
-        if (c != null) {
-            return c;
-        } else {
-            return null;
-        }
+       Optional<Sites> result = Optional.of(c);
+       return result;
     }
  
- 
+    //recuperer  l'adresse de la competition en donnant la date
+    public Optional<Sites> GetAdressOfCompetition(String date) {
+
+        Sites c = sitesRepository.GetAdressOfCompetition(date);
+        Optional result = Optional.of(c);
+        return result;
+    }
+
+    
     //delete    
     public void DeleteSites(Integer NIE) {
 

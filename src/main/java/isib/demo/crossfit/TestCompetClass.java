@@ -111,7 +111,7 @@ public class TestCompetClass implements CommandLineRunner {
         Clients c = (Clients)item[1];
         Test b = (Test)item[2];
         
-        System.out.println(e.getNEpreuve()+" "+ c.getNom()+" "+b.getNote()+  "\n");
+        System.out.println(e.getNEpreuve()+"           |         "+ c.getNom()+"            |          "+b.getNote()+  "\n");
         //System.out.println((Clients)item[1]+"\n");
        //  System.out.println((Test)item[2]+"\n");
         
