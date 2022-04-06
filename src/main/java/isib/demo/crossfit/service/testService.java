@@ -17,6 +17,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 /**
@@ -123,16 +125,13 @@ public class testService {
         return c;
     }
 
-    public Optional<List<Test>>GetTestbyEpreuve(String nomEpreuve, String nom){
+    public Optional<List<Object[]>>GetTestbyEpreuve(String nomEpreuves , String Nomclients,String date){
     
-    //TypedQuery<Test> query = em.createQuery("select k.nom ,t.note, e.nEpreuve, c.nomcompetition FROM   Competition c  join  c.inscritCollection i  join i.clients k join k.testCollection t join t.epreuve e  where  e.nEpreuve'"+nomEpreuve+"' and k.nom='"+nom+"'",Test.class);
-    //List<Test> c  = query.getResultList();
-    // List<Test> = testRepository.GetClientEpreuve(nomEpreuve, nom);
-    /*  for(var item : c){
-        System.out.println("===============>"+item);  
-    }
-      
-    Optional<List<Test>> result = Optional.of(c);
-    */return null;
-            }
+   // TypedQuery<Object[]> query = em.createQuery(" select e ,k from Test t join t.epreuve e join e.competitionCollection c  join c.inscritCollection i join i.clients k where e.nEpreuve=:nomEpreuve and k.nom=:nomClient",Object[].class);
+    
+    List<Object[]> c = testRepository.GetTestbyEpreuve(nomEpreuves, Nomclients,date);
+    Optional<List<Object[]>> result = Optional.of(c);
+   
+    return result;
+          }
 }

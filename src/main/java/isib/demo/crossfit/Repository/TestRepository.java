@@ -24,6 +24,11 @@ public interface TestRepository  extends CrudRepository<Test, String> {
      public Test GetDeletebyNomEpreuveDateJury();
      public Clients GetClientsByDate();
      
-     @Query(value="select k.nom ,t.note, e.nEpreuve, c.nomcompetition FROM   Competition c  join  c.inscritCollection i  join i.clients k join k.testCollection t join t.epreuve e  where  e.nEpreuve=:nomEpreuve  and k.nom=:nomClient")
-     public Optional<List<Test>> GetTestbyEpreuve(@Param("nomEpreuve")String nomEpreuves , @Param("nomClient") String Nomclients);
+    // @Query(value=" select  e ,k, t from Test t join t.epreuve e join e.competitionCollection c  join c.inscritCollection i join i.clients k where e.nEpreuve=:nomEpreuve and k.nom=:nomClient and t.testPK.tDates=:dates")
+      
+     @Query(value="select  e ,k, t from Competition c join c.inscritCollection i join i.clients k join k.testCollection t join t.epreuve e where e.nEpreuve=:nomEpreuve  and k.nom=:nomClient and t.testPK.tDates=:dates")     
+     public List<Object[]> GetTestbyEpreuve(@Param("nomEpreuve")String nomEpreuves , @Param("nomClient") String Nomclients,@Param("dates") String date);
+    
+     
+   
 }

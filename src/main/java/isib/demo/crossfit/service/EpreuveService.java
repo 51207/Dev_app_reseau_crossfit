@@ -6,10 +6,13 @@ package isib.demo.crossfit.service;
 
 import isib.demo.crossfit.Repository.EpreuveRepository;
 import isib.demo.crossfit.Tables.Epreuve;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -100,6 +103,19 @@ public class EpreuveService {
     }
  
     
+    public Optional<ArrayList>GetNoteepreuve(String nom , String nompreuve , int IdEpreuve , String dates ){
+    
+   
+    List<Object[]> c =epreuveRepository.GetNoteepreuve(nom, nompreuve, dates);
+     List<Object[]> d =epreuveRepository.GetJuryWhoJudgeOneEpreuve(nom, IdEpreuve, dates);
+     
+     ArrayList p = new ArrayList() ;
+     p.add(c);
+     p.add(d);
+     Optional result = Optional.of(p);
+    
+    return result;
+    }
     
  
   
