@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -122,4 +123,16 @@ public class testService {
         return c;
     }
 
+    public Optional<List<Test>>GetTestbyEpreuve(String nomEpreuve, String nom){
+    
+    //TypedQuery<Test> query = em.createQuery("select k.nom ,t.note, e.nEpreuve, c.nomcompetition FROM   Competition c  join  c.inscritCollection i  join i.clients k join k.testCollection t join t.epreuve e  where  e.nEpreuve'"+nomEpreuve+"' and k.nom='"+nom+"'",Test.class);
+    //List<Test> c  = query.getResultList();
+    // List<Test> = testRepository.GetClientEpreuve(nomEpreuve, nom);
+    /*  for(var item : c){
+        System.out.println("===============>"+item);  
+    }
+      
+    Optional<List<Test>> result = Optional.of(c);
+    */return null;
+            }
 }

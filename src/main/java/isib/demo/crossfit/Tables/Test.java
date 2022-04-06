@@ -54,7 +54,7 @@ public class Test implements Serializable {
     private Epreuve epreuve;
     @JoinColumns({
         @JoinColumn(name = "TJury", referencedColumnName = "NIJury", insertable = false, updatable = false),
-        })
+      })
     @ManyToOne(optional = false)
     private Jury jury;
 

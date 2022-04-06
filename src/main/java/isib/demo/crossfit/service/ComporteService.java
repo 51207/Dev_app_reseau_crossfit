@@ -10,9 +10,12 @@ import isib.demo.crossfit.Tables.Competition;
 import isib.demo.crossfit.Tables.Comporte;
 import isib.demo.crossfit.Tables.Epreuve;
 import isib.demo.crossfit.Tables.Inscrit;
+import static java.nio.file.Files.delete;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,9 +40,44 @@ public class ComporteService {
     private EntityManager em;
 
     //Get all competition 
-   /* public void CreateComporte(Competition ncompetition, Epreuve nic) {
-        Comporte comporte = new Comporte(ncompetition, nic);
-    }*/
+   public  Optional<List<Comporte>> GetAllComporte(){
+   
+        Optional<List<Comporte>> result = comporteRepository.GetAllComporte();
+  
+        return result;
+   }
+    
+   //recuperer toutes les epreuves qui sont dans une competition 
+    public Optional<List<String>> GetAllEpreuveByCompetition(String nomcompetition, String dates) {
+
+        Optional< List<String>> result = comporteRepository.GetAllEpreuveByCompetition(nomcompetition, dates);
+        return result;
+    }
+    
     
    
+    
+     //delete un element dans la table  comporte
+    public void DeleteSingleEpreuveByCompetition(Integer NCNIE) {
+
+        Comporte c = em.find(Comporte.class, NCNIE);
+        try {
+           
+            if (c != null) {
+                comporteRepository.Deletesingle(NCNIE);
+                System.out.println("======");
+                System.out.println("competitions deleted");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+    //delete all comporte
+    public void DeleteAllEpreuveByCompetition() {
+
+        comporteRepository.DeleteAlllEpreuveComporte();
+    }
 }

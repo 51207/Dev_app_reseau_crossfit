@@ -31,9 +31,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Epreuve.findByNie", query = "SELECT e FROM Epreuve e WHERE e.nie = :nie"),
     @NamedQuery(name = "Epreuve.findByNEpreuve", query = "SELECT e FROM Epreuve e WHERE e.nEpreuve = :nEpreuve"),
     @NamedQuery(name = "Epreuve.findByTimes", query = "SELECT e FROM Epreuve e WHERE e.times = :times"),
+    
     @NamedQuery(name = "Epreuve.GetEpreuvebyNom", query = "SELECT e FROM Epreuve e WHERE e.nEpreuve = :nEpreuve"),
     @NamedQuery(name = "Epreuve.GetEpreuveCount", query = "SELECT count(e)  FROM Epreuve e")})
 public class Epreuve implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "epreuve")
+    private Collection<Test> testCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,9 +52,8 @@ public class Epreuve implements Serializable {
     private String times;
     @ManyToMany(mappedBy = "epreuveCollection")
     private Collection<Competition> competitionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "epreuve")
-    private Collection<Test> testCollection;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clients")
+    private Collection<Inscrit> inscritCollection;
     public Epreuve() {
     }
 
@@ -97,15 +100,6 @@ public class Epreuve implements Serializable {
         this.competitionCollection = competitionCollection;
     }
 
-    @XmlTransient
-    public Collection<Test> getTestCollection() {
-        return testCollection;
-    }
-
-    public void setTestCollection(Collection<Test> testCollection) {
-        this.testCollection = testCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -129,6 +123,15 @@ public class Epreuve implements Serializable {
     @Override
     public String toString() {
         return "isib.demo.crossfit.Tables.Epreuve[ nie=" + nie + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Test> getTestCollection() {
+        return testCollection;
+    }
+
+    public void setTestCollection(Collection<Test> testCollection) {
+        this.testCollection = testCollection;
     }
     
 }

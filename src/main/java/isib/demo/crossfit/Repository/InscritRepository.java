@@ -17,6 +17,5 @@ public interface InscritRepository extends CrudRepository<Inscrit, Integer> {
     
     
     public Inscrit GetInscritbyNomDateCompetition();
-    public Clients GetInscritbyNomCompetition();
     public Long GetInscritCount();
 }

@@ -8,10 +8,15 @@ import isib.demo.crossfit.Repository.ClientsRepository;
 import isib.demo.crossfit.Repository.CompetitionRepository;
 import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Competition;
+import isib.demo.crossfit.Tables.Inscrit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,25 +91,36 @@ public class CompetitionService {
     }
 
     //obtenir l'objet (ou l'id) competition en encodant le nom de la competition
-    public Competition GetIdCompetition(String nomcompetition) {
+    public  Optional<Competition> GetObjectCompetition(String nomcompetition) {
 
         Competition c = em.createNamedQuery("Competition.findByNomcompetition", Competition.class)
-                .setParameter(4, nomcompetition).getSingleResult();
+                        .setParameter(4, nomcompetition).getSingleResult();
 
-        if (c != null) {
-            return c;
-        } else {
-            return null;
-        }
+        Optional<Competition> result = Optional.of(c);
+        return result;
+    }
+    
+    //je veux trouver toutes les competitions qui ont comme nom nomcompetition et qui commence à la date : dates 
+    public Optional<Integer> GetidCompetition(String nomcompetition, String dates) {
+
+       Competition c =competitionRepository.GetIDbyCompetition(nomcompetition,dates);
+     
+       Optional<Integer> result = Optional.of(c.getNCompetition());
+       return result;
+
+    }
+    
+    //trouver toutes les dates de competition
+    public Optional<List<String>> GetAllDateOfCompetition() {
+        Optional<List<String>> result = competitionRepository.GetAllDateCompetition();
+        return result;
     }
 
-    //get all name o competition
-    public List<String> GetAllNameofCompetition() {
-        List<String> result = new ArrayList<>();
-        for (Competition item : GetFindAll()) {
-            result.add(item.getNomcompetition());
-        }
-        return result;
+    //trouver toutes les dates de competition
+    public  Optional<List<String>> GetAllNameofCompetition() {
+        Optional<List<String>> result = competitionRepository.GetAllNameofCompetition();
+  
+       return result;
     }
 
 }

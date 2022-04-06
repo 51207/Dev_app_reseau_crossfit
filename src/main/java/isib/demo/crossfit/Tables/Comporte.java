@@ -10,6 +10,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,10 +34,14 @@ public class Comporte implements Serializable {
   private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ComportePK comportePK;
-    @JoinColumn(name = "cncompetition", referencedColumnName = "NCompetition", insertable = false, updatable = false)
+    @JoinColumns({
+        @JoinColumn(name = "cncompetition", referencedColumnName = "NCompetition", insertable = false, updatable = false)
+       })
     @ManyToOne(optional = false)
     private Competition competition;
-    @JoinColumn(name = "cnie", referencedColumnName = "NIE", insertable = false, updatable = false)
+    @JoinColumns({
+        @JoinColumn(name = "cnie", referencedColumnName = "NIE", insertable = false, updatable = false)
+       })
     @ManyToOne(optional = false)
     private Epreuve epreuve;
 

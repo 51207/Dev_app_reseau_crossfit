@@ -125,9 +125,10 @@ public class InscritService {
     
     //liste des personnes qui se sont inscrit dans une competition
     public List<Inscrit> GetInscritByIdCompetition(Inscrit inscrit) {
-        List<Inscrit> c = em.createNamedQuery("Inscrit.GetInscritbyNomCompetition", Inscrit.class).setParameter(1, inscrit.getInscritPK().getINCompetition()).getResultList();
+        List<Inscrit> c = em.createNamedQuery("Inscrit.findByINCompetition", Inscrit.class).setParameter(1, inscrit.getInscritPK().getINCompetition()).getResultList();
         return c;
     }
+    
     
     
 

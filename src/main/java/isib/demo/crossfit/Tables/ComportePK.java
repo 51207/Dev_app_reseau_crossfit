@@ -17,10 +17,10 @@ import javax.persistence.Embeddable;
 public class ComportePK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "CNCompetition")
+    @Column(name = "cncompetition")
     private int CNCompetition;
     @Basic(optional = false)
-    @Column(name = "CNIE")
+    @Column(name = "cnie")
     private int CNIE;
     
 

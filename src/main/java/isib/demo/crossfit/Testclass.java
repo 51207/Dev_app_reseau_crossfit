@@ -113,19 +113,7 @@ public class Testclass implements CommandLineRunner {
         clientservice.CreateClients(c);
     }
     
-     public void Createcompetitiontest() {
-
-        Competition c = new Competition();
-
-        //create 
-        c.setNomcompetition("Basket");
-        c.setNomOrganisateur("didier");
-        c.setPrenomOrganisateur("pires");
-        c.setUser("ali");
-        c.setPassword("isib");
-        
-        competitionService.CreateCompetition(c);
-    }
+    
      
      
      

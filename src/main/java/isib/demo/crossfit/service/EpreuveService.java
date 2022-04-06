@@ -6,9 +6,12 @@ package isib.demo.crossfit.service;
 
 import isib.demo.crossfit.Repository.EpreuveRepository;
 import isib.demo.crossfit.Tables.Epreuve;
+import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 /**
@@ -62,30 +65,7 @@ public class EpreuveService {
         System.out.println("inserted");
     }
 
-    
-    //nombre de competition crée
-     public Long GetEpreuveCount() {
-
-        return (Long) em.createNamedQuery("Epreuve.GetEpreuveCount").getSingleResult();
-    }
-     
-     
-     //obtenir l'objet Epreuve en encodant le nom 
-    public Epreuve GetEpreuvebyNom(String nom) {
-        
-        Epreuve c = em.createNamedQuery("Epreuve.GetEpreuvebyNom", Epreuve.class)
-                .setParameter(2, nom)
-                .getSingleResult();
-
-        if (c != null) {
-            return c;
-        } else {
-            return null;
-        }
-    }
- 
- 
-    //delete    
+      //delete    
     public void DeleteEpreuve(Integer NIE) {
 
         Epreuve c = em.find(Epreuve.class, NIE);
@@ -101,4 +81,26 @@ public class EpreuveService {
             e.printStackTrace();
         }
     }
+    
+    //nombre de competition crée
+     public Long GetEpreuveCount() {
+
+        return (Long) em.createNamedQuery("Epreuve.GetEpreuveCount").getSingleResult();
+    }
+     
+     
+     //obtenir l'objet Epreuve en encodant le nom 
+    public Optional<Epreuve> GetEpreuvebyNom(String nom) {
+        
+        Epreuve c = em.createNamedQuery("Epreuve.GetEpreuvebyNom", Epreuve.class)
+                .setParameter(2, nom)
+                .getSingleResult();
+        Optional<Epreuve> result = Optional.of(c);
+        return result;
+    }
+ 
+    
+    
+ 
+  
 }

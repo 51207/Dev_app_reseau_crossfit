@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -42,6 +43,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Competition.GetCompetitionbyNameCompetition", query = "SELECT c FROM Competition c WHERE c.nomOrganisateur = :nomOrganisateur AND c.prenomOrganisateur = :prenomOrganisateur"),
     @NamedQuery(name = "Competition.GetCompetitionCount", query = "SELECT count(c)  FROM Competition c")})
 public class Competition implements Serializable {
+
+    @OneToMany(mappedBy = "dNCompetition")
+    private Collection<Sites> sitesCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "competition")
+    private Collection<Inscrit> inscritCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,15 +70,12 @@ public class Competition implements Serializable {
     @Basic(optional = false)
     @Column(name = "password_")
     private String password;
-    @JoinTable(name = "comporte", joinColumns = {
-        @JoinColumn(name = "CNCompetition", referencedColumnName = "NCompetition")}, inverseJoinColumns = {
-        @JoinColumn(name = "CNIE", referencedColumnName = "NIE")})
+    
     @ManyToMany
+    @JoinTable(name = "comporte", joinColumns = {
+        @JoinColumn(name = "cncompetition", referencedColumnName = "NCompetition")},  inverseJoinColumns = {
+        @JoinColumn(name = "cnie", referencedColumnName = "NIE")})
     private Collection<Epreuve> epreuveCollection;
-    @OneToMany(mappedBy = "dNCompetition")
-    private Collection<Sites> sitesCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "competition")
-    private Collection<Inscrit> inscritCollection;
 
     public Competition() {
     }
@@ -147,24 +150,6 @@ public class Competition implements Serializable {
         this.epreuveCollection = epreuveCollection;
     }
 
-    @XmlTransient
-    public Collection<Sites> getSitesCollection() {
-        return sitesCollection;
-    }
-
-    public void setSitesCollection(Collection<Sites> sitesCollection) {
-        this.sitesCollection = sitesCollection;
-    }
-
-    @XmlTransient
-    public Collection<Inscrit> getInscritCollection() {
-        return inscritCollection;
-    }
-
-    public void setInscritCollection(Collection<Inscrit> inscritCollection) {
-        this.inscritCollection = inscritCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -188,6 +173,24 @@ public class Competition implements Serializable {
     @Override
     public String toString() {
         return "isib.demo.crossfit.Tables.Competition[ nCompetition=" + nCompetition + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Sites> getSitesCollection() {
+        return sitesCollection;
+    }
+
+    public void setSitesCollection(Collection<Sites> sitesCollection) {
+        this.sitesCollection = sitesCollection;
+    }
+
+    @XmlTransient
+    public Collection<Inscrit> getInscritCollection() {
+        return inscritCollection;
+    }
+
+    public void setInscritCollection(Collection<Inscrit> inscritCollection) {
+        this.inscritCollection = inscritCollection;
     }
     
 }

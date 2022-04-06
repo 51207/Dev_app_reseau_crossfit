@@ -19,6 +19,6 @@ import org.springframework.stereotype.Repository;
 public interface ClientsRepository extends CrudRepository<Clients, Integer> {
     
   public Long findClientsCount();
-  public void findByLastAndFirstName(String nom, String prenom,String Commune);
+  public void findByLastAndFirstName(String nom, String prenom,String tel);
   
 }

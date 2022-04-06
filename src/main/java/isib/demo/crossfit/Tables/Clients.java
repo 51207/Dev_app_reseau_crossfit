@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "clients")
 @XmlRootElement
+
 @NamedQueries({
     @NamedQuery(name = "Clients.findAll", query = "SELECT c FROM Clients c"),
     @NamedQuery(name = "Clients.findByNic", query = "SELECT c FROM Clients c WHERE c.nic = :nic"),
@@ -42,6 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
     @NamedQuery(name = "Clients.findClientsCount", query = "SELECT count(c)  FROM Clients c"),
     @NamedQuery(name = "Clients.findByLastAndFirstName", query = "SELECT c.nic FROM Clients c WHERE c.nom = :nom AND c.prenom = :prenom AND c.tel = :tel" )})
+
 public class Clients implements Serializable {
 
     private static final long serialVersionUID = 1L;

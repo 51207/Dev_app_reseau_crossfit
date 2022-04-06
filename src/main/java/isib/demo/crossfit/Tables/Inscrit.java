@@ -5,6 +5,7 @@
 package isib.demo.crossfit.Tables;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -28,13 +29,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Inscrit.findByIdate", query = "SELECT i FROM Inscrit i WHERE i.inscritPK.idate = :idate"),
     
     @NamedQuery(name = "Inscrit.GetInscritCount", query = "SELECT count(i)  FROM Inscrit i WHERE i.inscritPK.idate = :idate"),
-    @NamedQuery(name = "Inscrit.GetInscritbyNomCompetition", query = "SELECT i.clients FROM Inscrit i WHERE i.inscritPK.iNCompetition = :iNCompetition"),
-    @NamedQuery(name = "Inscrit.GetInscritbyNomDateCompetition", query = "SELECT i FROM Inscrit i WHERE i.inscritPK.iNic = :iNic AND i.inscritPK.iNic = :iNic AND i.inscritPK.iNCompetition = :iNCompetition"),
+   @NamedQuery(name = "Inscrit.GetInscritbyNomDateCompetition", query = "SELECT i FROM Inscrit i WHERE i.inscritPK.iNic = :iNic AND i.inscritPK.iNic = :iNic AND i.inscritPK.iNCompetition = :iNCompetition"),
 })
 public class Inscrit implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
+    
     protected InscritPK inscritPK;
     @JoinColumn(name = "I_NIC", referencedColumnName = "NIC", insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -42,7 +43,7 @@ public class Inscrit implements Serializable {
     @JoinColumn(name = "I_NCompetition", referencedColumnName = "NCompetition", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Competition competition;
-
+    
     public Inscrit() {
     }
 
