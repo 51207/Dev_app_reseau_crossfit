@@ -19,6 +19,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 animation: gradient 15s ease infinite;
                 height: 100vh;
                 }
+                
+              
             .container{
                 position: absolute;
                 top: 50%;
@@ -28,18 +30,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 background: whitesmoke;
                 text-align: center;
                 border-radius: 10px;
+                text-align: left;
 
-                text-align: center;
+               
+                
                 width: 500px;
-                height: 600px;
+                height: 650px;
                
             }
+            
+              .container h1{
+                    
+                    text-align: center;
+                    padding: 0 0 20px 0;
+                    border-bottom:  1px solid silver;
+                    font-size: 25px;
+                }
+               
             
             .input_text{
                 
                left: 60%;
                height: 50px;
-                
+               padding-left: 10%;
             }
             
             .country {
@@ -54,7 +67,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                background-color: brown;          
                color: white;
                padding: 15px; 
-               
+            }
+              .titre{
+                   text-align: center;
+               }
+            
                input[type="submit"]{
                     
                     width:50%;
@@ -64,77 +81,80 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     border-radius: 25px;
                     font-size: 18px;
                     color: #ffffff;
-                    font-weight: 1000;
+                    font-weight: 800;
+                    text-align: center;
+                    
+                   
+                   
                 }
-               .titre{
-                   text-align: center;
-               }
-               .p{
-                   
-                  font-style: italic;
-                  font-size: 18px;
-                  height: 450px;
-                  max-height: 250px;
-                  border: 1px solid #73AD21;
-                  background-color: red;
-               }
-               
-               form input_text{
-                   
-                   size: 40px;
-               }   
             
-            }
+                
+                container  input[type="submit"]{
+                    
+                    text-align: center;
+                }
+                
+                .in{
+                    
+                    padding-left: 50%;
+                }
+                 .in2{
+                    
+                    padding-left: 41.5%;
+                }
+                label{
+                       
+                }
             
         </style>
     </head>
     <body>
         
  <div class="container">
-        <h1> Inscription </h1>
+        <h1>Inscription </h1>
        
  <form method="post" >
 
   <div class="input_text">
-         <label>Nom </label>
-          <input type="text" required>       
+         <label class="label">Nom de famille:       </label>
+          <input type="text" class="in" >       
   </div>
    <div class="input_text">
-         <label>Prenom </label>
-          <input type="text" required>       
+         <label class="label">Prenom :</label>
+          <input type="text"  class="in">       
   </div>
    <div class="input_text">
-         <label>Rue </label>
-          <input type="text" required>       
+         <label class="label">Rue :     </label>
+          <input type="text" class="in2">       
   </div>
    <div class="input_text">
-         <label>Nuemero </label>
-          <input type="text" required>       
+         <label class="label">Numero :</label>
+          <input type="text" class="in">       
   </div>
    <div class="input_text">
-         <label>Code postal </label>
-          <input type="text" required>       
+         <label class="label">Code postal :</label>
+          <input type="text" class="in">       
   </div>
    <div class="input_text">
-         <label>Commune </label>
-          <input type="text" required>       
+         <label class="label">Commune :</label>
+          <input type="text" class="in">       
   </div>
    <div class="input_text">
-         <label>telephone </label>
-          <input type="text" required>       
+         <label class="label">telephone  :</label>
+          <input type="text" class="in">       
   </div>
    <div class="input_text">
-         <label>Nom d'utilisateur</label>
-          <input type="text" required>       
+         <label class="label">Nom d'utilisateur :</label>
+          <input type="text" class="in">       
   </div>
  
    <div class="input_text">
-         <label>Mot de passe </label>
-          <input type="text" required>       
+         <label class="label">Mot de passe :</label>
+          <input type="text" class="in">       
   </div>
 
  <div><input type="submit" value="S'inscrire"> </div>
-  <p class="p">Avez vous déjà un compte? <a href="http://127.0.0.1:8080/login.html" title="Login here"><b>Login here</b></a></p>
+  <p class="p">Avez vous déjà un compte? <a href="http://127.0.0.1:8080/login.html" title="Login here"><b>Connecter vous </b></a></p>
     </form>
  </div>
 

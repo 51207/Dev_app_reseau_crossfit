@@ -26,13 +26,13 @@ public class DefaultMessage {
     
     @GetMapping("/**")
     public String page(Model model) {
-        Message  msg = new Message("Aliou diallo","Tournoi Crossit");
+      /*  Message  msg = new Message("Aliou diallo","Tournoi Crossit");
         list1.add(msg);
-        model.addAttribute("usermsg",list1);
+        model.addAttribute("usermsg",list1);*/
         //model est un conteneur qui va stocker sous le nom usermsg une liste 
         //à la page html , spring va scanner le conteneur (model) et verifiera s'il existe un attribut qui se nomme usermsg qu'on peut reutiliser
         //et là on peut le reutiliser
-        return "defaults";
+        return "PageAcceuil";
     }
     
      @GetMapping("/msg")
