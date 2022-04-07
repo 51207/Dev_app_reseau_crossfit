@@ -40,7 +40,7 @@ public class DefaultMessage {
         
         model.addAttribute("usermsg2",list);
         model.addAttribute("newMessage",new Message());
-        //newMessage  : cc'est l'objet qu'on va créer avec le formulaire (cad les differents paramètre qu'on a encodéqui forme un objet nommé ici newMessage )
+        //newMessage  : c'est l'objet qu'on va créer avec le formulaire (cad les differents paramètre qu'on a encodéqui forme un objet nommé ici newMessage )
         // cet attribut correspond à un = > new Message(); 
         return "message";
     }
@@ -64,5 +64,25 @@ public class DefaultMessage {
         //à la page html , spring va scanner le conteneur (model) et verifiera s'il existe un attribut qui se nomme usermsg qu'on peut reutiliser
         //et là on peut le reutiliser
         return "message2";
+    }
+    
+       @GetMapping("/Accueil")
+    public String urlpostmsg() {
+    
+       
+        return "Accueil";
+    }
+      @GetMapping("/login")
+    public String login() {
+    
+       
+        return "login";
+    }
+    
+    @GetMapping("/Inscription")
+     public String Inscrition() {
+    
+       
+        return "Inscription";
     }
 }

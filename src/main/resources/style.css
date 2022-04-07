@@ -1,0 +1,149 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font-size: 17;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.header { 
+    background-color: rgb(32, 29, 29);
+    position: relative;
+    top:-20px;
+    left: 0px;
+    height:40px;
+    margin:10px;
+
+}
+
+nav ul li {
+    /* enlever les points*/
+    list-style-type: none;
+    /*mettre en une seule ligne la liste*/
+    display: inline-block;
+    /*distance entre le top et le top  des elements de la listes*/
+    padding: 20px;
+    
+
+   
+}
+/*la couleur de l'ecriture des elements de la liste ui li*/
+ul li a{
+    color: aliceblue;
+    letter-spacing: 0.1rem;
+    text-decoration: none;
+}
+/*pour changer la couleur des elements lorsqu'on met la souris sur chaque element*/
+ul li a:hover{
+    color:blueviolet;
+
+}
+
+form{
+    
+    text-align: right;
+     
+    
+
+}
+/*mettre les elements à gauche*/
+.menu li{
+    float: left;
+    padding: 35px;
+}
+
+input[type = search]{
+    font-size: 17px;
+}
+
+#crossfit{
+
+    color: black;
+    font-size: 32px;
+    
+    padding: 20px;
+}
+
+
+#crossfit2{
+
+    color: rgb(100, 87, 87);
+    font-size: 22px;
+    
+    padding: 20px;
+    position: absolute;
+    top:450px;
+}
+
+#crossfit3{
+
+    color: rgb(100, 87, 87);
+    font-size: 18px;
+    text-align: center;
+    
+    
+ 
+}
+#crossfit4{
+
+    color: rgb(100, 87, 87);
+    font-size: 18px;
+    text-align: center;
+  
+    position: relative;
+    top:-26px;
+
+}
+#box1 {
+
+
+/*border: 2px solid black;*/
+/*absolute permet des cacher les autres box*/
+/*absolute permet de positionner le bloc div en fonction de l'origine qui et 0,0*/
+/*relative: cvd on decale à gauche ou droite (en haut ou en bas)en fonction de la position actuelle*/
+/**/
+
+/*div : represente un bloc */
+text-align: left;
+position: relative;
+top:0px;
+left: 0px;
+}
+
+#slogan {
+
+
+   
+    text-align: left;
+    position: absolute;
+    top:570px;
+    left: 50px;
+    }
+
+
+
+
+#heads{
+    position: relative;
+    top:50px;
+    right: 50px; 
+}
+
+#ul_1{
+    position: absolute;
+    top:200px;
+    right: 0px; 
+
+}
+nav.menu-nav ul li.btn:hover a{
+    color: rebeccapurple;
+    background-color: beige;
+    transition: 0.3s all;  
+ }
+
+ footer{
+
+    position: relative;
+    bottom:px;
+    left: 0px;  
+ }
+ 
