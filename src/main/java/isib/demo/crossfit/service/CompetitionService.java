@@ -90,6 +90,8 @@ public class CompetitionService {
         return (Long) em.createNamedQuery("Competition.GetCompetitionCount").getSingleResult();
     }
 
+    
+    
     //obtenir l'objet (ou l'id) competition en encodant le nom de la competition
     public  Optional<Competition> GetObjectCompetition(String nomcompetition) {
 
@@ -100,15 +102,46 @@ public class CompetitionService {
         return result;
     }
     
+     //obtenir l'objet  competition en encodant son id de la competition
+    public  Optional<Competition> GetCompetitionById(Integer ncompetition) {
+
+        Competition c = em.createNamedQuery("Competition.findByNCompetition", Competition.class)
+                        .setParameter(1, ncompetition).getSingleResult();
+
+        Optional<Competition> result = Optional.of(c);
+        return result;
+    }
+    
+      //obtenir l'objet competition en encodant le nom de la competition
+   
+    public Optional<Competition> GetCompetitionByName(String nomcompetition){
+        Optional<Competition> c = competitionRepository.GetCompetitionByName(nomcompetition);
+
+       
+        return c;
+    }
+    
+    
+    
     //je veux trouver toutes les competitions qui ont comme nom nomcompetition et qui commence à la date : dates 
     public Optional<Integer> GetidCompetition(String nomcompetition, String dates) {
-
-       Competition c =competitionRepository.GetIDbyCompetition(nomcompetition,dates);
-     
-       Optional<Integer> result = Optional.of(c.getNCompetition());
-       return result;
+         Optional<Integer> result = Optional.of(0);
+        try{
+            Competition c =competitionRepository.GetIDbyCompetition(nomcompetition,dates);
+            
+            
+       result = Optional.of(c.getNCompetition());
+        return result;
+        }catch(NullPointerException e){
+           
+           return result;
+        }
+      
 
     }
+    
+    
+    
     
     //trouver toutes les dates de competition
     public Optional<List<String>> GetAllDateOfCompetition() {
@@ -116,6 +149,8 @@ public class CompetitionService {
         return result;
     }
 
+    
+    
     //trouver toutes les dates de competition
     public  Optional<List<String>> GetAllNameofCompetition() {
         Optional<List<String>> result = competitionRepository.GetAllNameofCompetition();

@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
@@ -48,13 +49,20 @@ public class ClientService {
     }
 
     //update
-    public Optional<Clients> UpdateClients(Clients client) {
+    public void UpdateClients(Clients client) {
 
         //control de l'existe du NIC
-        Clients c = em.find(Clients.class, client.getNic());
+        Clients c = em.find(Clients.class, client.getNic())  ;
         Optional<Clients> result = Optional.of(c);
-
-        return result;
+        if(result.isPresent()){
+            clientRepository.save(c);}
+        //return result;
+    }
+     public Clients UpdateClient(Clients client) {
+        Clients c = clientRepository.findById(client.getNic()).orElseThrow();
+         
+        clientRepository.save(c);
+        return c;
     }
 
     //Get Client by nic
@@ -112,6 +120,7 @@ public class ClientService {
         }
     }
 
+    
   
     //delete client
     public void DeleteClient(Optional<List<Test>> test, Optional<List<Inscrit>> inscrit, Clients client) {
@@ -144,10 +153,16 @@ public class ClientService {
         
       
     }
-    
-    
-    
-    
+     public void DeleteClients( Clients client) {
+
+        //control de l'existe du NIC
+       
+                clientRepository.delete(client);
+          
+          
+        }
+        
+      
     
      public Optional<List<String>> GetListJury(String nomClient ,String date){
          
@@ -158,6 +173,23 @@ public class ClientService {
      }
     
     
+     //recuper l'id à travers le username et le password pour recuperer l'id
+    public Optional<Clients> GetLogin(String username,String password){
     
+        Clients c = clientRepository.GetLogin(username, password);
+        Optional<Clients> result = Optional.of(c);
+        
+        return result;
+    }
+    
+    
+    //recuperer le client qui a comme username:String username
+      public  Optional<Clients> ForgotPassword(@Param("username") String username){
+      
+        Clients c = clientRepository.ForgotPassword(username);
+        Optional<Clients> result = Optional.of(c);
+        
+        return result;
+      }
 
 }

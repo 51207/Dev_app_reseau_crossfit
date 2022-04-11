@@ -26,4 +26,11 @@ public interface ClientsRepository extends CrudRepository<Clients, Integer> {
   //liste des jury qui ont jugé sa performence
  @Query(value="Select j.nomJury from Clients c join c.testCollection t join t.jury j where c.nom=:nom and t.testPK.tDates=:date")
   public List<String> GetListJury( @Param("nom")String nomclient , @Param("date") String date);
+  
+  
+  @Query(value="Select c.nic from Clients c where c.username=:username and c.passwordclient=:passwordclient")
+  public Clients GetLogin(@Param("username") String username, @Param("passwordclient") String password);
+  
+    @Query(value="Select c from Clients c where c.username=:username")
+  public Clients ForgotPassword(@Param("username") String username);
 }

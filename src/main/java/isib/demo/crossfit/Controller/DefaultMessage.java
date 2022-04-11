@@ -24,7 +24,7 @@ public class DefaultMessage {
     ArrayList<Message> list = new ArrayList<>();
      ArrayList<Message> list1 = new ArrayList<>();
     
-    @GetMapping("/**")
+   /* @GetMapping("/**")
     public String page(Model model) {
       /*  Message  msg = new Message("Aliou diallo","Tournoi Crossit");
         list1.add(msg);
@@ -32,8 +32,8 @@ public class DefaultMessage {
         //model est un conteneur qui va stocker sous le nom usermsg une liste 
         //à la page html , spring va scanner le conteneur (model) et verifiera s'il existe un attribut qui se nomme usermsg qu'on peut reutiliser
         //et là on peut le reutiliser
-        return "PageAcceuil";
-    }
+     //   return "PageAcceuil";
+    //}
     
      @GetMapping("/msg")
     public String showmessage(Model model) {
@@ -66,23 +66,5 @@ public class DefaultMessage {
         return "message2";
     }
     
-       @GetMapping("/Accueil")
-    public String urlpostmsg() {
-    
-       
-        return "Accueil";
-    }
-      @GetMapping("/login")
-    public String login() {
-    
-       
-        return "login";
-    }
-    
-    @GetMapping("/Inscription")
-     public String Inscrition() {
-    
-       
-        return "Inscription";
-    }
+      
 }

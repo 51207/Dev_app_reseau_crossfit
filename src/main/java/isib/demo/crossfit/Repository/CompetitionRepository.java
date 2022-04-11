@@ -30,6 +30,11 @@ public interface CompetitionRepository extends CrudRepository<Competition, Integ
     @Query(value="select distinct i.inscritPK.idate from Inscrit i ")
    public Optional<List<String>> GetAllDateCompetition();
     
-   @Query(value="select  c.nomcompetition from Competition c ")
+   @Query(value="select distinct c.nomcompetition from Competition c ")
    public Optional<List<String>> GetAllNameofCompetition();
+   
+   @Query(value="select distinct c from Competition c where  c.nomcompetition=:nomcompetition")
+   public Optional<Competition> GetCompetitionByName(@Param("nomcompetition")String nomcompetition);
 }
+
+    

@@ -14,7 +14,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 margin: 0;
                 padding: 0;
              
-                background: linear-gradient(200deg, #ee7592, #e74c7e, #23a6d5, #29d5ab);
+                background: linear-gradient(750deg, #ee7592, #e74c7e, #23a6d5, #29d5ab);
                 background-size: 400% 400%;
                 animation: gradient 15s ease infinite;
                 height: 100vh;
@@ -111,60 +111,47 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     text-align: center;
                 }
             
+                .table-dark{
+                    
+                    background-color: #333333;
+                    text-align: center;
+                    display: block;
+                    margin-left: 20%;
+                    margin-right: 20%;
+                    margin-top: 100px;
+                }
+                
+                .th{
+                    
+                    width:5%;
+                    height: 20%;
+                    color: wheat;        
+                }
+                .td{
+                    width:5%;
+                    height: 20%;
+                    color: whitesmoke;  
+                }
+              
         </style>
     </head>
     <body>
-        
- <div class="container">
-        <h1>Inscription </h1>
-       
- <form action="#" th:action="@{/Inscript}" th:object="${inscription}" method="POST" >
-
-  <div class="input_text">
-          <div> <label class="label">Nom:       </label></div>
-          <input type="text" class="in" th:field="*{nom}" required minlength="2" maxlength="45" >       
-  </div>
-   <div class="input_text">
-           <div><label class="label">Prenom :</label></div>
-          <input type="text"  class="in"  th:field="*{prenom}" required minlength="2" maxlength="45">       
-  </div>
-     
-     
-   <div class="input_text">
-       <div><label class="label">Rue :     </label></div>
-          <input type="text" class="in" th:field="*{rue}" required minlength="2" maxlength="45">       
-  </div>
-     
-   <div class="input_text">
-         <label class="label">Numero :</label>
-          <input type="text" class="in" th:field="*{numero}" required minlength="1" maxlength="4">       
-  </div>
-   <div class="input_text">
-         <label class="label">Code postal :</label>
-          <input type="text" class="in" th:field="*{cp}" required minlength="4" maxlength="4">       
-  </div>
-   <div class="input_text">
-         <label class="label">Commune :</label>
-          <input type="text" class="in" th:field="*{commune}" required minlength="2" maxlength="45">       
-  </div>
-   <div class="input_text">
-         <label class="label">Telephone  :</label>
-          <input type="text" class="in" th:field="*{tel}"  required minlength="10" maxlength="11">       
-  </div>
-   <div class="input_text">
-         <label class="label">Nom d'utilisateur :</label>
-          <input type="text" class="in"  th:field="*{username}" required minlength="4" maxlength="10">       
-  </div>
- 
-   <div class="input_text">
-         <label class="label">Mot de passe :</label> 
-        <input type="text" class="in" th:field="*{passwordclient}" required minlength="4" maxlength="15"></div>
-
- <div><input  type="submit" value="S'inscrire"> </div>
-  
- <p class="p" >Avez vous déjà un compte? <a href="http://127.0.0.1:8080/login" title="Login here"><b>Connecter vous </b></a></p>
-    </form>
- </div>
-
+        <table class="table-dark">
+            <thead>
+                <tr>
+                    <th scope="col" class="th">#</th>
+                    <th scope="col" class="th">Nom</th>
+                    <th scope="col" class="th">Epreuve</th>
+                    <th scope="col" class="th">1 ere Note</th>
+                    <th scope="col" class="th">2 eme Note</th>
+                </tr>   
+            </thead>
+            <tbody>
+                <tr >
+                    <th scope="row"></th>
+                    <td class="td"></td>
+                </tr>   
+            </tbody> 
+        </table>
     </body>
 </html>

@@ -116,13 +116,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <body>
         
  <div class="container">
-        <h1>Inscription </h1>
+        <h1>Modification </h1>
        
- <form action="#" th:action="@{/Inscript}" th:object="${inscription}" method="POST" >
-
+<form action="#" th:action="@{/MAJclient}" th:object="${userclient}" method="POST" >
+    <!-- <form action="#" th:action="@{/success}" th:object="${userclient}"  method="GET"> -->
   <div class="input_text">
           <div> <label class="label">Nom:       </label></div>
-          <input type="text" class="in" th:field="*{nom}" required minlength="2" maxlength="45" >       
+          <input type="text" class="in" th:field="*{nom}" required minlength="2" maxlength="45">       
   </div>
    <div class="input_text">
            <div><label class="label">Prenom :</label></div>
@@ -149,7 +149,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
   </div>
    <div class="input_text">
          <label class="label">Telephone  :</label>
-          <input type="text" class="in" th:field="*{tel}"  required minlength="10" maxlength="11">       
+          <input type="text" class="in" th:field="*{tel}" required minlength="10" maxlength="11">       
   </div>
    <div class="input_text">
          <label class="label">Nom d'utilisateur :</label>
@@ -160,10 +160,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
          <label class="label">Mot de passe :</label> 
         <input type="text" class="in" th:field="*{passwordclient}" required minlength="4" maxlength="15"></div>
 
- <div><input  type="submit" value="S'inscrire"> </div>
+ <div><input  type="submit" value="Modifier"    > 
+        
+ </div>
   
- <p class="p" >Avez vous déjà un compte? <a href="http://127.0.0.1:8080/login" title="Login here"><b>Connecter vous </b></a></p>
-    </form>
+ <p class="p" ><a href="http://127.0.0.1:8080/PageAccueil" title="retour"><b>Retour</b></a></p>
+   </form>
  </div>
 
     </body>

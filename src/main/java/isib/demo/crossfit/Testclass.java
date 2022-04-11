@@ -77,6 +77,9 @@ public class Testclass implements CommandLineRunner {
         c.setUsername("kat");
         c.setPasswordclient("isib");
         clientservice.UpdateClients(c);
+       
+            
+      
     }
 
     public void listeclienttest() {
@@ -84,9 +87,9 @@ public class Testclass implements CommandLineRunner {
         System.out.println("============findall==============");
         for (Clients item : clientservice.GetFindAll()) {
             x += 1;
-            System.out.println("clients " + x + " : " + item.getNom() + " " + item.getPrenom() + " nic :" + item.getNic());
+            System.out.println("clients " + x + " : " + item.getNom() + " " + item.getPrenom() + " nic :" + item.getNic()+ " username="+item.getUsername()+ "  a4password: "+item.getPasswordclient());
 
-
+            
         }
         
         
@@ -97,6 +100,14 @@ public class Testclass implements CommandLineRunner {
             System.out.println("client habitant dans le code postal  1000 = " + item.getNom());
 //clients.findByCp(em,"1000");
         }
+        
+         Optional<Clients> xq= clientservice.GetLogin("jack1", "isib");
+     
+            if(xq.isPresent()){
+                 System.out.println("login : "+ xq.get()+" ");
+                  System.out.println("login : "+ xq.get().getNic()+" ");
+           System.out.println("login  "+ xq.get().getPrenom() +" "+ xq.get().getNom());
+            }
 
     }
 

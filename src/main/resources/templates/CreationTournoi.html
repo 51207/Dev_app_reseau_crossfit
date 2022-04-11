@@ -8,14 +8,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
+         <style>
             
              body{
                 margin: 0;
                 padding: 0;
              
-                background: linear-gradient(200deg, #ee7592, #e74c7e, #23a6d5, #29d5ab);
-                background-size: 400% 400%;
+                background: linear-gradient(15deg, #fe7596, #e74d7f, #23b6a5, #32d5ab);
+                background-size: 400% 390%;
                 animation: gradient 15s ease infinite;
                 height: 100vh;
                 }
@@ -29,13 +29,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                
                 background: whitesmoke;
                 text-align: center;
-                border-radius: 10px;
+                border-radius: 20px;
                 text-align: left;
 
                
                 
                 width: 500px;
-                height: 650px;
+                height: 420px;
                
             }
             
@@ -114,53 +114,37 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </style>
     </head>
     <body>
-        
- <div class="container">
-        <h1>Inscription </h1>
+       <div class="container">
+        <h1>Creation du Tournoi </h1>
        
- <form action="#" th:action="@{/Inscript}" th:object="${inscription}" method="POST" >
+ <form action="#" th:action="@{/InscriptCreation}" th:object="${tournoi}" method="POST"  >
 
   <div class="input_text">
-          <div> <label class="label">Nom:       </label></div>
-          <input type="text" class="in" th:field="*{nom}" required minlength="2" maxlength="45" >       
+          <div> <label class="label">Nom Competition:</label></div>
+          <input type="text" class="in"  th:field="*{nomcompetition}"  required minlength="2" maxlength="45">       
   </div>
    <div class="input_text">
-           <div><label class="label">Prenom :</label></div>
-          <input type="text"  class="in"  th:field="*{prenom}" required minlength="2" maxlength="45">       
-  </div>
-     
-     
-   <div class="input_text">
-       <div><label class="label">Rue :     </label></div>
-          <input type="text" class="in" th:field="*{rue}" required minlength="2" maxlength="45">       
+           <div><label class="label">Nom de l'organisateur :</label></div>
+          <input type="text"  class="in"  th:field="*{nomOrganisateur}"  required minlength="2" maxlength="45">       
   </div>
      
+     
    <div class="input_text">
-         <label class="label">Numero :</label>
-          <input type="text" class="in" th:field="*{numero}" required minlength="1" maxlength="4">       
+       <div><label class="label">Prenom de l'organisateur:     </label></div>
+          <input type="text" class="in"  th:field="*{prenomOrganisateur}"  required minlength="2" maxlength="45">       
+  </div>
+     
+   <div class="input_text">
+         <label class="label">Username :</label>
+          <input type="text" class="in" th:field="*{user}"  required minlength="4" maxlength="45">       
   </div>
    <div class="input_text">
-         <label class="label">Code postal :</label>
-          <input type="text" class="in" th:field="*{cp}" required minlength="4" maxlength="4">       
-  </div>
-   <div class="input_text">
-         <label class="label">Commune :</label>
-          <input type="text" class="in" th:field="*{commune}" required minlength="2" maxlength="45">       
-  </div>
-   <div class="input_text">
-         <label class="label">Telephone  :</label>
-          <input type="text" class="in" th:field="*{tel}"  required minlength="10" maxlength="11">       
-  </div>
-   <div class="input_text">
-         <label class="label">Nom d'utilisateur :</label>
-          <input type="text" class="in"  th:field="*{username}" required minlength="4" maxlength="10">       
+         <label class="label">mot de passe :</label>
+          <input type="text" class="in" th:field="*{password}" required minlength="4" maxlength="45">       
   </div>
  
-   <div class="input_text">
-         <label class="label">Mot de passe :</label> 
-        <input type="text" class="in" th:field="*{passwordclient}" required minlength="4" maxlength="15"></div>
 
- <div><input  type="submit" value="S'inscrire"> </div>
+ <div><input  type="submit" value="Créer"> </div>
   
  <p class="p" >Avez vous déjà un compte? <a href="http://127.0.0.1:8080/login" title="Login here"><b>Connecter vous </b></a></p>
     </form>

@@ -72,12 +72,19 @@ public class TestCompetClass implements CommandLineRunner {
         System.out.println(item );
        
        }*/
+       System.out.println("=============Get all name of competition=============");
+       Optional<List<String>> zz= competitionService.GetAllNameofCompetition();
+        Iterable<Competition> qq= competitionService.GetFindAll();
+       if( zz.isPresent()){
+       System.out.println( "name " +zz.get());
+           System.out.println( "compet " +qq);
+       }
       System.out.println("=============Get id competition=============");
        
-       Optional<Integer> p= competitionService.GetidCompetition("crossfit","2022-04-11");
-       if(p.isPresent()){
-           System.out.println("l'id est =>"+p.get());
-       }
+      // Optional<Integer> p= competitionService.GetidCompetition("crossfit01","2022-04-11");
+       //if(p.isPresent()){
+        //   System.out.println("l'id est =>"+p.get());
+      // }
        System.out.println("=============Get all dates Competition=============");
        Optional<List<String>> q = competitionService.GetAllDateOfCompetition();
         if(q.isPresent()){

@@ -1,0 +1,106 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 7 avr. 2022, 10:42:50
+    Author     : aliou
+*/
+@charset "UTF-8";
+  body{
+                margin: 0;
+                padding: 0;
+             
+                background: linear-gradient(200deg, #ee7592, #e74c7e, #23a6d5, #29d5ab);
+                background-size: 400% 400%;
+                animation: gradient 15s ease infinite;
+                height: 100vh;
+                }
+                
+              
+            .container{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+               
+                background: whitesmoke;
+                text-align: center;
+                border-radius: 10px;
+                text-align: left;
+
+               
+                
+                width: 500px;
+                height: 650px;
+               
+            }
+            
+              .container h1{
+                    
+                    text-align: center;
+                    padding: 0 0 20px 0;
+                    border-bottom:  1px solid silver;
+                    font-size: 25px;
+                }
+               
+            
+            .input_text{
+                
+               left: 60%;
+               height: 50px;
+               padding-left: 10%;
+            }
+            
+            .country {
+            background-color: chocolate;
+            color: white;
+            padding: 0px;
+           
+           
+            }
+            .Send{
+                
+               background-color: brown;          
+               color: white;
+               padding: 15px; 
+            }
+              .titre{
+                   text-align: center;
+               }
+            
+               input[type="submit"]{
+                    
+                    width:50%;
+                    height: 50px;
+                    border:1px solid;
+                    background: #23a6d5;
+                    border-radius: 25px;
+                    font-size: 18px;
+                    color: #ffffff;
+                    font-weight: 800;
+                    text-align: center;
+                    
+                   
+                   
+                }
+            
+                
+                container  input[type="submit"]{
+                    
+                    text-align: center;
+                }
+                
+                .in{
+                    
+                    padding-left: 50%;
+                }
+                 .in2{
+                    
+                    padding-left: 41.5%;
+                }
+                label{
+                       
+                }
+                 
+        
