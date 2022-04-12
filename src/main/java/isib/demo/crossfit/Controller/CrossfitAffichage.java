@@ -9,6 +9,7 @@ package isib.demo.crossfit.Controller;
  * @author aliou
  */import isib.demo.crossfit.OtherClass.Message;
 import isib.demo.crossfit.OtherClass.StringMessage;
+import isib.demo.crossfit.OtherClass.noteclass;
 import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Inscrit;
 import isib.demo.crossfit.service.ClientService;
@@ -38,6 +39,7 @@ import isib.demo.crossfit.service.CompetitionService;
 import isib.demo.crossfit.service.ComporteService;
 import isib.demo.crossfit.service.InscritService;
 import isib.demo.crossfit.service.testService;
+import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
@@ -68,8 +70,18 @@ public class CrossfitAffichage {
     
     
     @GetMapping("/Affichage")
-    public String Affichage(){
-    
-    return "/affichageResultat";
+    public String Affichage(Model model){
+        model.addAttribute("output", new StringMessage());
+        model.addAttribute("nameofcompet", competitionService.GetAllNameofCompetition().get());
+    return "affichageResultat";
     }
+    
+    @GetMapping("/affichageresult")
+       public String Affichageresult(@RequestParam String nom, @RequestParam String prenom, @RequestParam String mdp,Model model){
+        Optional<Clients> c = clientservice.ForgotPassword(mdp);
+        
+          List<noteclass> list =   testService.getAllNote(c.get().getNic(), prenom);
+          model.addAttribute("resu1t", list);
+           return "affichageResultat";
+       }
 }

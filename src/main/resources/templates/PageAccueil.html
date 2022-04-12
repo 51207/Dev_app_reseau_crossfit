@@ -8,8 +8,8 @@
 
 		 <style>
 			 body{
-				background-image: url('@{/images/crossfits_11.jpg}');
-
+				
+                                 background-image: url('@{/images/crossfits_11.jpg}');
 				
 			}
 
@@ -19,8 +19,48 @@
     		top:200px;
    		   right: 10px;  
  			}
-			
-
+                        .menuheader{
+                            
+                             display: inline-table;
+                        }
+                        
+                        .crossfit{
+                            
+                            display: block;
+                            text-align: center;
+                        }  
+                        .li{
+                            
+                            
+                            display: inline-table;
+                            background: wheat;
+                         
+                            font-size: 18px;
+                            border-bottom: auto;
+                            border-left: auto;
+                            margin-left: 100px;
+                            margin-top:  auto;
+                            
+                            
+                        }
+                        
+                        .div{
+                            
+                            background-color: black;
+                        }
+                        .c{
+                            
+                            color: white;
+                            background-color: black;
+                            text-decoration: none;
+                        }
+                        ul li a:hover{
+                                color:blueviolet;
+                                list-style-type: none;
+                           }   
+                           .texts{
+                               margin-top: 7%;
+                           }
 		 </style>
 </head>	
 	<body>
@@ -42,46 +82,49 @@
 		
 	<div class="header">
 		<nav>
+                    <div class="div">
 			<ul class="menuheader">
-				<li>
-					<a href="http://127.0.0.1:8080/PageAcceuil.html" title="Acceuil"><b>Accueil</b></a>
+				<li class="li">
+					<a href="http://127.0.0.1:8080/PageAcceuil" title="Acceuil"  class="c"><b>Accueil</b></a>
 				</li>
-				<li>
-					<a href="http://127.0.0.1:8080/PageAcceuil.html" title="Menu"><b>Menu</b> </a>
+				<li class="li">
+					<a href="http://127.0.0.1:8080/Inscription" title="Inscription" class="c"><b>Inscription</b> </a>
 					<ui>
-						</ui></li><li>
-							<a href="http://127.0.0.1:8080/PageAcceuil.html" title="Notes joeurs"><b>Notes des joueurs</b> </a>
+						</ui></li>
+                                                <li class="li">
+							<a href="http://127.0.0.1:8080/Affichage" title="Notes" class="c"><b>Notes</b> </a>
 
 						</li>
-						<li>
-							<a href="http://127.0.0.1:8080/PageAcceuil.html" title="Annee Competition"><b>Annee Competition</b> </a>
+						<li class="li">
+							<a href="http://127.0.0.1:8080/Tournoi" title="New Competition" class="c"><b>New Competition</b> </a>
 							
 						</li>
-						<li>
-							<a href="http://127.0.0.1:8080/PageAcceuil.html" title="Caracteristiques"><b>Caracteristiques</b> </a>
+						<li class="li">
+							<a href="http://127.0.0.1:8080/Forgot" title="Caracteristiques" class="c"><b>Données personnelles</b> </a>
 							
 						</li>
 					
 				
-				<li>
-					<a href="http://127.0.0.1:8080/PageAcceuil.html" title="Contact"><b>Contact</b> </a>
+				<li class="li">
+					<a href="http://127.0.0.1:8080/PageAcceuil" title="Contact" class="c"><b>Classement</b> </a>
+				</li>
+                                <li class="li">
+					<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a>
 				</li>
 			</ul>
 		
+                    </div>
 			
-			<form>
-				<input type="search" name="q" placeholder="recherche">	
-			</form>
 			<hr>
 		</nav>
 	</div>
-		
-<div id="crossfit"><h1><b>LA COMPETITION DE CROSSFIT EST OUVERTE</b> </h1></div>
-<div id="crossfit4"><h4><b>Debut d'inscription 1/06/2022 au 1/07/2022</b> </h4></div>
+<div class="texts">
+    <div id="crossfit" class="crossfit" style="font-size:24px;"><h1><b>LA COMPETITION DE CROSSFIT EST OUVERTE</b> </h1></div>
+<div id="crossfit" class="crossfit" style="font-size:16px;"><h4><b>Debut d'inscription 1/06/2022 au 1/07/2022</b> </h4></div>
 	
-<div id="crossfit2"><h2><b>Inscrit toi et entre en competition avec des dizaines d'athlètes  en BELGIQUE</b> </h2></div>
-<div id="crossfit3"><h1><b>Stay for the fun!</b> </h1></div>
-	
+<div id="crossfit" class="crossfit" style="font-size:20px;"><h2><b>Inscrit toi et entre en competition avec des milliers d'athlètes  en BELGIQUE</b> </h2></div>
+<div id="crossfit" class="crossfit" style="font-size:24px;"><h1><b>Stay for the fun!</b> </h1></div>
+</div>
 <div id="slogan">
 	<img th:src="@{/images/crossfit19.png}" width="200px" height="200px" style="transform:rotate(-30deg);">
 

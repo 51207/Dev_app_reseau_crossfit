@@ -123,19 +123,86 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 
                 .th{
                     
-                    width:5%;
+                    width:2%;
                     height: 20%;
                     color: wheat;        
                 }
                 .td{
-                    width:5%;
+                    width:2%;
                     height: 20%;
                     color: whitesmoke;  
                 }
-              
+                .r{
+                    
+                    counter-increment: 1;
+                }
+                .div{
+                    
+                    margin-left: 20%;
+                }
+                .juve{
+                    
+                    width:90px;
+                    height: 100px;
+                    margin-left: 50px;
+                }
+                .in{
+                    
+                    width:5px;
+                    margin-left: -10px;
+                }
+                .input_text{
+                    margin-top: 25px;
+                }
+                .label2{
+                   margin-left: 10px;
+                }
+                .submitfirst{
+                    margin-left: 50px;
+                    margin-top: 25px;
+                }
+                .div2{
+                    margin-top: -100px;
+                    margin-left: 200px;
+                        
+                }
         </style>
     </head>
     <body>
+       
+    <form action="#"  th:action="@{/affichageresult}" th:object="${output}"  method="GET">
+     <div class="juve">
+          <div class="dropboxAll">  
+            <div class="dropbox1">
+                <div> <label class="label">Tournoi :       </label></div>
+                    <select  th:field="*{nom}">
+                    <option  th:each="items: ${nameofcompet}" th:value="${items}"  th:text="${items}"   ></option>
+                    </select>     
+            </div>
+              
+            <div class="dropbox2">
+                  <div><label class="label">Dates :</label></div>
+                  <select  th:field="*{prenom}" >
+                    <option value="2021-04-11" >2021-04-11</option>
+                    <option value="2022-04-11" >2022-04-11</option>
+                    <option value="2022-09-11">2022-09-11</option>
+                   </select>          
+            </div> 
+           </div>
+     
+        <div class="client">
+        <div class="input_text">
+            <div> <label class="label2">Nom d'utilisateur:       </label></div>
+            <input type="text" class="in"  th:field="*{mdp}" required minlength="2" maxlength="45" >       
+        </div>
+
+        <input type="submit" value="ok" class="submitfirst" >
+        <div class="signup">  <a href="http://127.0.0.1:8080/PageAccueil" title="Retour"><b>Retour</b></a>
+        </div>          
+    </div>
+            </div>
+        
+          <div class="div2">
         <table class="table-dark">
             <thead>
                 <tr>
@@ -144,14 +211,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <th scope="col" class="th">Epreuve</th>
                     <th scope="col" class="th">1 ere Note</th>
                     <th scope="col" class="th">2 eme Note</th>
+                    <th scope="col" class="th">Moyenne </th>
                 </tr>   
             </thead>
             <tbody>
                 <tr >
-                    <th scope="row"></th>
-                    <td class="td"></td>
+                    <th scope="row" class="r"  th:each="obj: ${result}" ></th>
+                    <td class="td" th:text="#"></td>
+                     <td class="td" th:text="${obj.nom}"></td>
+                      <td class="td" th:text="${obj.nomepreuve}"></td>
+                       <td class="td" th:text="${obj.note1}"></td>
+                        <td class="td" th:text="${obj.note2}"></td>
+                        <td class="td" th:text="${obj.notetotal}"></td>
                 </tr>   
             </tbody> 
         </table>
+        </div>   
+     </form>
+        
     </body>
 </html>

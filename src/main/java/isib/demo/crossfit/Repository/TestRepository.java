@@ -29,6 +29,9 @@ public interface TestRepository  extends CrudRepository<Test, String> {
      @Query(value="select  e ,k, t from Competition c join c.inscritCollection i join i.clients k join k.testCollection t join t.epreuve e where e.nEpreuve=:nomEpreuve  and k.nom=:nomClient and t.testPK.tDates=:dates")     
      public List<Object[]> GetTestbyEpreuve(@Param("nomEpreuve")String nomEpreuves , @Param("nomClient") String Nomclients,@Param("dates") String date);
     
+       @Query(value="select  e ,k, t from Competition c join c.inscritCollection i join i.clients k join k.testCollection t join t.epreuve e where  k.nic=:idClient and t.testPK.tDates=:dates")     
+       public List<Object[]> GetTestbyclientAndDates(@Param("idClient") Integer idclients,@Param("dates") String date);
+    
      
    
 }

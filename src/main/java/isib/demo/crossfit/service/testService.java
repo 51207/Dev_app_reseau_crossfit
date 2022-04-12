@@ -4,12 +4,14 @@
  */
 package isib.demo.crossfit.service;
 
+import isib.demo.crossfit.OtherClass.noteclass;
 import isib.demo.crossfit.Repository.TestRepository;
 import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Competition;
 import isib.demo.crossfit.Tables.Epreuve;
 import isib.demo.crossfit.Tables.Jury;
 import isib.demo.crossfit.Tables.Test;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -135,13 +137,85 @@ public class testService {
         return c;
     }
 
-    public Optional<List<Object[]>>GetTestbyEpreuve(String nomEpreuves , String Nomclients,String date){
     
-   // TypedQuery<Object[]> query = em.createQuery(" select e ,k from Test t join t.epreuve e join e.competitionCollection c  join c.inscritCollection i join i.clients k where e.nEpreuve=:nomEpreuve and k.nom=:nomClient",Object[].class);
+    public Optional<List<Object[]>> GetTestbyEpreuve(String nomEpreuves, String Nomclients, String date) {
+
+        // TypedQuery<Object[]> query = em.createQuery(" select e ,k from Test t join t.epreuve e join e.competitionCollection c  join c.inscritCollection i join i.clients k where e.nEpreuve=:nomEpreuve and k.nom=:nomClient",Object[].class);
+        List<Object[]> c = testRepository.GetTestbyEpreuve(nomEpreuves, Nomclients, date);
+        Optional<List<Object[]>> result = Optional.of(c);
+
+        return result;
+    }
     
-    List<Object[]> c = testRepository.GetTestbyEpreuve(nomEpreuves, Nomclients,date);
-    Optional<List<Object[]>> result = Optional.of(c);
-   
-    return result;
-          }
+    public List<Object[]> GetTestbyclientAndDates(@Param("nomClient") Integer idclients,@Param("dates") String date){
+        
+        List<Object[]> c = testRepository.GetTestbyclientAndDates( idclients, date);
+        Optional<List<Object[]>> result = Optional.of(c);
+        
+        return c;
+    }
+    
+    
+    
+    //methode à part qui me permettra d'avoir les deux notes de chaque client qui a effectué une epreuve
+    public List<noteclass> getAllNote(int idclient, String dates) {
+         //j'intancie la liste dans laquelle les données du clients
+        List<noteclass> listnote = new ArrayList<noteclass>();
+
+        //je recupere la liste d'objet
+        List<Object[]> ListGetObject = this.GetTestbyclientAndDates(idclient, dates);
+        if(ListGetObject != null){
+       
+
+        for (var item : ListGetObject) {
+            Epreuve e = (Epreuve) item[0];
+            Clients c = (Clients) item[1];
+            Test b = (Test) item[2];
+
+            noteclass noteclass = new noteclass();
+
+            noteclass.setNom(c.getNom());
+            noteclass.setNomepreuve(e.getNEpreuve());
+            noteclass.setNote1(b.getNote());
+
+            int count = 0;
+            if (listnote.size() >= 1) {
+                for (var item2 : listnote) {
+
+                    //je verifie si le item2 n' a pas le meme id qu'un element de la liste
+                    if (item2.getNomepreuve() == noteclass.getNomepreuve()) {
+
+                        //si c'est le cas, alors j'ajoute la deuxieme note dans un attribut de noteclass
+                        item2.setNote2(noteclass.getNote1());
+                        item2.setNotetotal((item2.getNote1() + item2.getNote2()) / 2);
+                        count++;
+                    }
+
+                }
+
+            }
+
+            if (count == 0) {
+                listnote.add(noteclass);
+            }
+        }
+
+        return listnote;
+    }else{
+            noteclass note= new noteclass();
+            note.setNom("");
+            note.setNomepreuve("");
+            note.setNote1(0);
+            note.setNote2(0);
+            note.setNotetotal(0);
+            listnote.add(note);
+            return listnote;
+        
+        }
+    }
+
+    
+
+
+
 }
