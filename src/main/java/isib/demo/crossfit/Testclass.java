@@ -104,13 +104,13 @@ public class Testclass implements CommandLineRunner {
 //clients.findByCp(em,"1000");
         }
         
-         Optional<Clients> xq= clientservice.GetLogin("jack1", "isib");
+       /*  Optional<Clients> xq= clientservice.GetLogin("jack1", "isib");
      
             if(xq.isPresent()){
                  System.out.println("login : "+ xq.get()+" ");
                   System.out.println("login : "+ xq.get().getNic()+" ");
            System.out.println("login  "+ xq.get().getPrenom() +" "+ xq.get().getNom());
-            }
+            }*/
 
     }
 

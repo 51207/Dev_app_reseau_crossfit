@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head xmlns:th="http://www.thymeleaf.org">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <style>
+            
+             body{
+                margin: 0;
+                padding: 0;
+             
+                background: linear-gradient(750deg, #ee7592, #e74c7e, #23a6d5, #29d5ab);
+                background-size: 400% 400%;
+                animation: gradient 15s ease infinite;
+                height: 100vh;
+                }
+   
+                .table-dark{
+                    
+                    background-color: #333333;
+                    text-align: center;
+                    display: block;
+                    margin-left: 10%;
+                    margin-right: 20%;
+                    margin-top: 120px;
+                }
+                
+                .th{
+                    
+                    width:2%;
+                    height: 20%;
+                    color: wheat;        
+                }
+                .td{
+                    width:2%;
+                    height: 20%;
+                    color: wheat;  
+                }
+               
+              
+              
+                 .h2{
+                    
+                  font-size: 50px;
+                  color:black;
+                  margin-top: 150px;
+                  margin-left: 550px;
+                }
+             
+                
+                .div2{
+                    margin-top: -100px;
+                    margin-left: 200px;
+                        
+                }
+        </style>
+    </head>
+    <body>
+         <div class="div2">
+         <!--   <div th:if="${! #lists.isEmpty(result)}">-->
+            <h2 class="h2">Notes Personnelles</h2>
+            <table class="table-dark">
+                <thead>
+                <tr>
+                    <th scope="col" class="th">#</th>
+                    <th scope="col" class="th">Nom</th>
+                    <th scope="col" class="th">Epreuve</th>
+                    <th scope="col" class="th">1 ere Note</th>
+                    <th scope="col" class="th">2 eme Note</th>
+                    <th scope="col" class="th">Moyenne </th>
+                </tr>   
+                </thead>
+                
+                <tbody>
+                <tr th:each="item : ${noteclass}">
+                     <td class="td" th:text="${item.id}" >#</td>
+                    <td class="td" th:text="${item.nom}">Nom</td>
+                    <td class="td" th:text="${item.nomepreuve}">Epreuve</td>
+                    <td class="td" th:text="${item.note1}" >1 ere Note</td>
+                    <td class="td" th:text="${item.note2}">2 eme Note</td>
+                    <td class="td" th:text="${item.notetotal}">Moyenne</td>
+                </tr>  
+                </tbody>
+            </table>
+          
+        </div>   
+</body>
+</html>

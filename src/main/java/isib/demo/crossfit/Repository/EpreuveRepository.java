@@ -33,4 +33,7 @@ public interface EpreuveRepository extends CrudRepository<Epreuve, Integer> {
        @Query(value="select c, n, t from  Clients c join c.testCollection t join  t.jury n Where t.testPK.tnie=:Idepreuve and c.nom=:nomclient and t.testPK.tDates=:dates") 
      public List<Object[]> GetJuryWhoJudgeOneEpreuve(@Param("nomclient")String nomclient , @Param("Idepreuve") Integer Idepreuve,@Param("dates") String date);
         
+     
+     @Query(value="select e.nEpreuve from Epreuve e")
+     public List<String> getalldataonEpreuve();
 }

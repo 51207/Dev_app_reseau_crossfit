@@ -114,18 +114,18 @@ public class TestCompetClass implements CommandLineRunner {
           System.out.println("=============get note;=============");
         
         // Optional<List<Test>> w =testService.GetTestbyEpreuve("Box Jump","Traoré");
-        Optional<List<Object[]>> w = testService.GetTestbyEpreuve("Squat en arriere 102kg","Traoré","2021-04-11");
+/*        Optional<List<Object[]>> w = testService.GetTestbyEpreuve("Squat en arriere 102kg","Traoré","2021-04-11");
         
         for(var item : w.get()){
         Epreuve e =(Epreuve)item[0];
         Clients c = (Clients)item[1];
         Test b = (Test)item[2];
         
-        System.out.println(e.getNEpreuve()+"           |         "+ c.getNom()+"            |          "+b.getNote()+  "\n");
+        System.out.println(e.getNEpreuve()+"           |         "+ c.getNom()+"            |          "+b.getNote()+  "\n");*/
         //System.out.println((Clients)item[1]+"\n");
        //  System.out.println((Test)item[2]+"\n");
         
-        }
+       // }
         /*if(w.isPresent()){
            System.out.println("test= "+w.toString()+"\n");
            for(var item : w.get()){

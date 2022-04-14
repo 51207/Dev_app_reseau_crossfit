@@ -37,6 +37,7 @@ import isib.demo.crossfit.Tables.InscritPK;
 import isib.demo.crossfit.service.ClientService;
 import isib.demo.crossfit.service.CompetitionService;
 import isib.demo.crossfit.service.ComporteService;
+import isib.demo.crossfit.service.EpreuveService;
 import isib.demo.crossfit.service.InscritService;
 import isib.demo.crossfit.service.testService;
 import java.util.List;
@@ -63,6 +64,8 @@ public class CrossfitAffichage {
     @Autowired
     private testService testService;
     
+    @Autowired
+    private EpreuveService epreuveService;
     
      //****** variable utiliser dans la conservateur du user et du password *******
     public String nomuser = "";
@@ -72,16 +75,48 @@ public class CrossfitAffichage {
     @GetMapping("/Affichage")
     public String Affichage(Model model){
         model.addAttribute("output", new StringMessage());
-        model.addAttribute("nameofcompet", competitionService.GetAllNameofCompetition().get());
+        model.addAttribute("nameofcompet", epreuveService.getalldataonEpreuve()  ); 
+       
     return "affichageResultat";
     }
     
-    @GetMapping("/affichageresult")
+    @GetMapping("/affichageresulnoteperso")
        public String Affichageresult(@RequestParam String nom, @RequestParam String prenom, @RequestParam String mdp,Model model){
         Optional<Clients> c = clientservice.ForgotPassword(mdp);
         
           List<noteclass> list =   testService.getAllNote(c.get().getNic(), prenom);
-          model.addAttribute("resu1t", list);
-           return "affichageResultat";
+          if(list.isEmpty()){
+          noteclass note = new noteclass();
+          note.setNom("#"); note.setPrenom("#"); note.setNote1(0); note.setNote2(0);note.setNotetotal(0);
+          list.add(note);
+          }
+          for(var item : list){
+            System.out.println( item.getNom()+"    |    "+ item.getNomepreuve()+"    |    "+item.getNote1()+"     |   "+item.getNote2()+  "\n");
+           
+          }
+          model.addAttribute("noteclass", list);
+          nom=""; prenom=""; mdp="";
+           return "shownote";
+         
+       }
+    
+       
+        @GetMapping("/affichageresultallnote")
+       public String Affichageallresultbyepreuve(@RequestParam String nom, @RequestParam String prenom, @RequestParam String mdp,Model model){
+          Optional<Clients> c = clientservice.ForgotPassword(mdp);
+          List<noteclass> list = testService.getAllNotebyepreuve(nom, prenom);
+          if(list.isEmpty()){
+          noteclass note = new noteclass();
+          note.setNom("#"); note.setNomepreuve("#"); note.setNote1(0); note.setNote2(0);note.setNotetotal(0);
+          list.add(note);
+          }
+          for(var item : list){
+            System.out.println( item.getNom()+"    |    "+ item.getPrenom()+"    |    "+item.getNote1()+"     |   "+item.getNote2()+  "\n");
+           
+          }
+          model.addAttribute("noteclass", list);
+          nom=""; prenom=""; mdp="";
+           return "shownoteByEpreuve";
+         
        }
 }

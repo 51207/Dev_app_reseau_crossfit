@@ -1,20 +1,22 @@
+
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
+           <style>
             
              body{
+               
                 margin: 0;
                 padding: 0;
              
-                background: linear-gradient(750deg, #ee7592, #e74c7e, #23a6d5, #29d5ab);
+                background: linear-gradient(-150deg, #ff7592, #e74c7e, #23a6d5, #29d5ab);
                 background-size: 400% 400%;
                 animation: gradient 15s ease infinite;
                 height: 100vh;
@@ -29,13 +31,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                
                 background: whitesmoke;
                 text-align: center;
-                border-radius: 10px;
+                border-radius: 50px;
                 text-align: left;
 
                
                 
                 width: 500px;
-                height: 650px;
+                height: 400px;
                
             }
             
@@ -74,7 +76,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             
                input[type="submit"]{
                     
-                    width:50%;
+                
+                   
+                }
+                
+                .submitfirst{
+                    
+                        width:25%;
                     height: 50px;
                     border:1px solid;
                     background: #23a6d5;
@@ -87,12 +95,30 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         
                     display: block;
                     position: relative;
-                    margin-left: auto;
+                    margin-left: 300px;;
                     margin-right: auto;
-                   
+                    margin-top: 20px;
                 }
-            
                 
+                    .submitfirst3{
+                    
+                        width:40%;
+                    height: 50px;
+                    border:1px solid;
+                    background: #23a6d5;
+                    border-radius: 25px;
+                    font-size: 18px;
+                    color: #ffffff;
+                    font-weight: 800;
+                    text-align: center;
+                   
+                        
+                    display: block;
+                    position: relative;
+                    margin-left: 30px;;
+                    margin-right: auto;
+                    margin-top: -50px;
+                }
                
                 
                 .in{
@@ -111,123 +137,91 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     text-align: center;
                 }
             
-                .table-dark{
+                .signup{
                     
-                    background-color: #333333;
-                    text-align: center;
-                    display: block;
-                    margin-left: 20%;
-                    margin-right: 20%;
-                    margin-top: 100px;
+                    margin-left: 225px;
+                    margin-top: 10px;
+                }
+                .dropboxAll{
+                      display: block;
+                      margin-left: 100px;
+                }
+                .dropbox1{
+                    
+                   
+                    
                 }
                 
-                .th{
+                .dropbox2{
+                  
+                  margin-left: 250px;
+                  margin-top: -37px;
+                }
+                
+                .client{
+                    margin-top: 30px;
+                }
+                
+                .submitsecond{
                     
-                    width:2%;
-                    height: 20%;
-                    color: wheat;        
-                }
-                .td{
-                    width:2%;
-                    height: 20%;
-                    color: whitesmoke;  
-                }
-                .r{
-                    
-                    counter-increment: 1;
-                }
-                .div{
-                    
-                    margin-left: 20%;
-                }
-                .juve{
-                    
-                    width:90px;
-                    height: 100px;
-                    margin-left: 50px;
-                }
-                .in{
-                    
-                    width:5px;
-                    margin-left: -10px;
-                }
-                .input_text{
-                    margin-top: 25px;
-                }
-                .label2{
-                   margin-left: 10px;
-                }
-                .submitfirst{
-                    margin-left: 50px;
-                    margin-top: 25px;
-                }
-                .div2{
-                    margin-top: -100px;
-                    margin-left: 200px;
+                    margin-left: 100px;
+                        width:25%;
+                    height: 50px;
+                    border:1px solid;
+                    background: #23a6d5;
+                    border-radius: 25px;
+                    font-size: 18px;
+                    color: #ffffff;
+                    font-weight: 800;
+                    text-align: center;
+                   
                         
+                    display: block;
+                    position: relative;
+                    
+                    margin-top: -77px;
+                    margin-left: 300px;
                 }
         </style>
     </head>
     <body>
+       <div class="container">
+        <h1>Note Personelles</h1>
        
-    <form action="#"  th:action="@{/affichageresult}" th:object="${output}"  method="GET">
-     <div class="juve">
-          <div class="dropboxAll">  
-            <div class="dropbox1">
-                <div> <label class="label">Tournoi :       </label></div>
-                    <select  th:field="*{nom}">
-                    <option  th:each="items: ${nameofcompet}" th:value="${items}"  th:text="${items}"   ></option>
-                    </select>     
-            </div>
-              
-            <div class="dropbox2">
-                  <div><label class="label">Dates :</label></div>
-                  <select  th:field="*{prenom}" >
-                    <option value="2021-04-11" >2021-04-11</option>
-                    <option value="2022-04-11" >2022-04-11</option>
-                    <option value="2022-09-11">2022-09-11</option>
-                   </select>          
-            </div> 
-           </div>
+ <form action="#"   th:object="${output}" >
+   
+  <div class="dropboxAll">  
+      <div class="dropbox1">
+          <div> <label class="label">Epreuve     </label></div>
+            <select  th:field="*{nom}"  >
+                   
+                <option  th:each="items: ${nameofcompet}" th:value="${items}"  th:text="${items}"  ></option>
+            </select>     
+  </div>
+   <div class="dropbox2">
+           <div><label class="label">Dates :</label></div>
+            <select  th:field="*{prenom}" >
+                 <option value="2021-04-11" >2021-04-11</option>
+                 <option value="2022-04-11" >2022-04-11</option>
+                 <option value="2022-09-11">2022-09-11</option>
+             </select>          
+  </div> 
+  </div>
      
-        <div class="client">
-        <div class="input_text">
-            <div> <label class="label2">Nom d'utilisateur:       </label></div>
-            <input type="text" class="in"  th:field="*{mdp}" required minlength="2" maxlength="45" >       
-        </div>
+     <div class="client">
+  <div class="input_text">
+          <div> <label class="label">Nom d'utilisateur:       </label></div>
+          <input type="text" class="in"  th:field="*{mdp}" required minlength="2" maxlength="45"  >       
+  </div>
 
-        <input type="submit" value="ok" class="submitfirst" >
-        <div class="signup">  <a href="http://127.0.0.1:8080/PageAccueil" title="Retour"><b>Retour</b></a>
-        </div>          
-    </div>
-            </div>
-        
-          <div class="div2">
-        <table class="table-dark">
-            <thead>
-                <tr>
-                    <th scope="col" class="th">#</th>
-                    <th scope="col" class="th">Nom</th>
-                    <th scope="col" class="th">Epreuve</th>
-                    <th scope="col" class="th">1 ere Note</th>
-                    <th scope="col" class="th">2 eme Note</th>
-                    <th scope="col" class="th">Moyenne </th>
-                </tr>   
-            </thead>
-            <tbody>
-                <tr >
-                    <th scope="row" class="r"  th:each="obj: ${result}" ></th>
-                    <td class="td" th:text="#"></td>
-                     <td class="td" th:text="${obj.nom}"></td>
-                      <td class="td" th:text="${obj.nomepreuve}"></td>
-                       <td class="td" th:text="${obj.note1}"></td>
-                        <td class="td" th:text="${obj.note2}"></td>
-                        <td class="td" th:text="${obj.notetotal}"></td>
-                </tr>   
-            </tbody> 
-        </table>
-        </div>   
-     </form>
-        
+               <input type="submit" value="note perso" class="submitfirst" th:formaction="@{/affichageresulnoteperso}" method="GET">
+               <input type="submit" value="Toutes les notes" class="submitfirst3" th:formaction="@{/affichageresultallnote}" method="GET">
+                <div class="signup">  <a href="http://127.0.0.1:8080/PageAccueil" title="Retour"><b>Retour</b></a>
+                </div>
+   
+       </div>
+    </form>
+ </div>
+      
     </body>
 </html>

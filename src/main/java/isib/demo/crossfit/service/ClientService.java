@@ -174,12 +174,12 @@ public class ClientService {
     
     
      //recuper l'id à travers le username et le password pour recuperer l'id
-    public Optional<Clients> GetLogin(String username,String password){
+    public Clients GetLogin(String username,String password){
     
         Clients c = clientRepository.GetLogin(username, password);
-        Optional<Clients> result = Optional.of(c);
+        //Optional<Clients> result = Optional.of(c);
         
-        return result;
+        return c;
     }
     
     
@@ -191,5 +191,7 @@ public class ClientService {
         
         return result;
       }
+      
+      
 
 }

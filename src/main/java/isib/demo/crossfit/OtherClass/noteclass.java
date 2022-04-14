@@ -9,15 +9,33 @@ package isib.demo.crossfit.OtherClass;
  * @author aliou
  */
 public class noteclass {
+    private int id;
     private String nom;
     private String nomepreuve;
     private int note1;
     private int note2;
     private int notetotal;
+    private String prenom;
+
+ 
 
     public noteclass(){}
     
     
+      public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+      public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getNom() {
         return nom;
     }

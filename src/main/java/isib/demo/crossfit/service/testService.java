@@ -137,16 +137,17 @@ public class testService {
         return c;
     }
 
-    
-    public Optional<List<Object[]>> GetTestbyEpreuve(String nomEpreuves, String Nomclients, String date) {
+    //on recupere les notes de chaque client qui est inscrit à un tournoi et qui a effectué une epreuve
+    public Optional<List<Object[]>> GetTestbyEpreuve(@Param("nomEpreuve")String nomEpreuves,@Param("dates") String date) {
 
         // TypedQuery<Object[]> query = em.createQuery(" select e ,k from Test t join t.epreuve e join e.competitionCollection c  join c.inscritCollection i join i.clients k where e.nEpreuve=:nomEpreuve and k.nom=:nomClient",Object[].class);
-        List<Object[]> c = testRepository.GetTestbyEpreuve(nomEpreuves, Nomclients, date);
+        List<Object[]> c = testRepository.GetTestbyEpreuve(nomEpreuves, date);
         Optional<List<Object[]>> result = Optional.of(c);
 
         return result;
     }
     
+    //on recupere les notes d'un clients dans chacune des epreuves qu'il a effectué
     public List<Object[]> GetTestbyclientAndDates(@Param("nomClient") Integer idclients,@Param("dates") String date){
         
         List<Object[]> c = testRepository.GetTestbyclientAndDates( idclients, date);
@@ -180,15 +181,20 @@ public class testService {
 
             int count = 0;
             if (listnote.size() >= 1) {
-                for (var item2 : listnote) {
-
-                    //je verifie si le item2 n' a pas le meme id qu'un element de la liste
-                    if (item2.getNomepreuve() == noteclass.getNomepreuve()) {
-
+                
+                    for(int i = (listnote.size()-1) ; i >=0 ; i--){
+                    noteclass classe= listnote.get(i);
+                        if(classe.getNomepreuve()==noteclass.getNomepreuve()){
+                    
+                      
                         //si c'est le cas, alors j'ajoute la deuxieme note dans un attribut de noteclass
-                        item2.setNote2(noteclass.getNote1());
-                        item2.setNotetotal((item2.getNote1() + item2.getNote2()) / 2);
+                        classe.setId(listnote.size());
+                        classe.setNote2(noteclass.getNote1());
+                        classe.setNotetotal((classe.getNote1() + classe.getNote2()) / 2);
+                       //count permet de savoir si le meme client a une deuxieme note ,ducoup s'il a une une deuxième note , on l'ajoute pas dans la liste
+                       //mais on rajoute juste sa deuxieme note dans l'objet en question
                         count++;
+                     
                     }
 
                 }
@@ -215,6 +221,66 @@ public class testService {
     }
 
     
+   public List<noteclass> getAllNotebyepreuve(String epreuve, String dates) {
+         //j'intancie la liste dans laquelle les données du clients
+        List<noteclass> listnote = new ArrayList<noteclass>();
+
+        //je recupere la liste d'objet
+        List<Object[]> ListGetObject = this.GetTestbyEpreuve(epreuve, dates).get();
+        if(ListGetObject != null){
+       
+
+        for (var item : ListGetObject) {
+            Epreuve e = (Epreuve) item[0];
+            Clients c = (Clients) item[1];
+            Test b = (Test) item[2];
+
+            noteclass noteclass = new noteclass();
+
+            noteclass.setNom(c.getNom());
+            noteclass.setPrenom(c.getPrenom());
+            noteclass.setNote1(b.getNote());
+
+            int count = 0;
+            if (listnote.size() >= 1) {
+                
+                    for(int i = (listnote.size()-1) ; i >=0 ; i--){
+                        noteclass classe= listnote.get(i);
+                        if(classe.getNom()==noteclass.getNom()){
+                    
+                      
+                        //si c'est le cas, alors j'ajoute la deuxieme note dans un attribut de noteclass
+                        classe.setId(listnote.size());
+                        classe.setNote2(noteclass.getNote1());
+                        classe.setNotetotal((classe.getNote1() + classe.getNote2()) / 2);
+                       //count permet de savoir si le meme client a une deuxieme note ,ducoup s'il a une une deuxième note , on l'ajoute pas dans la liste
+                       //mais on rajoute juste sa deuxieme note dans l'objet en question
+                        count++;
+                     
+                    }
+
+                }
+
+            }
+
+            if (count == 0) {
+                listnote.add(noteclass);
+            }
+        }
+
+        return listnote;
+    }else{
+            noteclass note= new noteclass();
+            note.setNom("");
+            note.setNomepreuve("");
+            note.setNote1(0);
+            note.setNote2(0);
+            note.setNotetotal(0);
+            listnote.add(note);
+            return listnote;
+        
+        }
+    }
 
 
 

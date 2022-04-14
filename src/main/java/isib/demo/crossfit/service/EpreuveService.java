@@ -37,13 +37,23 @@ public class EpreuveService {
     @PersistenceContext
     private EntityManager em;
 
+    
+    
     //Get all Epreuve 
-    public Iterable<Epreuve> GetFindAll() {
+    public List<Epreuve> GetFindAll() {
 
-        Iterable<Epreuve> result = epreuveRepository.findAll();
+        List<Epreuve> result = (List<Epreuve>) epreuveRepository.findAll();
 
         return result;
     }
+    
+    public List<String> getalldataonEpreuve(){
+    
+         List<String> result =  epreuveRepository.getalldataonEpreuve();
+         return result;
+    
+    }
+    
 
     //update 
     public Epreuve UpdateEpreuve(Epreuve epreuve) {

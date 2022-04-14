@@ -63,12 +63,7 @@ public class Crossfitclass {
     public String nomuser = "";
     public String password = "";
 
-    //*****login***
-    @GetMapping("/login")
-    public String login() {
-
-        return "login";
-    }
+  
 
     //*****Page d'Accueil******
     @GetMapping("/**")
@@ -106,10 +101,15 @@ public class Crossfitclass {
     }
 
     @PostMapping("/Inscript")
-    public String postInscription(@ModelAttribute Clients newclient) {
-        clientservice.CreateClients(newclient);
-
-        return "success";
+    public String postInscription(@ModelAttribute Clients newclient,Model model) {
+            //on verifie pour savoir si ce username existe,sion on peut dès lors crée 
+        if (clientservice.ForgotPassword(newclient.getUsername()) == null) {
+            clientservice.CreateClients(newclient);
+            return "success";
+        } else {
+          
+            return "redirect:Inscription";
+        }
     }
 
     //****** Inscription au tournoi ********
@@ -191,70 +191,7 @@ public class Crossfitclass {
 
     }
 
-    //***** modification du mot de passe ******
-    @GetMapping("/UpdatePassword")
-    public String updatePass() {
-
-        return "UpdatePassword";
-    }
-
-    @GetMapping("/Forgot")
-    public String forgotPass(Model model) {
-        //String name="";
-        model.addAttribute("username", new StringMessage());
-        return "ForgotPassword";
-    }
-
-    //***Post***
-    @PostMapping("/Forgot")
-    public String postforgot(@ModelAttribute StringMessage name, Model model) {
-        //je cherche parmis les clients le client qui a comme username name.getNom()
-        try {
-            Optional<Clients> c = clientservice.ForgotPassword(name.getNom());
-            nomuser = name.getNom();
-            if (c.isPresent()) {
-
-                // model.addAttribute("users", c.get());
-                model.addAttribute("users3", new StringMessage());
-
-                return "UpdatePassword";
-            } else {
-
-                return "PageAccueil";
-            }
-        } catch (Exception e) {
-
-            return "PageAccueil";
-        }
-    }
-
-    //on modifie le mot de passe
-    @GetMapping("/Forgot2")
-    public String putforgot(@RequestParam StringMessage mdp) {
-        //public String putforgot(@ModelAttribute StringMessage password) {
-        try {
-
-            Optional<Clients> c = clientservice.ForgotPassword(nomuser);
-
-            if (c.isPresent()) {
-                Clients s;
-                s = c.get();
-                s.setPasswordclient(mdp.getNom());
-                clientservice.UpdateClients(s);
-
-                return "successupdatepassword";
-
-            } else {
-
-                return "PageAccueil";
-            }
-        } catch (Exception e) {
-
-            return "PageAccueil";
-        }
-
-    }
-
+    
     //********modification du client*********
     @GetMapping("/Modificationclient/")
     public String UpdateClient(@RequestParam StringMessage mdp, Model model) {
