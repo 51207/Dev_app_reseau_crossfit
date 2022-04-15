@@ -186,10 +186,15 @@ public class ClientService {
     //recuperer le client qui a comme username:String username
       public  Optional<Clients> ForgotPassword(@Param("username") String username){
       
+       try{
         Clients c = clientRepository.ForgotPassword(username);
         Optional<Clients> result = Optional.of(c);
         
         return result;
+       }catch(NullPointerException e){
+       
+       return null;
+       }
       }
       
       

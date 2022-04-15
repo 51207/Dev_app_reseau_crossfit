@@ -69,7 +69,10 @@ public class testService {
         }
     }
 
+    
+    //recuperer tout les test  à partir d'un id.
     public Optional<List<Test>> GetAllTestById(Integer id) {
+       try{
         Test c = em.find(Test.class, id);
         Optional<Test> res = Optional.of(c);
         Optional< List<Test>> result=null;
@@ -78,6 +81,26 @@ public class testService {
             result = Optional.of(s);
         }
         return result;
+       }catch(NullPointerException e){return null;}
+    }
+    
+    
+    
+    //pour supprimer tous les test trouvée par rapport à un id 
+    public  void DeleteAllTestSelectedById(Optional<List<Test>> list){
+    
+        if( list.get() != null){
+        
+            try{
+            
+                for(var item : list.get()){
+                        testRepository.delete(item);
+                    
+                }
+                
+            }catch(NullPointerException e){}
+        }
+    
     }
 
     //delete    

@@ -95,7 +95,8 @@ public class InscritService {
     
     //recuperer tous les objets inscrit dont le nic = id
      public Optional<List<Inscrit>> GetAllInscritById(Integer id) {
-        Inscrit c = em.find(Inscrit.class, id);
+        try{
+         Inscrit c = em.find(Inscrit.class, id);
         Optional<Inscrit> res = Optional.of(c);
         Optional< List<Inscrit>> result=null;
         if(res.isPresent()){
@@ -103,8 +104,28 @@ public class InscritService {
             result = Optional.of(s);
         }
         return result;
+           
+     }catch(NullPointerException e){return null;}
     }
     
+        //pour supprimer tous les test trouvée par rapport à un id 
+    public  void DeleteAllInscritSelectedById(Optional<List<Inscrit>> list){
+    
+        if( list.get() != null){
+        
+            try{
+            
+                for(var item : list.get()){
+                        inscritRepository.delete(item);
+                    
+                }
+                
+            }catch(NullPointerException e){}
+        }
+    
+    }
+     
+     
    //nouvelle inscription
     public Inscrit InsertToCompetition(Competition compet,Clients client ,String date) {
 

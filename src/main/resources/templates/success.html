@@ -55,10 +55,131 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                       margin-top: 40px;
                     
                 }
-
+                 .div-menu-bar{
+                            
+                            background-color:black;
+                            
+                        }
+                        .div-menu-bar ul {
+                            
+                           display: inline-flex;
+                           list-style: none;
+                           color:white;
+                           margin: auto;
+                           margin-left: 350px;
+                           
+                        }
+                        .div-menu-bar ul li {
+                   
+                            display: inline-flex;
+                          
+                            width: 150px;
+                            margin:15px;
+                            padding: 10px;
+                            font-size: 20px;
+                            /*font-size: 20px;
+                            border-bottom: auto;
+                            border-left: auto;
+                            margin-left: 100px;
+                            margin-top:  auto;*/
+                      
+                        }
+                       .c {
+                            
+                            color: white;
+                            background-color: black;
+                            text-decoration: none;
+                            list-style: none;
+                           
+                        }
+                        ul li a:hover{
+                                color:blueviolet;
+                                list-style-type: none;
+                           }   
+                           .texts{
+                               margin-top: 12%;
+                               
+                           }
+                           
+                           .clogin{
+                               list-style: none;
+                           }
+                           .sub-menu-1{
+                               display: none;
+                                
+                           }
+                           .div-menu-bar ul li:hover .sub-menu-1{
+                               display: block;
+                               position: absolute;
+                               background: black;
+                               margin-top: 25px;
+                               margin-left: -50px;
+                           }
+                          
+                           .connect{
+                               
+                               margin-left: -330px;
+                           } 
+                           
+                           .endline{
+                               
+                               margin-top:340px;
+                           } 
+                           .crossfit{
+                               
+                               margin-top: 20px;
+                              
+                           }
         </style>
     </head>
     <body>
+        <div class="header">
+		<nav>
+                    <div class="div-menu-bar">
+			<ul>
+				<li >
+					<a href="http://127.0.0.1:8080/PageAcceuil" title="Acceuil"  class="c"> <b>Accueil</b></a>
+				</li>
+				  <!--<li >
+                                  <a href="http://127.0.0.1:8080/Inscription" title="Inscription" class="c"><b>Inscription</b> </a>
+					
+					</li>-->
+                                                <li >
+							<a href="http://127.0.0.1:8080/Affichage" title="Notes" class="c"><b>Notes</b> </a>
+
+						</li>
+						<li >
+							<a href="http://127.0.0.1:8080/Tournoi" title="Inscritpion Tournoi" class="c"><b>Inscritpion Competition</b> </a>
+							
+						</li>
+						<li >
+							<a href="http://127.0.0.1:8080/personnel" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
+							
+						</li>
+					
+				
+                                        <li>
+                                                <a href="http://127.0.0.1:8080/PageAcceuil" title="Classement" class="c"><b>Classement</b> </a>
+                                        </li>
+                                        <li class="li"><a class="c" ><b>Login</b> </a> 
+                                    
+					<!--<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a> -->
+                                        <div class="sub-menu-1">
+                                        <ul>
+                                             <li><a href="http://127.0.0.1:8080/login" title="Connexion" class="connect"><b>Connexion</b> </a></li>
+                                             <li><a href="http://127.0.0.1:8080/login" title="Deconnexion" class="connect"><b>Deconnexion</b> </a></li>
+                                          </ul>
+                                        </div>
+                                          </li>
+				
+			</ul>
+		
+                    </div>
+			
+			<hr>
+		</nav>
+	</div>
+        
         <div class="login_c">
            
             <div class="sp"><b>Merci pour votre inscription</b> </div>

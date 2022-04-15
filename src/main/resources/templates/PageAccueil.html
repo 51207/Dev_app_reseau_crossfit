@@ -5,112 +5,172 @@
          <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
 
 		 <style>
-			 body{
-				
-                                 background-image: url('@{/images/crossfits_11.jpg}');
-				
-			}
-
 			
+                     *{
+                         padding:0;
+                         margin: 0;
+                         box-sizing: border-box;
+                         
+                     }  
+                     body{
+                         background: linear-gradient(-150deg, #fff,   #fff, #23a6d5, #fff);
+                         background-size: cover;
+                         background-position: center;
+                         
+                     }
 			 footer{
-    		background-color:burlywood ;
-    		top:200px;
-   		   right: 10px;  
+                          background-color:transparent ;
+    		         top:200px;
+   		         right: 10px;
+                         
  			}
-                        .menuheader{
-                            
-                             display: inline-table;
-                        }
+                      
                         
                         .crossfit{
                             
                             display: block;
                             text-align: center;
                         }  
-                        .li{
+                      
+                        
+                        .div-menu-bar{
                             
+                            background-color:black;
                             
-                            display: inline-table;
-                            background: wheat;
-                         
-                            font-size: 18px;
+                        }
+                        .div-menu-bar ul {
+                            
+                           display: inline-flex;
+                           list-style: none;
+                           color:white;
+                           margin: auto;
+                           margin-left: 350px;
+                           
+                        }
+                        .div-menu-bar ul li {
+                   
+                            display: inline-flex;
+                          
+                            width: 150px;
+                            margin:15px;
+                            padding: 10px;
+                            font-size: 20px;
+                            /*font-size: 20px;
                             border-bottom: auto;
                             border-left: auto;
                             margin-left: 100px;
-                            margin-top:  auto;
-                            
-                            
+                            margin-top:  auto;*/
+                      
                         }
-                        
-                        .div{
-                            
-                            background-color: black;
-                        }
-                        .c{
+                       .c {
                             
                             color: white;
                             background-color: black;
                             text-decoration: none;
+                            list-style: none;
+                           
                         }
                         ul li a:hover{
                                 color:blueviolet;
                                 list-style-type: none;
                            }   
                            .texts{
-                               margin-top: 7%;
+                               margin-top: 12%;
+                               
                            }
+                           
+                           .clogin{
+                               list-style: none;
+                           }
+                           .sub-menu-1{
+                               display: none;
+                                
+                           }
+                           .div-menu-bar ul li:hover .sub-menu-1{
+                               display: block;
+                               position: absolute;
+                               background: black;
+                               margin-top: 25px;
+                               margin-left: -50px;
+                           }
+                          
+                           .connect{
+                               
+                               margin-left: -330px;
+                           } 
+                           
+                           .endline{
+                               
+                               margin-top:340px;
+                           } 
+                           .crossfit{
+                               
+                               margin-top: 20px;
+                              
+                           }
+                           
+                         
 		 </style>
 </head>	
 	<body>
 		
 		
 		
-		<div id="box1">
+		<!-- <div id="box1">
 			<img th:src="@{/images/crossfit_16.jpg}" width="1600px" height="200px">
 
-			</div>
+			</div>-->
 		<!--<h1 id="nom">
 				Crossfit Competition</h1>--> 
-		<div id="box2"></div>
+		<!--<div id="box2"></div>
 		<div id="box3"></div>
-		<div id="box4"></div>
+		<div id="box4"></div>-->
 		
 		<!-- menu de navigation -->
 
 		
 	<div class="header">
 		<nav>
-                    <div class="div">
-			<ul class="menuheader">
-				<li class="li">
-					<a href="http://127.0.0.1:8080/PageAcceuil" title="Acceuil"  class="c"><b>Accueil</b></a>
+                    <div class="div-menu-bar">
+			<ul>
+				<li >
+					<a href="http://127.0.0.1:8080/PageAcceuil" title="Acceuil"  class="c"> <b>Accueil</b></a>
 				</li>
-				<li class="li">
-					<a href="http://127.0.0.1:8080/Inscription" title="Inscription" class="c"><b>Inscription</b> </a>
-					<ui>
-						</ui></li>
-                                                <li class="li">
+				  <!--<li >
+                                  <a href="http://127.0.0.1:8080/Inscription" title="Inscription" class="c"><b>Inscription</b> </a>
+					
+					</li>-->
+                                                <li >
 							<a href="http://127.0.0.1:8080/Affichage" title="Notes" class="c"><b>Notes</b> </a>
 
 						</li>
-						<li class="li">
-							<a href="http://127.0.0.1:8080/Tournoi" title="New Competition" class="c"><b>New Competition</b> </a>
+						<li >
+							<a href="http://127.0.0.1:8080/Tournoi" title="Inscritpion Tournoi" class="c"><b>Inscritpion Competition</b> </a>
 							
 						</li>
-						<li class="li">
-							<a href="http://127.0.0.1:8080/Forgot" title="Caracteristiques" class="c"><b>Données personnelles</b> </a>
+						<li >
+							<a href="http://127.0.0.1:8080/personnel" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
 							
 						</li>
 					
 				
-				<li class="li">
-					<a href="http://127.0.0.1:8080/PageAcceuil" title="Contact" class="c"><b>Classement</b> </a>
-				</li>
-                                <li class="li">
-					<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a>
-				</li>
+                                        <li>
+                                                <a href="http://127.0.0.1:8080/PageAcceuil" title="Classement" class="c"><b>Classement</b> </a>
+                                        </li>
+                                        <li class="li"><a class="c" ><b>Login</b> </a> 
+                                    
+					<!--<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a> -->
+                                        <div class="sub-menu-1">
+                                        <ul>
+                                             <li><a href="http://127.0.0.1:8080/login" title="Connexion" class="connect"><b>Connexion</b> </a></li>
+                                             <li><a href="http://127.0.0.1:8080/login" title="Deconnexion" class="connect"><b>Deconnexion</b> </a></li>
+                                          </ul>
+                                        </div>
+                                          </li>
+				
 			</ul>
 		
                     </div>
@@ -118,21 +178,26 @@
 			<hr>
 		</nav>
 	</div>
-<div class="texts">
-    <div id="crossfit" class="crossfit" style="font-size:24px;"><h1><b>LA COMPETITION DE CROSSFIT EST OUVERTE</b> </h1></div>
-<div id="crossfit" class="crossfit" style="font-size:16px;"><h4><b>Debut d'inscription 1/06/2022 au 1/07/2022</b> </h4></div>
+<div class="blockscript">
+    <div class="texts">
+        <div id="crossfit" class="crossfit" style="font-size:24px;"><h1><b>LA COMPETITION DE CROSSFIT EST OUVERTE</b> </h1></div>
+            <div id="crossfit" class="crossfit" style="font-size:21px;"><h2><b>LA PROCHAINE COMPETITION: MUSCULATION</b> </h2></div>
+        <div id="crossfit" class="crossfit" style="font-size:16px;"><h4><b>Debut d'inscription 1/06/2022 au 1/07/2022</b> </h4></div>
 	
-<div id="crossfit" class="crossfit" style="font-size:20px;"><h2><b>Inscrit toi et entre en competition avec des milliers d'athlètes  en BELGIQUE</b> </h2></div>
-<div id="crossfit" class="crossfit" style="font-size:24px;"><h1><b>Stay for the fun!</b> </h1></div>
-</div>
-<div id="slogan">
-	<img th:src="@{/images/crossfit19.png}" width="200px" height="200px" style="transform:rotate(-30deg);">
+        <div id="crossfit" class="crossfit" style="font-size:20px;"><h2><b>Inscrit toi et entre en competition avec des milliers d'athlètes  en BELGIQUE</b> </h2></div>
+        <div id="crossfit" class="crossfit" style="font-size:24px;"><h1><b>Stay for the fun!</b> </h1></div>
+    </div>
+<!--<div id="slogan">
+	<!--<img th:src="@{/images/crossfit19.png}" width="200px" height="200px" style="transform:rotate(-30deg);">	</div>-->
 
-	</div>
+
 <!-- Pied de page  -->
 		<!-- &copy; = le signe   -->
-		<footer>
+                <div class="endline">
+		<footer >
 			Copyright © Diallo -2021-2022 All right reserved 
-		</footer>		
+		</footer>
+                    </div>
+                </div>
 </body>
 </html>

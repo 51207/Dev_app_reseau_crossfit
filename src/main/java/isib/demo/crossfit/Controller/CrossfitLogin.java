@@ -50,12 +50,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
  * @author aliou
  */
 @Controller
+@SessionAttributes({"loginusername"})
 public class CrossfitLogin {
      @Autowired
     private ClientService clientservice;
@@ -82,16 +84,18 @@ public class CrossfitLogin {
     @GetMapping("/login")
     public String login(Model model) {
        model.addAttribute("login", new Clients());
+       
         return "login";
     } 
     
     @PostMapping("/login")
-    public String logins(@ModelAttribute Clients client){
+    public String logins(@ModelAttribute Clients client,Model model){
     
         Clients c = clientservice.GetLogin(client.getUsername(), client.getPasswordclient());
         
     if(c != null){
-    
+        nomuser= client.getUsername();
+        Crossfitclass.nomuser=client.getUsername();
     return "PageAccueil";
     
     }else{
@@ -99,6 +103,13 @@ public class CrossfitLogin {
     }
     
     }
+    
+    @GetMapping("/personnel")
+    public String DonneePersonnel() {
+
+        return "DonneePersonnel";
+    }
+    
     
     
     //***** modification du mot de passe ******
@@ -108,20 +119,25 @@ public class CrossfitLogin {
         return "UpdatePassword";
     }
 
+    
+    
     @GetMapping("/Forgot")
     public String forgotPass(Model model) {
         //String name="";
         model.addAttribute("username", new StringMessage());
+        
         return "ForgotPassword";
     }
 
     //***Post***
     @PostMapping("/Forgot")
-    public String postforgot(@ModelAttribute StringMessage name, Model model) {
+    public String postforgot(@ModelAttribute StringMessage name, Model model ) {
+        //@ModelAttribute("loginusername") String use
         //je cherche parmis les clients le client qui a comme username name.getNom()
         try {
             Optional<Clients> c = clientservice.ForgotPassword(name.getNom());
             nomuser = name.getNom();
+            Crossfitclass.nomuser=name.getNom();
             if (c.isPresent()) {
 
                 // model.addAttribute("users", c.get());
@@ -142,6 +158,7 @@ public class CrossfitLogin {
     @GetMapping("/Forgot2")
   
     public String putforgot(@RequestParam StringMessage mdp) {
+        //@ModelAttribute("loginusername") String use
         //public String putforgot(@ModelAttribute StringMessage password) {
         try {
 

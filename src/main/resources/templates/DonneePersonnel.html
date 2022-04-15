@@ -8,80 +8,48 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-           <style>
-            
-             body{
-               
+        
+         <style>
+            body{
                 margin: 0;
                 padding: 0;
              
-                background: linear-gradient(-150deg, #ff7592, #e74c7e, #23a6d5, #29d5ab);
+                background: linear-gradient(200deg, #ee7592, #e74c7e, #23a6d5, #29d5ab);
                 background-size: 400% 400%;
                 animation: gradient 15s ease infinite;
                 height: 100vh;
                 }
-                
-              
-            .container{
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%,-50%);
-               
-                background: whitesmoke;
-                text-align: center;
-                border-radius: 50px;
-                text-align: left;
 
-               
-                
-                width: 500px;
-                height: 400px;
-               
-            }
-            
-              .container h1{
+                .login_c{
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    width: 500px;
+                    height: 500px;
+                    background: whitesmoke;
+                    text-align: center;
+                    border-radius: 25px;
+                    
+                }
+                .login_c h2{
                     
                     text-align: center;
                     padding: 0 0 20px 0;
                     border-bottom:  1px solid silver;
-                    font-size: 25px;
-                }
-               
-            
-            .input_text{
-                
-               left: 60%;
-               height: 50px;
-               padding-left: 10%;
-            }
-            
-            .country {
-            background-color: chocolate;
-            color: white;
-            padding: 0px;
-           
-           
-            }
-            .Send{
-                
-               background-color: brown;          
-               color: white;
-               padding: 15px; 
-            }
-              .titre{
-                   text-align: center;
-               }
-            
-               input[type="submit"]{
-                    
-                
-                   
+                    font-size: 30px;
                 }
                 
-                .submitfirst{
+                form input_text1{
+                    position: relative;
+                    border-bottom: 2px solid #adadad;
+                    margin: 10px 0;
                     
-                        width:25%;
+                }
+                
+                input[type="submit"]{
+                    
+                    width:50%;
                     height: 50px;
                     border:1px solid;
                     background: #23a6d5;
@@ -89,82 +57,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     font-size: 18px;
                     color: #ffffff;
                     font-weight: 800;
-                    text-align: center;
-                   
-                        
-                    display: block;
-                    position: relative;
-                    margin-left: 50px;;
-                    margin-right: auto;
-                    margin-top: 20px;
+                     margin-top: 20px;
                 }
-                
                
-                
-                .in{
+                p{
                     
-                    
-                    margin:auto;
-                    width: 300px;
-                    padding-right :100px;
-                    
-                }
-                 
-                label{
-                       width: 400px;
-                }
-                .p{
-                    text-align: center;
-                }
-            
+                    font-family: sans-serif;
+                    font-size: 16px;
+                } 
                 .signup{
                     
-                    margin-left: 225px;
-                    margin-top: 10px;
+                    margin-top: 20px;
                 }
-                .dropboxAll{
-                      display: block;
-                      margin-left: 100px;
-                }
-                .dropbox1{
-                    
-                   
-                    
-                }
-                
-                .dropbox2{
-                  
-                  margin-left: 250px;
-                  margin-top: -37px;
-                }
-                
-                .client{
-                    margin-top: 30px;
-                }
-                
-                .submitsecond{
-                    
-                    margin-left: 100px;
-                        width:25%;
-                    height: 50px;
-                    border:1px solid;
-                    background: #23a6d5;
-                    border-radius: 25px;
-                    font-size: 18px;
-                    color: #ffffff;
-                    font-weight: 800;
-                    text-align: center;
-                   
-                        
-                    display: block;
-                    position: relative;
-                    
-                    margin-top: -77px;
-                    margin-left: 300px;
-                }
-                
-                /*menu*/
-                .div-menu-bar{
+                 .div-menu-bar{
                             
                             background-color:black;
                             
@@ -224,16 +129,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                margin-top: 25px;
                                margin-left: -50px;
                            }
-                             .connect{
+                          
+                           .connect{
                                
                                margin-left: -330px;
                            } 
+                           
+                           .endline{
+                               
+                               margin-top:340px;
+                           } 
+                           .crossfit{
+                               
+                               margin-top: 20px;
+                              
+                           }
         </style>
     </head>
     <body>
-       
         
-    <div class="header">
+        <div class="header">
 		<nav>
                     <div class="div-menu-bar">
 			<ul>
@@ -253,7 +168,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 							
 						</li>
 						<li >
-							<a href="http://127.0.0.1:8080/personnel" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
+							<a href="http://127.0.0.1:8080/Forgot" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
 							
 						</li>
 					
@@ -279,45 +194,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 			<hr>
 		</nav>
 	</div>
-        <div class="container">
-        <h1>Tournoi</h1>
-    
         
- <form action="#" th:action="@{/InscritTournoi}" th:object="${compet2}">
-   
-    
-  <div class="dropboxAll">  
-      <div class="dropbox1">
-          <div> <label class="label">Tournoi :       </label></div>
-            <select  th:field="*{nom}"  >
-                   
-                <option  th:each="items: ${compet}" th:value="${items}"  th:text="${items}"   ></option>
-            </select>     
-  </div>
-   <div class="dropbox2">
-           <div><label class="label">Dates :</label></div>
-            <select  th:field="*{prenom}" >
-                 <option value="2021-04-11" >2021-04-11</option>
-                 <option value="2022-04-11" >2022-04-11</option>
-                 <option value="2022-09-11">2022-09-11</option>
-             </select>          
-  </div> 
-  </div>
-     
-     <div class="client">
-  <div class="input_text">
-          <div> <label class="label">Nom d'utilisateur:       </label></div>
-          <input type="text" class="in"  th:field="*{mdp}" required minlength="2" maxlength="45"  >       
-  </div>
-
-                 <input type="submit" value="S'inscrire" class="submitfirst" method="Get">
+       <div class="login_c">
+           
+            <h2> Données Personnelles</h2>
+            <form >
+                
+                
+               
+             
+                <input type="submit" value="modifier client" class="client"  th:formaction="@{/Modificationclient/}" method="GET">
+                <input type="submit" value="supprimer client" class="client"  th:formaction="@{/deleteclient}" method="GET">
                 <div class="signup">  <a href="http://127.0.0.1:8080/PageAccueil" title="Retour"><b>Retour</b></a>
                 </div>
-   
+                </form>
        </div>
-    </form>
- </div>
-     
-      
     </body>
 </html>

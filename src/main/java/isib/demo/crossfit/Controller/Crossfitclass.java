@@ -60,7 +60,7 @@ public class Crossfitclass {
     private testService testService;
 
     //****** variable utiliser dans la conservateur du user et du password *******
-    public String nomuser = "";
+    public static String nomuser = "";
     public String password = "";
 
   
@@ -194,7 +194,8 @@ public class Crossfitclass {
     
     //********modification du client*********
     @GetMapping("/Modificationclient/")
-    public String UpdateClient(@RequestParam StringMessage mdp, Model model) {
+    public String UpdateClient( Model model) {
+    //public String UpdateClient(@RequestParam StringMessage mdp, Model model) {
 
         try {
             Optional<Clients> c = clientservice.ForgotPassword(nomuser);
@@ -239,14 +240,20 @@ public class Crossfitclass {
 
     //******* supprimer un client *********
     @GetMapping("/deleteclient")
-    public String deleteclient(@RequestParam StringMessage mdp) {
-
+    public String deleteclient() {
+       //public String deleteclient(@RequestParam StringMessage mdp)
+        //@ModelAttribute("loginusername") String nomuser
         try {
             Optional<Clients> c = clientservice.ForgotPassword(nomuser);
             if (c.isPresent()) {
                 Clients s;
                 s = c.get();
                 s.setNic(c.get().getNic());
+                
+                //rechercher  quels sont les notes qu'on lui a donnée dans des competitions            
+                 testService.DeleteAllTestSelectedById(testService.GetAllTestById(c.get().getNic()));
+                 //rechercher s'il a participer à une compétition
+                 inscritService.DeleteAllInscritSelectedById(inscritService.GetAllInscritById(c.get().getNic()));
                 clientservice.DeleteClients(s);
             }
             return "PageAccueil";
