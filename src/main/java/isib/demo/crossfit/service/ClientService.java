@@ -71,6 +71,12 @@ public class ClientService {
         Clients s = em.find(Clients.class, c.getNic());
         return s;
     }
+       //Get Client by nic
+    public Clients GetByNicId(Integer id) {
+
+        Clients s = em.find(Clients.class,id);
+        return s;
+    }
 
     //Create
     public void CreateClients(Clients client) {
@@ -197,6 +203,19 @@ public class ClientService {
        }
       }
       
-      
+        public Clients getClientsByID(Integer IDClient) {
+
+        try {
+
+            Clients c = clientRepository.getClientsByID(IDClient);
+            if (c != null) {
+                return c;
+            } else {
+                return null;
+            }
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
 
 }

@@ -76,13 +76,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             
                 <div class="input_text1">
                     <p><b>Nom d'utilisateur</b></p>
-                    <input type="text" th:field="${login.username}" required minlength="2" maxlength="45"  >       
+                    <input type="text" th:field="*{username}"  required minlength="2" maxlength="45"  >       
                 </div>
                 <div class="input_text2">
                      <p><b>Mot de passe</b></p>
-                    <input type="password"  th:field="${login.passwordclient}"  required minlength="4" maxlength="15">     
+                    <input type="password"  th:field="*{passwordclient}" required minlength="4" maxlength="15">     
                 </div>
-                
+                <p th:text="${errorLogin}" style="color:red; font-size:10px;" ></p>
                   <!-- redirection vers la modification de votre mot de passe-->
                 <div class="forgot"><p> <a href="http://127.0.0.1:8080/Forgot" title="Inscription"><b>Mot de passe oublié?</b></a></p></div>
                 
@@ -92,6 +92,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                   <!-- redirection vers la page d'inscription-->
                 <div class="signup"> Pas membre ? <a href="http://127.0.0.1:8080/Inscription" title="Accueil"><b>Inscription</b></a>
                 </div>
+                    <div class="signup">  <a href="http://127.0.0.1:8080/PageAccueil" title="Retour"><b>Retour</b></a>
                 </form>
         </div>
                 

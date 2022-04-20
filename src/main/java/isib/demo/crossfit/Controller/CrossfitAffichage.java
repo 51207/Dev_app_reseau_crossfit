@@ -41,6 +41,7 @@ import isib.demo.crossfit.service.EpreuveService;
 import isib.demo.crossfit.service.InscritService;
 import isib.demo.crossfit.service.testService;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
@@ -81,9 +82,10 @@ public class CrossfitAffichage {
     }
     
     @GetMapping("/affichageresulnoteperso")
-       public String Affichageresult(@RequestParam String nom, @RequestParam String prenom, @RequestParam String mdp,Model model){
-        Optional<Clients> c = clientservice.ForgotPassword(mdp);
-        
+       public String Affichageresult(@RequestParam String nom, @RequestParam String prenom,Model model,HttpSession session){
+           try{
+           Optional<Clients> c = clientservice.ForgotPassword( session.getAttribute("loginusername").toString());
+          
           List<noteclass> list =   testService.getAllNote(c.get().getNic(), prenom);
           if(list.isEmpty()){
           noteclass note = new noteclass();
@@ -95,15 +97,21 @@ public class CrossfitAffichage {
            
           }
           model.addAttribute("noteclass", list);
-          nom=""; prenom=""; mdp="";
+          nom=""; prenom=""; //mdp="";
            return "shownote";
-         
+           }catch(NullPointerException e){
+               return "redirect:login";
+           }
        }
     
        
         @GetMapping("/affichageresultallnote")
-       public String Affichageallresultbyepreuve(@RequestParam String nom, @RequestParam String prenom, @RequestParam String mdp,Model model){
-          Optional<Clients> c = clientservice.ForgotPassword(mdp);
+       public String Affichageallresultbyepreuve(@RequestParam String nom, @RequestParam String prenom,Model model,HttpSession session){
+          
+          try{
+          Optional<Clients> c = clientservice.ForgotPassword( session.getAttribute("loginusername").toString());
+          
+          
           List<noteclass> list = testService.getAllNotebyepreuve(nom, prenom);
           if(list.isEmpty()){
           noteclass note = new noteclass();
@@ -115,8 +123,16 @@ public class CrossfitAffichage {
            
           }
           model.addAttribute("noteclass", list);
-          nom=""; prenom=""; mdp="";
+          nom=""; prenom=""; //mdp="";
            return "shownoteByEpreuve";
          
+       }catch(NullPointerException e){
+           
+           return "redirect:login";
        }
+       
+       }
+     
+       
+       
 }

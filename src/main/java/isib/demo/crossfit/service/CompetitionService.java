@@ -18,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 /**
@@ -71,6 +72,8 @@ public class CompetitionService {
         }
     }
 
+    
+   
     //update 
     public Competition UpdateCompetition(Competition competition) {
         //verifier que le client existe dans la bd
@@ -83,6 +86,13 @@ public class CompetitionService {
             return null;
         }
     }
+    public void  UpdateCompetitions(Competition competition){
+   try {
+        competitionRepository.save(competition);
+   }catch(Exception e){
+       e.printStackTrace();
+   } 
+   }
 
     //nombre de competition crée
     public Long GetCompetitionCount() {
@@ -139,9 +149,7 @@ public class CompetitionService {
       
 
     }
-    
-    
-    
+      
     
     //trouver toutes les dates de competition
     public Optional<List<String>> GetAllDateOfCompetition() {
@@ -156,6 +164,33 @@ public class CompetitionService {
         Optional<List<String>> result = competitionRepository.GetAllNameofCompetition();
   
        return result;
+    }
+    
+    //recuper l'id à travers le username et le password pour recuperer l'id
+    public Competition GetLogin(String username, String password) {
+
+        try {
+            Competition c = competitionRepository.GetLogin(username, password);
+            return c;
+        } catch (NullPointerException e) {
+            return null;
+        }
+
+    }
+    
+    
+    //recuperer le client qui a comme username:String username
+    public Optional<Competition> ForgotPassword( String username) {
+
+        try {
+            Competition c = competitionRepository.ForgotPassword(username);
+            Optional<Competition> result = Optional.of(c);
+
+            return result;
+        } catch (NullPointerException e) {
+
+            return null;
+        }
     }
 
 }

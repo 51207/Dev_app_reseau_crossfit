@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head xmlns:th="http://www.thymeleaf.org">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+
+            body{
+                margin: 0;
+                padding: 0;
+
+                background: linear-gradient(750deg, #ee7592, #e74c7e, #23a6d5, #29d5ab);
+                background-size: 400% 400%;
+                animation: gradient 15s ease infinite;
+                height: 100vh;
+            }
+
+            .table-dark{
+
+                background-color: #333333;
+                text-align: center;
+                display: block;
+                margin-left: 10%;
+                margin-right: 20%;
+                margin-top: 120px;
+            }
+
+            .th{
+
+                width:2%;
+                height: 20%;
+                color: wheat;
+            }
+            .td{
+                width:2%;
+                height: 20%;
+                color: wheat;
+            }
+
+
+
+            .h2{
+
+                font-size: 50px;
+                color:black;
+                margin-top: 150px;
+                margin-left: 550px;
+            }
+
+
+            .div2{
+                margin-top: -120px;
+                margin-left: 200px;
+
+            }
+            .div-menu-bar{
+
+                background-color:black;
+
+            }
+            .div-menu-bar ul {
+
+                display: inline-flex;
+                list-style: none;
+                color:white;
+                margin: auto;
+                margin-left: 300px;
+
+            }
+            .div-menu-bar ul li {
+
+                display: inline-flex;
+
+                width: 150px;
+                margin:15px;
+                padding: 10px;
+                font-size: 20px;
+                /*font-size: 20px;
+                border-bottom: auto;
+                border-left: auto;
+                margin-left: 100px;
+                margin-top:  auto;*/
+
+            }
+            .c {
+
+                color: white;
+                background-color: black;
+                text-decoration: none;
+                list-style: none;
+
+            }
+            ul li a:hover{
+                color:blueviolet;
+                list-style-type: none;
+            }
+            .texts{
+                margin-top: 12%;
+
+            }
+
+            .clogin{
+                list-style: none;
+            }
+            .sub-menu-1{
+                display: none;
+
+            }
+            .div-menu-bar ul li:hover .sub-menu-1{
+                display: block;
+                position: absolute;
+                background: black;
+                margin-top: 25px;
+                margin-left: -50px;
+            }
+
+            .connect{
+
+                margin-left: -330px;
+            }
+
+            .endline{
+
+                margin-top:340px;
+            }
+            .crossfit{
+
+                margin-top: 20px;
+
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <nav>
+                <div class="div-menu-bar">
+                    <ul>
+                        <li >
+                            <a href="http://127.0.0.1:8080/PageAcceuil" title="Acceuil"  class="c"> <b>Accueil</b></a>
+                        </li>
+                        <!--<li >
+                        <a href="http://127.0.0.1:8080/Inscription" title="Inscription" class="c"><b>Inscription</b> </a>
+                              
+                              </li>-->
+                        <li >
+                            <a href="http://127.0.0.1:8080/Affichage" title="Notes" class="c"><b>Notes</b> </a>
+
+                        </li>
+                        <li >
+                            <a href="http://127.0.0.1:8080/Tournoi" title="Inscritpion Tournoi" class="c"><b>Inscritpion Competition</b> </a>
+
+                        </li>
+                        <li >
+                            <a href="http://127.0.0.1:8080/personnel" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
+
+                        </li>
+
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/classement" title="Classement" class="c"><b>Classement</b> </a>
+                        </li>
+                        <li class="li"><a class="c" ><b>Login</b> </a> 
+
+                            <!--<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a> -->
+                            <div class="sub-menu-1">
+                                <ul>
+                                    <li><a href="http://127.0.0.1:8080/login" title="Connexion" class="connect"><b>Connexion</b> </a></li>
+                                    <li><a href="http://127.0.0.1:8080/deconnexion" title="Deconnexion" class="connect"><b>Deconnexion</b> </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <hr>
+            </nav>
+        </div>
+
+        <div class="div2">
+            <!--  <div th:if="${not #lists.isEmpty(result)}">-->
+            <h2 class="h2">Notes par epreuve </h2>
+            <table class="table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col" class="th">nom</th>
+                        <th scope="col" class="th">Prenom</th>
+                        <th scope="col" class="th">username</th>
+                        <th scope="col" class="th">epreuve</th>
+                        <th scope="col" class="th">jury</th>
+                        <th scope="col" class="th">note </th>
+                    </tr>   
+                </thead>
+
+                <tbody>
+                    <tr th:each="item : ${sessionattribute}">
+                        <td class="td" th:text="${item.nom}" >nom</td>
+                        <td class="td" th:text="${item.Prenom}">Prenom</td>
+                        <td class="td" th:text="${item.username}">username</td>
+                        <td class="td" th:text="${item.NomEpreuve}">epreuve</td>
+                        <td class="td" th:text="${item.Nomjury}" >jury</td>
+                        <td class="td" th:text="${item.PremiereNote}">note</td>
+
+                    </tr>  
+                </tbody>
+            </table>
+
+        </div>   
+    </body>
+</html>

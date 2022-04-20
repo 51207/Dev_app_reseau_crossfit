@@ -130,5 +130,38 @@ public class EpreuveService {
 
         return result;
     }
+    
+    //recupere l'id de l'epreuve en donnant le nom 
+    public Epreuve GetEpreuvebyNomEpreuve(String nomEpreuve) {
+        try {
+            Epreuve e = epreuveRepository.GetEpreuvebyNomEpreuve(nomEpreuve);
+            if (e != null) {
+                return e;
+            } else {
+                return null;
+
+            }
+
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+    
+    public Epreuve FindEpreuve(@Param("nie") Integer nie){
+    
+     try {
+            Epreuve e = epreuveRepository.FindEpreuve(nie);
+            if (e != null) {
+                return e;
+            } else {
+                return null;
+
+            }
+
+        } catch (NullPointerException e) {
+            return null;
+        }
+    
+    }
 
 }

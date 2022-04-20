@@ -32,4 +32,9 @@ public interface ComporteRepository extends CrudRepository<Inscrit, Integer> {
         
         @Query(value="DELETE  From Comporte c")
         public void Deletesingle(Integer NIC);
+        
+        
+    
+        
+    
   }

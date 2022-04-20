@@ -17,6 +17,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 /**
@@ -95,23 +96,21 @@ public class InscritService {
     
     //recuperer tous les objets inscrit dont le nic = id
      public Optional<List<Inscrit>> GetAllInscritById(Integer id) {
-        try{
-         Inscrit c = em.find(Inscrit.class, id);
-        Optional<Inscrit> res = Optional.of(c);
-        Optional< List<Inscrit>> result=null;
-        if(res.isPresent()){
-            List<Inscrit> s = em.createNamedQuery("Inscrit.findByINic",Inscrit.class).setParameter(2,id).getResultList();
-            result = Optional.of(s);
-        }
-        return result;
-           
-     }catch(NullPointerException e){return null;}
+         try{
+        Optional<List<Inscrit>> result=null;
+         List<Inscrit> s ;
+         s= inscritRepository.getAllInscritById(id);
+         result = Optional.of(s);
+        return result; 
+        
+       }
+        catch(NullPointerException e){return null;}
     }
     
         //pour supprimer tous les test trouvée par rapport à un id 
     public  void DeleteAllInscritSelectedById(Optional<List<Inscrit>> list){
     
-        if( list.get() != null){
+        if( !list.get().isEmpty()){
         
             try{
             
@@ -187,7 +186,21 @@ public class InscritService {
             return null;
         }
     }
+    
+    
+    //obtenir tous les id des clients qui participent à cette competition à cette date ci
+    public List<Integer> getAllInscritByDate(String dates) {
 
+        try {
+            List<Integer> c = inscritRepository.getAllInscritByDate(dates);
+            return c;
+        } catch (NullPointerException e) {
+            return null;
+        }
+
+    }
+
+   
     
     
    

@@ -35,7 +35,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                
                 
                 width: 500px;
-                height: 650px;
+                height: 500px;
+                margin-top: 5%;
                
             }
             
@@ -113,6 +114,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             .div-menu-bar{
                             
                             background-color:black;
+                            margin-left: -12%;
                             
                         }
                         .div-menu-bar ul {
@@ -190,104 +192,78 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
    
-        <div class="header">
-		<nav>
-                    <div class="div-menu-bar">
-			<ul>
-				<li >
-					<a href="http://127.0.0.1:8080/PageAcceuil" title="Acceuil"  class="c"> <b>Accueil</b></a>
-				</li>
-				  <!--<li >
-                                  <a href="http://127.0.0.1:8080/Inscription" title="Inscription" class="c"><b>Inscription</b> </a>
-					
-					</li>-->
-                                                <li >
-							<a href="http://127.0.0.1:8080/Affichage" title="Notes" class="c"><b>Notes</b> </a>
+          <div class="header">
+            <nav>
+                <div class="div-menu-bar">
+                    <ul>
+                        <li >
+                            <a href="http://127.0.0.1:8080/PageAccueilOrganisateur" title="Acceuil"  class="c"> <b>Accueil</b></a>
+                        </li>
+                        <li >
+                            <a href="http://127.0.0.1:8080/Create" title="Creation Tournoi" class="c"><b>Creation Tournoi</b> </a>
 
-						</li>
-						<li >
-							<a href="http://127.0.0.1:8080/Tournoi" title="Inscritpion Tournoi" class="c"><b>Inscritpion Competition</b> </a>
-							
-						</li>
-						<li >
-							<a href="http://127.0.0.1:8080/personnel" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
-							
-						</li>
-					
-				
-                                        <li>
-                                                <a href="http://127.0.0.1:8080/classement" title="Classement" class="c"><b>Classement</b> </a>
-                                        </li>
-                                        <li class="li"><a class="c" ><b>Login</b> </a> 
-                                    
-					<!--<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a> -->
-                                        <div class="sub-menu-1">
-                                        <ul>
-                                             <li><a href="http://127.0.0.1:8080/login" title="Connexion" class="connect"><b>Connexion</b> </a></li>
-                                             <li><a href="http://127.0.0.1:8080/deconnexion" title="Deconnexion" class="connect"><b>Deconnexion</b> </a></li>
-                                          </ul>
-                                        </div>
-                                          </li>
-				
-			</ul>
-		
-                    </div>
-			
-			<hr>
-		</nav>
-	</div>
-        
+                        </li>
+                         <li >
+                            <a href="http://127.0.0.1:8080/PersonnelOrganisateur" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
+
+                        </li>
+                       
+                        <li >
+                            <a href="http://127.0.0.1:8080/classementOrganisateur" title="Classement" class="c"><b>Classement</b> </a>
+
+                        </li>
+
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/DateNotation" title="Notation" class="c"><b>Notation</b> </a>
+                        </li>
+                        <li class="li"><a class="c" ><b>Login</b> </a> 
+
+                            <!--<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a> -->
+                            <div class="sub-menu-1">
+                                <ul>
+                                    <li><a href="http://127.0.0.1:8080/login" title="Connexion" class="connect"><b>Connexion</b> </a></li>
+                                    <li><a href="http://127.0.0.1:8080/deconnexion" title="Deconnexion" class="connect"><b>Deconnexion</b> </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <hr>
+            </nav>
+        </div>
         
  <div class="container">
         <h1>Modification </h1>
        
-<form action="#" th:action="@{/MAJclient}" th:object="${userclient}" method="POST" >
+<form action="#" th:action="@{/MAJOrganisateur}" th:object="${userOrganisation}" method="POST" >
     <!-- <form action="#" th:action="@{/success}" th:object="${userclient}"  method="GET"> -->
   <div class="input_text">
           <div> <label class="label">Nom:       </label></div>
-          <input type="text" class="in" th:field="*{nom}" required minlength="2" maxlength="45">       
+          <input type="text" class="in" th:field="*{nomOrganisateur}" required minlength="2" maxlength="45">       
   </div>
    <div class="input_text">
            <div><label class="label">Prenom :</label></div>
-          <input type="text"  class="in"  th:field="*{prenom}" required minlength="2" maxlength="45">       
+          <input type="text"  class="in"  th:field="*{prenomOrganisateur}" required minlength="2" maxlength="45">       
   </div>
      
-     
-   <div class="input_text">
-       <div><label class="label">Rue :     </label></div>
-          <input type="text" class="in" th:field="*{rue}" required minlength="2" maxlength="45">       
-  </div>
-     
-   <div class="input_text">
-         <label class="label">Numero :</label>
-          <input type="text" class="in" th:field="*{numero}" required minlength="1" maxlength="4">       
-  </div>
-   <div class="input_text">
-         <label class="label">Code postal :</label>
-          <input type="text" class="in" th:field="*{cp}" required minlength="4" maxlength="4">       
-  </div>
-   <div class="input_text">
-         <label class="label">Commune :</label>
-          <input type="text" class="in" th:field="*{commune}" required minlength="2" maxlength="45">       
-  </div>
-   <div class="input_text">
-         <label class="label">Telephone  :</label>
-          <input type="text" class="in" th:field="*{tel}" required minlength="10" maxlength="11">       
-  </div>
    <div class="input_text">
          <label class="label">Nom d'utilisateur :</label>
-          <input type="text" class="in"  th:field="*{username}" required minlength="4" maxlength="10">       
+          <input type="text" class="in"  th:field="*{user}" required minlength="4" maxlength="10">       
   </div>
  
    <div class="input_text">
          <label class="label">Mot de passe :</label> 
-        <input type="text" class="in" th:field="*{passwordclient}" required minlength="4" maxlength="15"></div>
+        <input type="text" class="in" th:field="*{password}" required minlength="4" maxlength="15"></div>
 
- <div><input  type="submit" value="Modifier"    > 
+ <div><input  type="submit" value="Modifier"> 
         
  </div>
   
- <p class="p" ><a href="http://127.0.0.1:8080/PageAccueil" title="retour"><b>Retour</b></a></p>
+ <p class="p" ><a href="http://127.0.0.1:8080/PageAccueilOrganisateur" title="retour"><b>Retour</b></a></p>
    </form>
  </div>
 

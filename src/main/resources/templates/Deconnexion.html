@@ -8,55 +8,52 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         <style>
-            
-             body{
+        <style>
+            body{
                 margin: 0;
                 padding: 0;
-             
-                background: linear-gradient(750deg, #ee7592, #e74c7e, #23a6d5, #29d5ab);
+                
+                background: linear-gradient(30deg, #ee7592, #e74c7e, #23a6d3, #29d5ab);
                 background-size: 400% 400%;
                 animation: gradient 15s ease infinite;
                 height: 100vh;
                 }
-   
-                .table-dark{
+
+                .login_c{
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    width: 300px;
+                    height: 300px;
+                     background: linear-gradient(-50deg, #ef7592, #e74c7e, #23a6d3, #29d5ab);
                     
-                    background-color: #333333;
                     text-align: center;
-                    display: block;
-                    margin-left: 10%;
-                    margin-right: 20%;
+                    border-radius: 60px;
+                  
+                    
+                }
+                .login_c h2{
+                    
+                    text-align: center;
+                    padding: 0 0 20px 0;
+                    border-bottom:  1px solid silver;
+                    font-size: 100px;
+                    
+                    
+                }
+              
+                .sp{
+                    
+                    font-family: sans-serif;
+                    font-size: 20px;
+                   
                     margin-top: 120px;
-                }
+                } 
                 
-                .th{
+                .signup{
+                      margin-top: 40px;
                     
-                    width:2%;
-                    height: 20%;
-                    color: wheat;        
-                }
-                .td{
-                    width:2%;
-                    height: 20%;
-                    color: wheat;  
-                }
-               
-              
-              
-                .h2{
-                    
-                  font-size: 50px;
-                  color:black;
-                  margin-top: 150px;
-                  margin-left: 550px;
-                }
-             
-                
-                .div2{
-                    margin-top: -120px;
-                    margin-left: 200px;
-                        
                 }
                  .div-menu-bar{
                             
@@ -183,33 +180,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 		</nav>
 	</div>
         
-         <div class="div2">
-          <!--  <div th:if="${not #lists.isEmpty(result)}">-->
-            <h2 class="h2">Notes par epreuve </h2>
-            <table class="table-dark">
-                <thead>
-                <tr>
-                    <th scope="col" class="th">#</th>
-                    <th scope="col" class="th">Nom</th>
-                    <th scope="col" class="th">Prenom</th>
-                    <th scope="col" class="th">1 ere Note</th>
-                    <th scope="col" class="th">2 eme Note</th>
-                    <th scope="col" class="th">Moyenne </th>
-                </tr>   
-                </thead>
-                
-                <tbody>
-                <tr th:each="item : ${noteclass}">
-                     <td class="td" th:text="${item.id}" >#</td>
-                    <td class="td" th:text="${item.nom}">Nom</td>
-                    <td class="td" th:text="${item.prenom}">Prenom</td>
-                    <td class="td" th:text="${item.note1}" >1 ere Note</td>
-                    <td class="td" th:text="${item.note2}">2 eme Note</td>
-                    <td class="td" th:text="${item.notetotal}">Moyenne</td>
-                </tr>  
-                </tbody>
-            </table>
-               
-        </div>   
-</body>
+        <div class="login_c">
+           
+            <div class="sp"><b>Au revoir</b> </div>
+                  <!-- redirection vers la page d'accueil-->
+                <div class="signup">  <a href="http://127.0.0.1:8080/PageAccueil" title="retour"><b>Retour</b></a>
+                </div>
+        
+        </div>
+
+    </body>
 </html>

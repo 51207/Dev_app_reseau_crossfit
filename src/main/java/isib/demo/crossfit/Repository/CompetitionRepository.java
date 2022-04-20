@@ -4,6 +4,7 @@
  */
 package isib.demo.crossfit.Repository;
 
+import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Competition;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,13 @@ public interface CompetitionRepository extends CrudRepository<Competition, Integ
    
    @Query(value="select distinct c from Competition c where  c.nomcompetition=:nomcompetition")
    public Optional<Competition> GetCompetitionByName(@Param("nomcompetition")String nomcompetition);
+   
+    @Query(value="Select c from Competition c where c.user=:user and c.password=:password")
+  public Competition GetLogin(@Param("user") String username, @Param("password") String password);
+  
+  
+   @Query(value="Select c from Competition c where c.user=:user")
+  public Competition ForgotPassword(@Param("user") String username);
 }
 
     

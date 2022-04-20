@@ -72,16 +72,16 @@ public class testService {
     
     //recuperer tout les test  à partir d'un id.
     public Optional<List<Test>> GetAllTestById(Integer id) {
-       try{
-        Test c = em.find(Test.class, id);
-        Optional<Test> res = Optional.of(c);
-        Optional< List<Test>> result=null;
-        if(res.isPresent()){
-            List<Test> s = em.createNamedQuery("Test.findByTnic",Test.class).setParameter(2,id).getResultList();
-            result = Optional.of(s);
-        }
-        return result;
-       }catch(NullPointerException e){return null;}
+       
+        try{
+        Optional<List<Test>> result=null;
+         List<Test> s ;
+         s= testRepository.getAllTestById(id);
+         result = Optional.of(s);
+        return result; 
+        
+       }
+        catch(NullPointerException e){return null;}
     }
     
     
@@ -89,7 +89,7 @@ public class testService {
     //pour supprimer tous les test trouvée par rapport à un id 
     public  void DeleteAllTestSelectedById(Optional<List<Test>> list){
     
-        if( list.get() != null){
+        if( !list.get().isEmpty()){
         
             try{
             
@@ -98,7 +98,11 @@ public class testService {
                     
                 }
                 
-            }catch(NullPointerException e){}
+            }
+            catch(NullPointerException e){
+            
+                System.out.println(" error DeleteALLTestSelectedById");
+            }
         }
     
     }
@@ -179,6 +183,32 @@ public class testService {
         return c;
     }
     
+      //condition pour faire en sorte qu'un membre de jury ne peut pas juger un client sur la meme epreuve et a la meme date plusieurs fois de suite
+    public Test getAllTestbyAllParameter (String date, Integer idclients, Integer idepreuve, Integer idjury) {
+        try {
+            Test t = testRepository.getAllTestbyAllParameter(date, idclients, idepreuve, idjury);
+
+            return t;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+    
+    
+    public List<Test> getAllTestByDates(String  date){
+    
+        try{
+        List<Test> list = testRepository.getAllTestByDates(date);
+        if( list.isEmpty()){
+            return null;
+        }else{
+            return list;
+        }
+        }catch(NullPointerException e ){
+            return null;
+        }
+    
+    }
     
     
     //methode à part qui me permettra d'avoir les deux notes de chaque client qui a effectué une epreuve

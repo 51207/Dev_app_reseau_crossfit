@@ -13,7 +13,15 @@ public class StringMessage {
     private String prenom;
     private String mdp;
     private String tel;
-    
+     private String Stringvar5;
+
+    public String getStringvar5() {
+        return Stringvar5;
+    }
+
+    public void setStringvar5(String Stringvar5) {
+        this.Stringvar5 = Stringvar5;
+    }
 
     public String getMdp() {
         return mdp;

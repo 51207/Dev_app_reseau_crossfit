@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://127.0.0.1:5500/PageAcceuil.html -->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head xmlns:th="http://www.thymeleaf.org">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+
+        <style>
+
+            *{
+                padding:0;
+                margin: 0;
+                box-sizing: border-box;
+
+            }
+            body{
+                background: linear-gradient(-150deg, #fff,   #ee26fe, #23a6d5, #efa253);
+                background-size: cover;
+                background-position: center;
+
+            }
+            footer{
+                background-color:transparent ;
+                top:200px;
+                right: 10px;
+
+            }
+
+
+            .crossfit{
+
+                display: block;
+                text-align: center;
+            }
+
+
+            .div-menu-bar{
+
+                background-color:#1C1C1C;
+               
+
+            }
+            .div-menu-bar ul {
+
+                display: inline-flex;
+                list-style: none;
+                color:white;
+                margin: auto;
+                margin-left: 300px;
+
+            }
+            .div-menu-bar ul li {
+
+                display: inline-flex;
+
+                width: 150px;
+                margin:15px;
+                padding: 5px;
+                font-size: 20px;
+               
+
+            }
+            .c {
+
+                color: white;
+                background-color: transparent;
+                text-decoration: none;
+                list-style: none;
+
+            }
+            ul li a:hover{
+                color:blueviolet;
+                list-style-type: none;
+            }
+            .texts{
+                margin-top: 12%;
+
+            }
+
+            .clogin{
+                list-style: none;
+            }
+            .sub-menu-1{
+                display: none;
+
+            }
+            .div-menu-bar ul li:hover .sub-menu-1{
+                display: block;
+                position: absolute;
+                background: black;
+                margin-top: 25px;
+                margin-left: -50px;
+            }
+
+            .connect{
+
+                margin-left: -300px;
+            }
+
+            .endline{
+
+                margin-top:340px;
+            }
+            .crossfit{
+
+                margin-top: 20px;
+
+            }
+
+
+        </style>
+    </head>	
+    <body>
+
+
+
+        <!-- <div id="box1">
+                <img th:src="@{/images/crossfit_16.jpg}" width="1600px" height="200px">
+
+                </div>-->
+        <!--<h1 id="nom">
+                        Crossfit Competition</h1>--> 
+        <!--<div id="box2"></div>
+        <div id="box3"></div>
+        <div id="box4"></div>-->
+
+        <!-- menu de navigation -->
+
+
+        <div class="header">
+            <nav>
+                <div class="div-menu-bar">
+                    <ul>
+                        <li >
+                            <a href="http://127.0.0.1:8080/PageAccueilOrganisateur" title="Acceuil"  class="c"> <b>Accueil</b></a>
+                        </li>
+                        <li >
+                            <a href="http://127.0.0.1:8080/Create" title="Creation Tournoi" class="c"><b>Creation Tournoi</b> </a>
+
+                        </li>
+                         <li >
+                            <a href="http://127.0.0.1:8080/PersonnelOrganisateur" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
+
+                        </li>
+                       
+                        <li >
+                            <a href="http://127.0.0.1:8080/classementOrganisateur" title="Classement" class="c"><b>Classement</b> </a>
+
+                        </li>
+
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/DateNotation" title="Notation" class="c"><b>Notation</b> </a>
+                        </li>
+                        <li class="li"><a class="c" ><b>Login</b> </a> 
+
+                            <!--<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a> -->
+                            <div class="sub-menu-1">
+                                <ul>
+                                    <li><a href="http://127.0.0.1:8080/login" title="Connexion" class="connect"><b>Connexion</b> </a></li>
+                                    <li><a href="http://127.0.0.1:8080/deconnexion" title="Deconnexion" class="connect"><b>Deconnexion</b> </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <hr>
+            </nav>
+        </div>
+        <div class="blockscript">
+            <div class="texts">
+                <div id="crossfit" class="crossfit" style="font-size:24px;"><h1><b>LA COMPETITION DE CROSSFIT EST OUVERTE</b> </h1></div>
+                <div id="crossfit" class="crossfit" style="font-size:21px;"><h2><b>LA PROCHAINE COMPETITION: MUSCULATION</b> </h2></div>
+                <div id="crossfit" class="crossfit" style="font-size:16px;"><h4><b>Debut d'inscription 1/06/2022 au 1/07/2022</b> </h4></div>
+
+                <div id="crossfit" class="crossfit" style="font-size:20px;"><h2><b>Inscrit toi et entre en competition avec des milliers d'athlètes  en BELGIQUE</b> </h2></div>
+                <div id="crossfit" class="crossfit" style="font-size:24px;"><h1><b>Stay for the fun!</b> </h1></div>
+            </div>
+            <!--<div id="slogan">
+            <!--<img th:src="@{/images/crossfit19.png}" width="200px" height="200px" style="transform:rotate(-30deg);">	</div>-->
+
+
+            <!-- Pied de page  -->
+            <!-- &copy; = le signe   -->
+            <div class="endline">
+                <footer >
+                    Copyright © Diallo -2021-2022 All right reserved 
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

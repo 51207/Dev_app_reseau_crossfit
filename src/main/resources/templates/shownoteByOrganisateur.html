@@ -136,76 +136,78 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </style>
     </head>
     <body>
-        <div class="header">
-		<nav>
-                    <div class="div-menu-bar">
-			<ul>
-				<li >
-					<a href="http://127.0.0.1:8080/PageAcceuil" title="Acceuil"  class="c"> <b>Accueil</b></a>
-				</li>
-				  <!--<li >
-                                  <a href="http://127.0.0.1:8080/Inscription" title="Inscription" class="c"><b>Inscription</b> </a>
-					
-					</li>-->
-                                                <li >
-							<a href="http://127.0.0.1:8080/Affichage" title="Notes" class="c"><b>Notes</b> </a>
+       <div class="header">
+            <nav>
+                <div class="div-menu-bar">
+                    <ul>
+                        <li >
+                            <a href="http://127.0.0.1:8080/PageAccueilOrganisateur" title="Acceuil"  class="c"> <b>Accueil</b></a>
+                        </li>
+                        <li >
+                            <a href="http://127.0.0.1:8080/Create" title="Creation Tournoi" class="c"><b>Creation Tournoi</b> </a>
 
-						</li>
-						<li >
-							<a href="http://127.0.0.1:8080/Tournoi" title="Inscritpion Tournoi" class="c"><b>Inscritpion Competition</b> </a>
-							
-						</li>
-						<li >
-							<a href="http://127.0.0.1:8080/personnel" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
-							
-						</li>
-					
-				
-                                        <li>
-                                                <a href="http://127.0.0.1:8080/classement" title="Classement" class="c"><b>Classement</b> </a>
-                                        </li>
-                                        <li class="li"><a class="c" ><b>Login</b> </a> 
-                                    
-					<!--<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a> -->
-                                        <div class="sub-menu-1">
-                                        <ul>
-                                             <li><a href="http://127.0.0.1:8080/login" title="Connexion" class="connect"><b>Connexion</b> </a></li>
-                                             <li><a href="http://127.0.0.1:8080/deconnexion" title="Deconnexion" class="connect"><b>Deconnexion</b> </a></li>
-                                          </ul>
-                                        </div>
-                                          </li>
-				
-			</ul>
-		
-                    </div>
-			
-			<hr>
-		</nav>
-	</div>
+                        </li>
+                         <li >
+                            <a href="http://127.0.0.1:8080/PersonnelOrganisateur" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
+
+                        </li>
+                       
+                        <li >
+                            <a href="http://127.0.0.1:8080/classementOrganisateur" title="Classement" class="c"><b>Classement</b> </a>
+
+                        </li>
+
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/DateNotation" title="Notation" class="c"><b>Notation</b> </a>
+                        </li>
+                        <li class="li"><a class="c" ><b>Login</b> </a> 
+
+                            <!--<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a> -->
+                            <div class="sub-menu-1">
+                                <ul>
+                                    <li><a href="http://127.0.0.1:8080/login" title="Connexion" class="connect"><b>Connexion</b> </a></li>
+                                    <li><a href="http://127.0.0.1:8080/deconnexion" title="Deconnexion" class="connect"><b>Deconnexion</b> </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <hr>
+            </nav>
+        </div>
         
          <div class="div2">
           <!--  <div th:if="${not #lists.isEmpty(result)}">-->
             <h2 class="h2">Notes par epreuve </h2>
-            <table class="table-dark">
+            <table class="table-dark" >
                 <thead>
-                <tr>
-                    <th scope="col" class="th">#</th>
-                    <th scope="col" class="th">Nom</th>
-                    <th scope="col" class="th">Prenom</th>
-                    <th scope="col" class="th">1 ere Note</th>
-                    <th scope="col" class="th">2 eme Note</th>
+                <tr >
+                    <th scope="col" class="th">rang</th>
+                     <th scope="col" class="th">Username</th>
+                    <th scope="col" class="th">epreuve1</th>
+                    <th scope="col" class="th">epreuve2</th>
+                    <th scope="col" class="th">epreuve3</th>
+                    <th scope="col" class="th">epreuve4</th>
                     <th scope="col" class="th">Moyenne </th>
                 </tr>   
                 </thead>
                 
                 <tbody>
-                <tr th:each="item : ${noteclass}">
-                     <td class="td" th:text="${item.id}" >#</td>
-                    <td class="td" th:text="${item.nom}">Nom</td>
-                    <td class="td" th:text="${item.prenom}">Prenom</td>
-                    <td class="td" th:text="${item.note1}" >1 ere Note</td>
-                    <td class="td" th:text="${item.note2}">2 eme Note</td>
-                    <td class="td" th:text="${item.notetotal}">Moyenne</td>
+                <tr th:each="item : ${listTest}">
+                    
+                   
+
+                    <td class="td" th:text="${item[0]}" ></td>
+                    <td class="td" th:text="${item[1]}"></td>
+                    <td class="td" th:text="${item[2]}"></td>
+                    <td class="td" th:text="${item[3]}" ></td>
+                    <td class="td" th:text="${item[4]}"></td>
+                    <td class="td" th:text="${item[5]}"></td>
+                     <td class="td" th:text="${item[6]}"></td>
                 </tr>  
                 </tbody>
             </table>

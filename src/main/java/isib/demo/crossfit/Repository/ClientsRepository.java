@@ -5,6 +5,7 @@
 package isib.demo.crossfit.Repository;
 
 import isib.demo.crossfit.Tables.Clients;
+import isib.demo.crossfit.Tables.Jury;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
@@ -33,4 +34,7 @@ public interface ClientsRepository extends CrudRepository<Clients, Integer> {
   
     @Query(value="Select c from Clients c where c.username=:username")
   public Clients ForgotPassword(@Param("username") String username);
+  
+   @Query(value="Select c from Clients c where c.nic =:nic")
+     public Clients getClientsByID(@Param("nic") Integer IDClient);
 }
