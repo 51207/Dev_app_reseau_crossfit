@@ -31,7 +31,7 @@ public class listNotationClientInscrit {
 
             for (int i = ((this.listNote.size()) - 1); i >= 0; i--) {
                 //on veut savoir s'il l'element notationClientInscrit qu'on veut ajouter n'a pas le meme id, la meme matiere et la meme date qu'un element dans la liste this.products
-                if (Objects.equals(notationClientInscrit.getNomEpreuve(), this.products.get(i).getNomEpreuve()) && Objects.equals(notationClientInscrit.getNomjury(), this.products.get(i).getNomjury()) && Objects.equals(notationClientInscrit.getDateCompetition(), this.products.get(i).getDateCompetition()) && Objects.equals(notationClientInscrit.getUsername(), this.products.get(i).getUsername())) {
+                if (Objects.equals(notationClientInscrit.getNomEpreuve(), this.listNote.get(i).getNomEpreuve()) && Objects.equals(notationClientInscrit.getNomjury(), this.listNote.get(i).getNomjury()) && Objects.equals(notationClientInscrit.getDateCompetition(), this.listNote.get(i).getDateCompetition()) ) {
                     //si c'est le cas , on modifiera juste la seconde note et la moyenne de l'element qui se trouve dans la liste
                     break;
                 }else{
@@ -55,19 +55,25 @@ public class listNotationClientInscrit {
        
       //  this.listNote.add(notationClientInscrit);
         if (!(this.products.isEmpty())) {
-
+            int counter = 0;
             for (int i = ((this.products.size()) - 1); i >= 0; i--) {
                 //on veut savoir s'il l'element notationClientInscrit qu'on veut ajouter n'a pas le meme id, la meme matiere et la meme date qu'un element dans la liste this.products
                 if (Objects.equals(notationClientInscrit.getUsername(), this.products.get(i).getUsername()) && Objects.equals(notationClientInscrit.getNomEpreuve(), this.products.get(i).getNomEpreuve()) && Objects.equals(notationClientInscrit.getDateCompetition(), this.products.get(i).getDateCompetition())) {
                     //si c'est le cas , on modifiera juste la seconde note et la moyenne de l'element qui se trouve dans la liste
                     this.products.get(i).setSecondeNote(notationClientInscrit.getPremiereNote());
                     this.products.get(i).setMoyenne();
+                    counter++;
                     break;
-                }else{
-                    this.products.add(notationClientInscrit);
-                    break;
-                }
+                }//else{
+                  //  this.products.add(notationClientInscrit);
+                 //   break;
+                //}
 
+            }
+            //le counter permet de savoir s'il existe le meme element dans la liste , si le counter est egale à 0 alors on peut ajouter
+            if(counter ==0){
+            
+              this.products.add(notationClientInscrit);
             }
         } else {
             this.products.add(notationClientInscrit);

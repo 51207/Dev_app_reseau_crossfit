@@ -61,7 +61,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             .div-menu-bar{
 
                 background-color:black;
-
+                margin-left: -23%;
             }
             .div-menu-bar ul {
 
@@ -69,7 +69,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 list-style: none;
                 color:white;
                 margin: auto;
-                margin-left: 300px;
+                margin-left: 290px;
 
             }
             .div-menu-bar ul li {
@@ -78,7 +78,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 width: 150px;
                 margin:15px;
-                padding: 10px;
+                padding: 5px;
                 font-size: 20px;
                 /*font-size: 20px;
                 border-bottom: auto;
@@ -93,6 +93,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 background-color: black;
                 text-decoration: none;
                 list-style: none;
+                 margin-left: 2%;
 
             }
             ul li a:hover{
@@ -140,29 +141,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <nav>
                 <div class="div-menu-bar">
                     <ul>
-                        <li >
-                            <a href="http://127.0.0.1:8080/PageAcceuil" title="Acceuil"  class="c"> <b>Accueil</b></a>
+                       <li >
+                            <a href="http://127.0.0.1:8080/PageAccueilOrganisateur" title="Acceuil"  class="c"> <b>Accueil</b></a>
                         </li>
-                        <!--<li >
-                        <a href="http://127.0.0.1:8080/Inscription" title="Inscription" class="c"><b>Inscription</b> </a>
-                              
-                              </li>-->
                         <li >
-                            <a href="http://127.0.0.1:8080/Affichage" title="Notes" class="c"><b>Notes</b> </a>
+                            <a href="http://127.0.0.1:8080/Create" title="Creation Tournoi" class="c"><b>Creation Tournoi</b> </a>
 
                         </li>
-                        <li >
-                            <a href="http://127.0.0.1:8080/Tournoi" title="Inscritpion Tournoi" class="c"><b>Inscritpion Competition</b> </a>
+                         <li >
+                            <a href="http://127.0.0.1:8080/PersonnelOrganisateur" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
 
                         </li>
+                       
                         <li >
-                            <a href="http://127.0.0.1:8080/personnel" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
+                            <a href="http://127.0.0.1:8080/classementOrganisateur" title="Classement" class="c"><b>Classement</b> </a>
 
                         </li>
 
 
                         <li>
-                            <a href="http://127.0.0.1:8080/classement" title="Classement" class="c"><b>Classement</b> </a>
+                            <a href="http://127.0.0.1:8080/DateNotation" title="Notation" class="c"><b>Notation</b> </a>
+                        </li>
+                         <li>
+                            <a href="http://127.0.0.1:8080/shownoteByEpreuveOrganisateur" title="Stockage" class="c"><b>Stockage</b> </a>
                         </li>
                         <li class="li"><a class="c" ><b>Login</b> </a> 
 
@@ -185,7 +186,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
         <div class="div2">
             <!--  <div th:if="${not #lists.isEmpty(result)}">-->
-            <h2 class="h2">Notes par epreuve </h2>
+            <h2 class="h2">Note </h2>
             <table class="table-dark">
                 <thead>
                     <tr>

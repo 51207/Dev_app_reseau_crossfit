@@ -69,7 +69,7 @@ public class CrossfiSuiviDeSession {
     @GetMapping("/Notation")
     public String getNotationForClient(@RequestParam StringMessage nom, Model model) {
         try {
-
+            String date= nom.getNom();
             List<String> listAllName = new ArrayList<>();
             List<Integer> list = inscritService.getAllInscritByDate(nom.getNom());
             if (!list.isEmpty()) {
@@ -86,6 +86,7 @@ public class CrossfiSuiviDeSession {
 
             }
             List<String> ListAlljury = juryservice.getAllJury();
+            model.addAttribute("Tdates", date);
             model.addAttribute("listClientsInscrit", listAllName);
             model.addAttribute("listAlljury", ListAlljury);
             model.addAttribute("listAllEpreuve", epreuveservice.getalldataonEpreuve());
@@ -121,13 +122,19 @@ public class CrossfiSuiviDeSession {
                 }
                 //besoin de la date pour retourner à la même page
             }
-            model.addAttribute("sessionattribute", listnotation);
+            model.addAttribute("sessionattribute", listnotation.getListNote());
             return "shownoteByEpreuveOrganisateur";
 
         } catch (NullPointerException e) {
             return "redirect:PageAccueilOrganisateur";
         }
 
+    }
+    
+    @GetMapping("/shownoteByEpreuveOrganisateur")
+    public String AffichageSuivideSession(){
+    
+    return "shownoteByEpreuveOrganisateur";
     }
 
 }

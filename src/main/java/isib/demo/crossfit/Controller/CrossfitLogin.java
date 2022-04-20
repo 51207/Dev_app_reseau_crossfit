@@ -79,8 +79,12 @@ public class CrossfitLogin {
     @PostMapping("/login")
     public String logins(@ModelAttribute Clients client, Model model, HttpSession session, HttpServletRequest request) {
         //on verifie si c'est client ou si c'est une compétition ou si c'est un orgranisateur
+       
         Clients c = clientservice.GetLogin(client.getUsername(), client.getPasswordclient());
         Competition comp = competitionService.GetLogin(client.getUsername(), client.getPasswordclient());
+       
+        
+      
         if (c != null) {
 
             session = request.getSession();
@@ -101,7 +105,8 @@ public class CrossfitLogin {
 
             return "redirect:login";
         }
-
+        
+        
     }
 
     @GetMapping("/deconnexion")

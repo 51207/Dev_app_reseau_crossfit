@@ -209,8 +209,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             /*menu*/
             .div-menu-bar{
 
-                background-color:#1C1C1C;
-                margin-left: -7.3%
+                background-color:black;
+                 margin-left: -23%;
 
             }
             .div-menu-bar ul {
@@ -219,7 +219,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 list-style: none;
                 color:white;
                 margin: auto;
-                margin-left: 300px;
+                margin-left: 290px;
 
             }
             .div-menu-bar ul li {
@@ -243,6 +243,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 background-color: transparent;
                 text-decoration: none;
                 list-style: none;
+                 margin-left: 2%;
 
             }
             ul li a:hover{
@@ -353,9 +354,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="dropbox2">
                         <div><label class="label">Dates :</label></div>
                         <select th:field="*{dateCompetition}"  >
-                            <option value="2021-04-11" >2021-04-11</option>
-                            <option value="2022-04-11" >2022-04-11</option>
-                            <option value="2022-09-11">2022-09-11</option>
+                            <option th:text="${Tdates}" th:value="${Tdates}" ></option>
+                            <!--<option value="2022-04-11" >2022-04-11</option>
+                            <option value="2022-09-11">2022-09-11</option>-->
                         </select>          
                     </div>
                     <div class="dropbox3">
