@@ -191,27 +191,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         
          <div class="div2">
           <!--  <div th:if="${not #lists.isEmpty(result)}">-->
-            <h2 class="h2">Notes par epreuve </h2>
+            <h2 class="h2">Classement </h2>
             <table class="table-dark" >
-                <thead>
+                <thead >
                 <tr >
-                    <th scope="col" class="th">rang</th>
-                     <th scope="col" class="th">Username</th>
-                    <th scope="col" class="th">epreuve1</th>
-                    <th scope="col" class="th">epreuve2</th>
-                    <th scope="col" class="th">epreuve3</th>
-                    <th scope="col" class="th">epreuve4</th>
-                    <th scope="col" class="th">Moyenne </th>
+                    
+                    <th th:each="value:${EnteteTable}" >
+                        <span th:text="${value}" class="th"></span>
+                        
+                    </th>
+                    
+                   
                 </tr>   
                 </thead>
                 
-                <tbody>
-                <span  th:each="item2 : ${listTest}"  >
-                    <td>
-                <tr th:each="item : ${item2}" class="td">
-                    <td class="td1" th:text="${item}"></td>
+                <tbody >
+             <!--   <span  th:each="item2 : ${listTest}"  >-->
+                    
+                <tr  th:each="item2 : ${listTest}" class="td">
+                    <td class="td1" th:each="item : ${item2}"  >
+                        <span   th:text="${item}"> </span>
                     </td>
-
+                 
+                    
                    <!-- <td class="td" th:text="${item[0]}" ></td>
                     <td class="td" th:text="${item[1]}"></td>
                     <td class="td" th:text="${item[2]}"></td>
@@ -220,8 +222,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <td class="td" th:text="${item[5]}"></td>
                      <td class="td" th:text="${item[6]}"></td>-->
                 </tr> 
-              
-                </span>
+                
+               
                 </tbody>
             </table>
                

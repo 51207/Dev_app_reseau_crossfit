@@ -63,4 +63,8 @@ public class ClientRestApi {
         rst.put("http://localhost:8080/apijson/UpdateClient/"+api+"/"+PreviousUsername, ApiClient.class);
 
     }
+    public void DeleClientServiceRest(Clients s){}
+    
+    
+    //rst. ("http://localhost:8080/apijson/UpdateClient/"+api+"/"+PreviousUsername, ApiClient.class);
 }

@@ -24,6 +24,7 @@ import isib.demo.crossfit.service.ComporteService;
 import isib.demo.crossfit.service.EpreuveService;
 import isib.demo.crossfit.service.InscritService;
 import isib.demo.crossfit.service.testService;
+import isib.demo.crossfit.suivisession.NotationList;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -90,12 +91,14 @@ public class CrossfitLogin {
             session = request.getSession();
             session.setAttribute("loginusername", client.getUsername());
 
+
             return "PageAccueil";
 
         } else if (comp != null) {
 
             session = request.getSession();
             session.setAttribute("loginusername", comp.getUser());
+            session.setAttribute("notationList", new NotationList());
 
             return "PageAccueilOrganisateur";
 

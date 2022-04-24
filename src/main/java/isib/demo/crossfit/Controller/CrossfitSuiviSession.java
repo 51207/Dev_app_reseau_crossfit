@@ -21,6 +21,8 @@ import isib.demo.crossfit.service.EpreuveService;
 import isib.demo.crossfit.service.InscritService;
 import isib.demo.crossfit.service.JuryService;
 import isib.demo.crossfit.service.testService;
+import isib.demo.crossfit.suivisession.Notation;
+import isib.demo.crossfit.suivisession.NotationList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -123,8 +125,21 @@ public class CrossfitSuiviSession {
             Optional<Clients> c = clientservice.ForgotPassword(msg.getUsername());
             Epreuve e = epreuveservice.GetEpreuvebyNomEpreuve(msg.getNomEpreuve());
             Jury j = juryservice.GetIDJurybyNomJury(msg.getNomjury());
-            //listnotation.ClearListNote();
+           
             if (c.isPresent() && c.get() != null && e != null && j != null) {
+                Notation notation = new Notation();
+                notation.setNic(c.get());
+                notation.setNec(e);
+                notation.setNIJury(j);
+                notation.setNote(msg.getPremiereNote());
+                NotationList notationlist = (NotationList) session.getAttribute("notationList");
+                notationlist.addNotation(notation);
+                session.setAttribute("notationList",notationlist);
+                model.addAttribute("notationList",notationlist);
+                return "shownoteByEpreuveOrganisateur"; 
+            }
+            
+           /* if (c.isPresent() && c.get() != null && e != null && j != null) {
                 msg.setNom(c.get().getNom());
                 msg.setPrenom(c.get().getPrenom());
                 msg.setIdJury(j.getNIJury());
@@ -146,7 +161,7 @@ public class CrossfitSuiviSession {
                 }
                 
                 //besoin de la date pour retourner à la même page
-            }
+            }*/
          //  model.addAttribute("sessionattribute", listnotation);
            // return "shownoteByEpreuveOrganisateur"; 
             return "PageAccueilOrganisateur"; 
@@ -160,7 +175,7 @@ public class CrossfitSuiviSession {
     
      @GetMapping("/shownoteByEpreuveOrganisateur")
     public String AffichageSuivideSession( ListDesNotes listnotation ,Model model,HttpSession session){
-      model.addAttribute("listinformation", session.getAttribute("listdesnotes"));
+      model.addAttribute("notationList", (NotationList)session.getAttribute("notationList"));
       
       // if( model.getAttribute("listdesnotes") != null)
        return "shownoteByEpreuveOrganisateur";

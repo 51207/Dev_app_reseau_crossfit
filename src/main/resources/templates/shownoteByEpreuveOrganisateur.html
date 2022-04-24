@@ -192,8 +192,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <table class="table-dark">
                 <thead>
                     <tr>
-                        <th scope="col" class="th">nom</th>
-                        <th scope="col" class="th">Prenom</th>
+                       
                         <th scope="col" class="th">username</th>
                         <th scope="col" class="th">epreuve</th>
                         <th scope="col" class="th">jury</th>
@@ -203,14 +202,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 <tbody>
                
-                    <tr th:each="item : ${listinformation.listNote}">
-                        <td class="td" th:text="${item.nom}" >nom</td>
-                        <td class="td" th:text="${item.Prenom}">Prenom</td>
-                        <td class="td" th:text="${item.username}">username</td>
-                        <td class="td" th:text="${item.NomEpreuve}">epreuve</td>
-                        <td class="td" th:text="${item.Nomjury}" >jury</td>
-                        <td class="td" th:text="${item.PremiereNote}">note</td>
-
+               
+                        
+                       <tr  th:each="item2 : ${notationList.notations}" class="td">
+                    <td class="td1"  th:text="${item2.getNic().getNom()}"  ></td>
+                     <td class="td1"  th:text="${item2.getNec().getNEpreuve()}"  ></td>
+                     <td class="td1"  th:text="${item2.getNIJury.getNomJury()}"  ></td>
+                     <td class="td1"  th:text="${item2.note}"  ></td>
                     </tr>  
                 </tbody>
             </table>
