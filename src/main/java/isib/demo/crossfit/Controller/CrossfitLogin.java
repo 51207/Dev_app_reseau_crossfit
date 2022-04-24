@@ -153,8 +153,7 @@ public class CrossfitLogin {
         try {
             Optional<Clients> c = clientservice.ForgotPassword(name.getNom());
 
-            //nomuser = name.getNom();
-            // Crossfitclass.nomuser=name.getNom();
+          
             if (c.isPresent()) {
 
                 // model.addAttribute("users", c.get());

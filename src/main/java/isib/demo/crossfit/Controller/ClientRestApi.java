@@ -21,17 +21,16 @@ import org.springframework.web.client.RestTemplate;
  */
 @Component
 public class ClientRestApi {
-    
-    public ClientRestApi(){}
+
+    public ClientRestApi() {
+    }
 
     RestTemplate rst = new RestTemplate();
- 
-    
- 
+
     public apiListTest GetAlltESTbyDate(String date) {
         System.out.println("************************RestApi****************************");
         //je veux recevoir une information du service Rest (la liste de tous les test)
-        apiListTest api = rst.getForObject("http://localhost:8081/apijson/listTest/"+date, apiListTest.class);
+        apiListTest api = rst.getForObject("http://localhost:8081/apijson/listTest/" + date, apiListTest.class);
 
         if (api == null) {
             return null;
@@ -45,26 +44,44 @@ public class ClientRestApi {
             return api;
         }
     }
-    
-    public void UpdateClientServiceRest(Clients s,String PreviousUsername){
-    
-          ApiClient api = new ApiClient();
-                api.setNic(s.getNic());
-                api.setNom(s.getNom());
-                api.setPrenom(s.getPrenom());
-                api.setRue(s.getRue());
-                api.setNumero(s.getNumero());
-                api.setCp(s.getCp());
-                api.setCommune(s.getCommune());
-                api.setTel(s.getTel());
-                api.setUsername(s.getUsername());
-                api.setPassword(s.getPasswordclient());
-               
-        rst.put("http://localhost:8080/apijson/UpdateClient/"+api+"/"+PreviousUsername, ApiClient.class);
+
+    public void UpdateClientServiceRest(Clients s, String PreviousUsername) {
+
+        Clients c = rst.getForObject("http://localhost:8081/apijson/UpdateClient/" + PreviousUsername, Clients.class);
+
+        ApiClient api = new ApiClient();
+        api.setNic(c.getNic());
+        api.setNom(s.getNom());
+        api.setPrenom(s.getPrenom());
+        api.setRue(s.getRue());
+        api.setNumero(s.getNumero());
+        api.setCp(s.getCp());
+        api.setCommune(s.getCommune());
+        api.setTel(s.getTel());
+        api.setUsername(s.getUsername());
+        api.setPassword(s.getPasswordclient());
+
+        rst.put("http://localhost:8081/apijson/UpdateClients", api, ApiClient.class);
 
     }
-    public void DeleClientServiceRest(Clients s){}
-    
-    
-    //rst. ("http://localhost:8080/apijson/UpdateClient/"+api+"/"+PreviousUsername, ApiClient.class);
+
+    public void DeleClientServiceRest(String PreviousUsername) {
+
+        Clients c = rst.getForObject("http://localhost:8081/apijson/DeleteClient/" + PreviousUsername, Clients.class);
+        
+        ApiClient api = new ApiClient();
+        api.setNic(c.getNic());
+        api.setNom(c.getNom());
+        api.setPrenom(c.getPrenom());
+        api.setRue(c.getRue());
+        api.setNumero(c.getNumero());
+        api.setCp(c.getCp());
+        api.setCommune(c.getCommune());
+        api.setTel(c.getTel());
+        api.setUsername(c.getUsername());
+        api.setPassword(c.getPasswordclient());
+
+        rst.delete("http://localhost:8081/apijson/DeleteClients", api, ApiClient.class);
+
+    }
 }

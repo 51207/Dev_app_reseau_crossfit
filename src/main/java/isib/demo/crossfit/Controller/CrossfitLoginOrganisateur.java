@@ -68,9 +68,16 @@ public class CrossfitLoginOrganisateur {
     
      //*****Créer un tournoi ************
     @GetMapping("/Create")
-    public String Create(Model model) {
+    public String Create(Model model,HttpSession session) {
+        try{
+         //là  on verifie si le user est un client ou un organisateur (si ce n'est pas le cas , on le redirige vers la page de login
+          Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());  
+            
         model.addAttribute("tournoi", new Competition());
         return "CreationTournoi";
+        }catch(NullPointerException e){
+            return "redirect:login";
+        }
     }
 
     @PostMapping("/InscriptCreation")
@@ -98,9 +105,9 @@ public class CrossfitLoginOrganisateur {
 
 
         try {
-            // Optional<Clients> c = clientservice.ForgotPassword(nomuser);
-            Optional<Competition> c = competitionService.ForgotPassword(session.getAttribute("loginusername").toString());
-
+            //là  on verifie si le user est un client ou un organisateur (si ce n'est pas le cas , on le redirige vers la page de login
+            Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());  
+            
             model.addAttribute("userOrganisation", c.get());
             if (c.isPresent()) {
 
@@ -122,9 +129,10 @@ public class CrossfitLoginOrganisateur {
 
         try {
 
-            // Optional<Clients> c = clientservice.ForgotPassword(nomuser);
+             //là  on verifie si le user est un client ou un organisateur (si ce n'est pas le cas , on le redirige vers la page de login
             Optional<Competition> c = competitionService.ForgotPassword(session.getAttribute("loginusername").toString());
-
+ 
+            
             if (c.isPresent() && c.get() != null) {
                 Competition s;
                 s = c.get();
@@ -141,7 +149,7 @@ public class CrossfitLoginOrganisateur {
                 return "PageAccueilOrganisateur";
             }
         } catch (Exception e) {
-            return "redirect:PageAccueilOrganisateur";
+            return "redirect:login";
         }
 
     }

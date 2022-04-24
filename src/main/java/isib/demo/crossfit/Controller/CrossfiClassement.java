@@ -7,6 +7,7 @@ package isib.demo.crossfit.Controller;
 import isib.demo.crossfit.OtherClass.NotationClientInscrit;
 import isib.demo.crossfit.OtherClass.StringMessage;
 import isib.demo.crossfit.OtherClass.dateObject;
+
 import isib.demo.crossfit.OtherClass.listNotationClientInscrit;
 import isib.demo.crossfit.RestAPIclass.ApiClient;
 import isib.demo.crossfit.RestAPIclass.apiListClient;
@@ -75,7 +76,7 @@ public class CrossfiClassement {
             //on verifie si on s'est bien connecté sinon on va directement dans le catch 
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
 
-            model.addAttribute("dateClassement", new StringMessage());
+            model.addAttribute("dateClassement", new dateObject());
 
             return "classementOrganisateur";
         } catch (NullPointerException e) {
@@ -84,8 +85,8 @@ public class CrossfiClassement {
     }
 
     @GetMapping("/Notationclient")
-    public String Classement(@ModelAttribute StringMessage nom, Model model) {
-        String date = nom.getNom();
+    public String Classement(@ModelAttribute dateObject StringVariable, Model model) {
+        String date = StringVariable.getStringVariable();
         List<Test> listTest = testService.getAllTestByDates(date);
         try {
             if (listTest != null && !(listTest.isEmpty())) {
@@ -145,21 +146,8 @@ public class CrossfiClassement {
                     }
 
                     this.methodSort(model, listNotationClientInscrit);
-                    //on recupere le classement ici
-                    /* List<ArrayList> list = listNotationClientInscrit.GetAllNote();
-                    List<ArrayList> secondlist = listNotationClientInscrit.SortAllNote(list);
-                    model.addAttribute("listTest", secondlist);
-
-                    //il me manque aussi de variable dans la liste getAllNomEpreuve 
-                    //je vais utiliser cette liste comme en^tête de la table de classement
-                    //du coup il faut inserer à l'index 0 , String rang  et dernier element de la liste string moyenne
-                    List<String> EnteteTable = listNotationClientInscrit.GetallEpreuveName();
-                    //index 0
-                    EnteteTable.add(0, "Username");
-                    EnteteTable.add(0, "rang");
-                    //dernier index
-                    EnteteTable.add("moyenne");
-                    model.addAttribute("EnteteTable", EnteteTable);*/
+                    
+                    
                     return "shownoteByOrganisateur";
 
                 }
@@ -228,6 +216,8 @@ public class CrossfiClassement {
         }
     }
 
+    
+    
     //************partie client classement **************
     //choix de la date pour le classement
     @GetMapping("/classement")
@@ -236,7 +226,7 @@ public class CrossfiClassement {
         try {
             //on verifie si  on est bien connecter avec un nom d'utilisateur qui est stocké dans la session
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
-            model.addAttribute("dateclassement", new StringMessage());
+            model.addAttribute("dateclassement", new dateObject());
             return "Classement";
         } catch (NullPointerException e) {
             return "redirect:login";
@@ -246,13 +236,13 @@ public class CrossfiClassement {
 
     //permet d'afficher le classement
     @GetMapping("/ClassementSportif")
-    public String ClassementSportif(@ModelAttribute StringMessage nom, Model model) {
-        String date = nom.getNom();
+    public String ClassementSportif(@ModelAttribute dateObject StringVariable, Model model) {
+        String date = StringVariable.getStringVariable();
         List<Test> listTest = testService.getAllTestByDates(date);
         try {
             if (listTest != null && !(listTest.isEmpty())) {
                 listNotationClientInscrit listNotationClientInscrit = new listNotationClientInscrit();
-                listNotationClientInscrit.ClearProducts();
+                    listNotationClientInscrit.ClearProducts();
                 for (var item : listTest) {
 
                     NotationClientInscrit Notationclient = new NotationClientInscrit();
@@ -278,7 +268,7 @@ public class CrossfiClassement {
                 model.addAttribute("listTest", secondlist);
                 this.methodSort(model, listNotationClientInscrit);
 
-                return "shownoteByOrganisateur";
+                return "AllClassementClient";
 
             } else {
 

@@ -290,6 +290,12 @@ public class Crossfitclass {
             // 
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
             if (c.isPresent() && c.get() != null) {
+                
+                //on supprime dabord le meme client dans le service rest
+                ClientRestApi rs = new ClientRestApi();
+                String username = (String)session.getAttribute("loginusername");
+                rs.DeleClientServiceRest(username);
+                
                 Clients s;
                 s = c.get();
                 s.setNic(c.get().getNic());
