@@ -6,6 +6,7 @@ package isib.demo.crossfit.Controller;
 
 import isib.demo.crossfit.OtherClass.Message;
 import isib.demo.crossfit.OtherClass.StringMessage;
+import isib.demo.crossfit.RestAPIclass.ApiClient;
 import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Inscrit;
 import isib.demo.crossfit.service.ClientService;
@@ -258,10 +259,18 @@ public class Crossfitclass {
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
 
             if (c.isPresent()) {
+               
+                
+               //***modification du même client dans le service rest (s'il existe)
+              ClientRestApi clientrestapi = new ClientRestApi();
+              clientrestapi.UpdateClientServiceRest(newclient,(String)session.getAttribute("loginusername"));
+               
+                //***modification du client***
                 Clients s;
                 s = newclient;
                 s.setNic(c.get().getNic());
                 clientservice.CreateClients(s);
+                
                 return "successupdatepassword";
             } else {
                 return "PageAccueil";

@@ -4,7 +4,9 @@
  */
 package isib.demo.crossfit.Controller;
 
+import isib.demo.crossfit.RestAPIclass.ApiClient;
 import isib.demo.crossfit.RestAPIclass.apiListTest;
+import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Test;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class ClientRestApi {
  
     public apiListTest GetAlltESTbyDate(String date) {
         System.out.println("************************RestApi****************************");
-        
+        //je veux recevoir une information du service Rest (la liste de tous les test)
         apiListTest api = rst.getForObject("http://localhost:8081/apijson/listTest/"+date, apiListTest.class);
 
         if (api == null) {
@@ -42,5 +44,23 @@ public class ClientRestApi {
             System.out.println("****************************************************");
             return api;
         }
+    }
+    
+    public void UpdateClientServiceRest(Clients s,String PreviousUsername){
+    
+          ApiClient api = new ApiClient();
+                api.setNic(s.getNic());
+                api.setNom(s.getNom());
+                api.setPrenom(s.getPrenom());
+                api.setRue(s.getRue());
+                api.setNumero(s.getNumero());
+                api.setCp(s.getCp());
+                api.setCommune(s.getCommune());
+                api.setTel(s.getTel());
+                api.setUsername(s.getUsername());
+                api.setPassword(s.getPasswordclient());
+               
+        rst.put("http://localhost:8080/apijson/UpdateClient/"+api+"/"+PreviousUsername, ApiClient.class);
+
     }
 }
