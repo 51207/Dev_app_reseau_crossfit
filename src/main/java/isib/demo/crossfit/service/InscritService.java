@@ -92,7 +92,9 @@ public class InscritService {
             return null;
         }
     }
-
+    
+    
+      
     
     //recuperer tous les objets inscrit dont le nic = id
      public Optional<List<Inscrit>> GetAllInscritById(Integer id) {

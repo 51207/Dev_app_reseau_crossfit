@@ -40,6 +40,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     width:2%;
                     height: 20%;
                     color: wheat;  
+                   
                 }
                
               
@@ -135,6 +136,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                margin-top: 20px;
                               
                            }
+                           .td1{
+                           margin: auto;
+                           }
         </style>
     </head>
     <body>
@@ -202,18 +206,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </thead>
                 
                 <tbody>
-                <tr th:each="item : ${listTest}">
-                    
-                   
+                <span  th:each="item2 : ${listTest}"  >
+                    <td>
+                <tr th:each="item : ${item2}" class="td">
+                    <td class="td1" th:text="${item}"></td>
+                    </td>
 
-                    <td class="td" th:text="${item[0]}" ></td>
+                   <!-- <td class="td" th:text="${item[0]}" ></td>
                     <td class="td" th:text="${item[1]}"></td>
                     <td class="td" th:text="${item[2]}"></td>
                     <td class="td" th:text="${item[3]}" ></td>
                     <td class="td" th:text="${item[4]}"></td>
                     <td class="td" th:text="${item[5]}"></td>
-                     <td class="td" th:text="${item[6]}"></td>
-                </tr>  
+                     <td class="td" th:text="${item[6]}"></td>-->
+                </tr> 
+              
+                </span>
                 </tbody>
             </table>
                

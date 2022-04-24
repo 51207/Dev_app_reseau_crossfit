@@ -156,13 +156,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
             .dropbox2{
 
-                margin-left: 250px;
+                margin-left: 180px;
                 margin-top: -37px;
             }
             
              .dropbox3{
 
-                margin-left: 400px;
+                margin-left: 300px;
                 margin-top: -37px;
             }
             .dropbox4{
@@ -345,34 +345,37 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 <div class="dropboxAll">  
                     <div class="dropbox1">
-                        <div> <label class="label">Epreuve     </label></div>
-                        <select  th:field="*{NomEpreuve}"  >
-
-                            <option  th:each="items: ${listAllEpreuve}" th:value="${items}"  th:text="${items}"  ></option>
-                        </select>     
-                    </div>
-                    <div class="dropbox2">
-                        <div><label class="label">Dates :</label></div>
+                          <div><label class="label">Dates :</label></div>
                         <select th:field="*{dateCompetition}"  >
                             <option th:text="${Tdates}" th:value="${Tdates}" ></option>
                             <!--<option value="2022-04-11" >2022-04-11</option>
                             <option value="2022-09-11">2022-09-11</option>-->
-                        </select>          
+                        </select>   
                     </div>
-                    <div class="dropbox3">
-                        <div> <label class="label">Membre du Jury     </label></div>
-                        <select  th:field="*{Nomjury}"  >
-
-                            <option  th:each="items2: ${listAlljury}" th:value="${items2}"  th:text="${items2}"  ></option>
-                        </select>     
-                    </div>
-
-                    <div class="dropbox4">
+                    <div class="dropbox2">
                         <div> <label class="label">clients     </label></div>
                         <select  th:field="*{username}"  >
 
                             <option  th:each="items3: ${listClientsInscrit}" th:value="${items3}"  th:text="${items3}"  ></option>
-                        </select>     
+                        </select> 
+                        
+                    </div>
+                    
+                    <div class="dropbox3">
+                         <div> <label class="label">Epreuve     </label></div>
+                        <select  th:field="*{NomEpreuve}"  >
+
+                            <option  th:each="items: ${listAllEpreuve}" th:value="${items}"  th:text="${items}"  ></option>
+                        </select>  
+                          
+                    </div>
+
+                    <div class="dropbox4">
+                        <div> <label class="label">Membre du Jury     </label></div>
+                        <select  th:field="*{Nomjury}"  >
+
+                            <option  th:each="items2: ${listAlljury}" th:value="${items2}"  th:text="${items2}"  ></option>
+                        </select>      
                     </div>
                     <div class="input_text1">
                         <div> <label class="label">Note     </label></div>

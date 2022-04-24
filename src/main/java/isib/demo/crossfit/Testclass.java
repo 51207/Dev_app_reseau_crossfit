@@ -9,6 +9,8 @@ import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Competition;
 import isib.demo.crossfit.service.ClientService;
 import isib.demo.crossfit.service.CompetitionService;
+import isib.demo.crossfit.Controller.ClientRestApi;
+import isib.demo.crossfit.RestAPIclass.apiListTest;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +25,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -63,6 +66,18 @@ public class Testclass implements CommandLineRunner {
        if( c.isPresent()){
            System.out.println("liste des jury"+c.get());
        };*/
+        /*String date = "2019-04-11";
+        ClientRestApi api = new ClientRestApi();
+        api.GetAlltESTbyDate(date);*/
+        
+      /*  System.out.println("=======================================");
+        RestTemplate rst = new RestTemplate();
+        apiListTest api = rst.getForObject("http://localhost:8081/apijson/listTest/" + date, apiListTest.class);
+
+        for (var item : api.getList()) {
+
+            System.out.println(item.toString());
+        }*/
     }
     
     
@@ -163,6 +178,11 @@ public class Testclass implements CommandLineRunner {
         listeclienttest();
         System.out.println();
      }
+     
+     
+     
+     
+     
    
 }
 

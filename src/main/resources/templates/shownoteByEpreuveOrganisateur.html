@@ -136,7 +136,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             }
         </style>
     </head>
-    <body>
+    <body xmlns:th="http://www.thymeleaf.org">
         <div class="header">
             <nav>
                 <div class="div-menu-bar">
@@ -187,6 +187,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="div2">
             <!--  <div th:if="${not #lists.isEmpty(result)}">-->
             <h2 class="h2">Note </h2>
+            
+           
             <table class="table-dark">
                 <thead>
                     <tr>
@@ -200,7 +202,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </thead>
 
                 <tbody>
-                    <tr th:each="item : ${sessionattribute}">
+               
+                    <tr th:each="item : ${listinformation.listNote}">
                         <td class="td" th:text="${item.nom}" >nom</td>
                         <td class="td" th:text="${item.Prenom}">Prenom</td>
                         <td class="td" th:text="${item.username}">username</td>
@@ -211,6 +214,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </tr>  
                 </tbody>
             </table>
+         
 
         </div>   
     </body>

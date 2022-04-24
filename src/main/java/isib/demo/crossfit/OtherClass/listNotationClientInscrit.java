@@ -84,6 +84,17 @@ public class listNotationClientInscrit {
     public void ClearProducts(){
     this.products.clear();
     }
+    public void AddlistToProducts(List<NotationClientInscrit> list){
+    
+        for(var item : list){
+        
+            this.products.add(item);
+        }
+      
+    
+    }
+    
+    
 
     //ona tous les username classé dans cette methode
     public List<String> Getallusername() {

@@ -33,11 +33,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 text-align: center;
                 border-radius: 50px;
                 text-align: left;
+                margin-top: 3%;
+                margin-left: 0%;
 
-
-
-                width: 500px;
-                height: 400px;
+                width: 400px;
+                height:400px;
 
             }
 
@@ -95,8 +95,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 display: block;
                 position: relative;
-                margin-left: 300px;
-                ;
+                margin-left: 100px;
+                
                 margin-right: auto;
                 margin-top: 20px;
             }
@@ -156,8 +156,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
             .dropbox2{
 
-                margin-left: 250px;
-                margin-top: -37px;
+                margin-left: 50px;
+                margin-top: 37px;
             }
 
             .client{
@@ -187,8 +187,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             /*menu*/
             .div-menu-bar{
 
-                background-color:#1C1C1C;
-                margin-left: -7.3%
+                background-color:black;
+                margin-left: -23%;
 
             }
             .div-menu-bar ul {
@@ -197,7 +197,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 list-style: none;
                 color:white;
                 margin: auto;
-                margin-left: 300px;
+                margin-left: 290px;
 
             }
             .div-menu-bar ul li {
@@ -208,6 +208,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 margin:15px;
                 padding: 5px;
                 font-size: 20px;
+                
                 /*font-size: 20px;
                 border-bottom: auto;
                 border-left: auto;
@@ -221,6 +222,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 background-color: transparent;
                 text-decoration: none;
                 list-style: none;
+                 margin-left: 2%;
 
             }
             ul li a:hover{
@@ -261,9 +263,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 margin-top: 20px;
 
             }
+            .signup{
+                margin-left: 42%;
+            }
 
-
-            
         </style>
     </head>
     <body>
@@ -317,16 +320,43 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
 
         <div class="container">
-            <h1>Classement</h1>
+            <h1>Date Competition</h1>
+
+            <form  th:action="@{/ClassementSportif}" method="GET">
+
+                <div class="dropboxAll">  
+                    <!--<div class="dropbox1">
+                        <div> <label class="label">Epreuve     </label></div>
+                        <select  th:field="*{nom}"  >
+
+                            <option  th:each="items: ${nameofcompet}" th:value="${items}"  th:text="${items}"  ></option>
+                        </select>     
+                    </div>-->
+                    <div class="dropbox2">
+                        <div><label class="label">Dates :</label></div>
+                        <select  th:field="${dateclassement.nom}" >
+                            <option value="2019-04-11" >2019-04-11</option>
+                            <option value="2020-04-11" >2020-04-11</option>
+                            <option value="2021-04-11" >2021-04-11</option>
+                            <option value="2022-04-11" >2022-04-11</option>
+                            <option value="2022-09-11">2022-09-11</option>
+                        </select>          
+                    </div> 
+                </div>
+
+                <div class="client">
+                    <div class="input_text">
 
 
-            <div class="client">
+                        <input type="submit" value="check" class="submitfirst" >
+                      <div class="signup">  <a href="http://127.0.0.1:8080/PageAccueilOrganisateur" title="Retour"><b>Retour</b></a>
+                        </div>
 
-                <div class="signup">  <a href="http://127.0.0.1:8080/PageAccueil" title="Retour"><b>Retour</b></a></div>
-
-            </div>
-
+                    </div>
+                </div>
+            </form>
         </div>
+
 
     </body>
 </html>

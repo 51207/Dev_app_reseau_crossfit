@@ -62,14 +62,12 @@ public class Crossfitclass {
 
     @Autowired
     private testService testService;
-    @Autowired 
+    @Autowired
     private JuryService juryservice;
-     @Autowired 
+    @Autowired
     private EpreuveService epreuveservice;
 
-     
-     
-     public List<StringMessage> panier;
+    public List<StringMessage> panier;
     //****** variable utiliser dans la conservateur du user et du password *******
     public static String nomuser = "";
     public String password = "";
@@ -111,10 +109,18 @@ public class Crossfitclass {
 
     //****** Inscription au tournoi ********
     @GetMapping("/Tournoi")
-    public String InscritTournoi(Model model) {
-        model.addAttribute("compet", competitionService.GetAllNameofCompetition().get());
-        model.addAttribute("compet2", new StringMessage());
-        return "InscriptionTournoi";
+    public String InscritTournoi(Model model, HttpSession session) {
+        try {
+            //on verifie si on est bien logger en tant qu'utilisateur
+            Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
+
+            model.addAttribute("compet", competitionService.GetAllNameofCompetition().get());
+            model.addAttribute("compet2", new StringMessage());
+            return "InscriptionTournoi";
+        } catch (NullPointerException e) {
+
+            return "redirect:login";
+        }
     }
 
     @GetMapping("/InscritTournoi")
@@ -146,9 +152,6 @@ public class Crossfitclass {
 
                     inscritService.CreateInscription(i);
 
-                    nom = "";
-                    prenom = "";
-                    mdp = "";
                     return "success";
 
                 } else {
@@ -168,9 +171,6 @@ public class Crossfitclass {
 
                         inscritService.CreateInscription(i);
 
-                        nom = "";
-                        prenom = "";
-                        mdp = "";
                         return "success";
                     }
                 }
@@ -186,68 +186,44 @@ public class Crossfitclass {
     }
 
     //********desinscription********
-    /*  @GetMapping("/DesinscritTournoi")
-     public String DesinscritTournoi(@ModelAttribute StringMessage msg ){
-           Inscrit i = new Inscrit();
+    @GetMapping("/DesinscritTournoi")
+    public String DesinscritTournoi(@ModelAttribute StringMessage msg, HttpSession session) {
+        Inscrit i = new Inscrit();
 
         try {
+            //on verifie qu'on s'est bien logger
+            Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
 
-            Optional<Clients> c = clientservice.ForgotPassword(msg.getMdp());
-            Optional<Integer> comp = competitionService.GetidCompetition(nom, prenom);
-           // nomuser = mdp;
-            if (comp.get() == 0) {
+            //ensuite on supprime toutes les notes (Test) concernant cette personne
+            if (c.get() != null) {
 
-                Optional<Clients> d = clientservice.ForgotPassword(mdp);
-                Optional<Competition> comp2 = competitionService.GetCompetitionByName(nom);
-                if (c.isPresent() && comp.isPresent()) {
+                Optional<List<Test>> list = testService.GetAllTestById(c.get().getNic());
+                if (list.get() != null) {
+                    testService.DeleteAllTestSelectedById(list);
+                }
 
-                    //  Inscrit i = new Inscrit();
-                    i.setClients(d.get());
-                    i.setCompetition(comp2.get());
-
-                    InscritPK p = new InscritPK();
-
-                    p.setINCompetition(comp2.get().getNCompetition());
-                    p.setINic(d.get().getNic());
-                    p.setIdate(prenom);
-                    i.setInscritPK(p);
-
-                    inscritService.CreateInscription(i);
-                  
-                    nom="";   prenom=""; mdp="";
-                    return "success";
-
-                } else {
-
-                    if (c.isPresent() && comp.isPresent()) {
-
-                        // Inscrit i = new Inscrit();
-                        i.setClients(c.get());
-                        i.setCompetition(competitionService.GetCompetitionById(comp.get()).get());
-
-                        InscritPK p = new InscritPK();
-
-                        p.setINCompetition(comp.get());
-                        p.setINic(c.get().getNic());
-                        p.setIdate(prenom);
-                        i.setInscritPK(p);
-
-                        inscritService.CreateInscription(i);
-                        
-                         nom="";   prenom=""; mdp="";
-                        return "success";
+                //on supprime  toutes ses inscription dans des com
+                Optional<List<Inscrit>> listinscrit = inscritService.GetAllInscritById(c.get().getNic());
+                if (listinscrit.get() != null) {
+                    for (var item : listinscrit.get()) {
+                        inscritService.DeleteInscrit(item);
                     }
                 }
+                //on supprime enfin le client
+                clientservice.DeleteClients(c.get());
+
             }
+
+            return "success";
 
         } catch (NullPointerException e) {
 
             return "redirect:login";
 
         }
-        return "PageAccueil";
 
-     }*/
+    }
+
     //********modification du client*********
     @GetMapping("/Modificationclient")
     public String UpdateClient(Model model, HttpSession session) {
@@ -321,14 +297,6 @@ public class Crossfitclass {
             return "redirect:login";
         }
     }
-
-    //******classement******
-    @GetMapping("/classement")
-    public String getClassement() {
-        return "classement";
-    }
-
-   
 
    
     //****** success ******
