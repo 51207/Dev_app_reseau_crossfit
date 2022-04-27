@@ -75,11 +75,18 @@ public class CrossfitAffichageNoteClient {
     public String password = "";
 
     @GetMapping("/Affichage")
-    public String Affichage(Model model) {
-        model.addAttribute("output", new StringMessage());
-        model.addAttribute("nameofcompet", epreuveService.getalldataonEpreuve());
+    public String Affichage(Model model, HttpSession session) {
+        try {
+            //on verifie si on est bien logger en tant qu'utilisateur
+            Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
 
-        return "affichageResultat";
+            model.addAttribute("output", new StringMessage());
+            model.addAttribute("nameofcompet", epreuveService.getalldataonEpreuve());
+
+            return "affichageResultat";
+        } catch (NullPointerException e) {
+            return "redirect:login";
+        }
     }
 
     @GetMapping("/affichageresulnoteperso")
@@ -89,7 +96,6 @@ public class CrossfitAffichageNoteClient {
             //Donc en resumé: on verifie si on s'est bien logger (login) ,sinon on se connecte. 
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
 
-            
             //je recupere toutes les notes du client a comme nom le client qui correspond au username et la date (prenom =date)
             List<noteclass> list = testService.getAllNote(c.get().getNic(), prenom);
             //si la liste est vide on affcihe des valeurs par defauts
@@ -108,14 +114,13 @@ public class CrossfitAffichageNoteClient {
             }
             //on ajoute dans le model les données qu'on aimerait recuperer
             model.addAttribute("noteclass", list);
-           
+
             return "shownote";
         } catch (NullPointerException e) {
             return "redirect:login";
         }
     }
 
-    
     //on veut afficher les notes données par les jury par epreuve
     @GetMapping("/affichageresultallnote")
     public String Affichageallresultbyepreuve(@RequestParam String nom, @RequestParam String prenom, Model model, HttpSession session) {
@@ -139,7 +144,7 @@ public class CrossfitAffichageNoteClient {
 
             }
             model.addAttribute("noteclass", list);
-            
+
             return "shownoteByEpreuve";
 
         } catch (NullPointerException e) {

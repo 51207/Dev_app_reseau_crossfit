@@ -77,7 +77,8 @@ public class Crossfitclass {
     @GetMapping("/**")
     public String page(Model model) {
 
-        return "PageAccueil";
+        //return "PageAccueil";
+        return "Accueil";
     }
 
     @GetMapping("/PageAccueil")

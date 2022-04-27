@@ -32,6 +32,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -176,10 +177,15 @@ public class CrossfiClassement {
         EnteteTable.add(0, "rang");
         //dernier index
         EnteteTable.add("moyenne");
+       
         model.addAttribute("EnteteTable", EnteteTable);
 
     }
 
+    
+  
+    
+    
     //pour enregistrer tous les clients dans le service rest 
     @GetMapping("/SaveClientInRestService")
     public String ServiceRestPost(@ModelAttribute StringMessage nom, Model model) {

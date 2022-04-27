@@ -123,9 +123,16 @@ public class CrossfitLogin {
     }
 
     @GetMapping("/personnel")
-    public String DonneePersonnel() {
+    public String DonneePersonnel(HttpSession session) {
 
-        return "DonneePersonnel";
+        try {
+              //on verifie si on est bien logger en tant qu'utilisateur
+            Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
+            
+            return "DonneePersonnel";
+        } catch (NullPointerException e) {
+            return "redirect:login";
+        }
     }
 
     //***** modification du mot de passe ******

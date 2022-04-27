@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Data
 public class Notation {
-  
+    private Integer rang;
     private Clients nic;
     private Epreuve nec;
     private Jury nIJury;

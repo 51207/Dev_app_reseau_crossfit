@@ -27,6 +27,7 @@ import isib.demo.crossfit.suivisession.Notation;
 import isib.demo.crossfit.suivisession.NotationList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,6 +36,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -68,6 +70,9 @@ public class CrossfitSuiviSession {
     @Autowired
     private EpreuveService epreuveservice;
 
+    Integer positionOfNotationInList=0;
+    
+    
     //******Notation******
     @GetMapping("/DateNotation")
     public String getNotation(Model model) {
@@ -116,7 +121,7 @@ public class CrossfitSuiviSession {
 
     //*****on vet ajouter un element dans la liste qui concerne le suivi de session
     @PostMapping("/NotationClientAdd")
-    public String AddNotation(@ModelAttribute GetNotationParameter notationparameter, Model model, HttpSession session, HttpServletRequest request) {
+    public String AddNotation(@ModelAttribute GetNotationParameter notationparameter, Model model, HttpSession session, HttpServletRequest request,NotationList notationList) {
 
         try {
             //recherche du client ,de l'epreuve et du jury
@@ -126,16 +131,22 @@ public class CrossfitSuiviSession {
 
             if (c.isPresent() && c.get() != null && e != null && j != null) {
                 Notation notation = new Notation();
+                
+               
                 notation.setNic(c.get());
                 notation.setNec(e);
                 notation.setNIJury(j);
                 notation.setNote(notationparameter.getNote());
+                
+                //notation.setRang((notationList.getNotations().)));
                 //on ajoute dans la liste notationList qui conserve ce qu'on ajoute
-                NotationList notationlist = (NotationList) session.getAttribute("notationList");
-                notationlist.addNotation(notation);
-                session.setAttribute("notationList", notationlist);
+               // NotationList notationList = (NotationList) session.getAttribute("notationList");
+               notation.setRang(++positionOfNotationInList);
+               notationList.addNotation(notation);
+                
+               // session.setAttribute("notationList", notationlist);
 
-                //model.addAttribute("notationList",notationlist);
+                //model.addAttribute("notationList",notationList);
                 return "shownoteByEpreuveOrganisateur";
             }
 
@@ -157,6 +168,27 @@ public class CrossfitSuiviSession {
        }catch(NullPointerException e){
            return "redirect:login";
        }
+    }
+    
+      @GetMapping("/deletestock/{rang}/delete")
+    public String DeleteElementOfStockage(@PathVariable Integer rang,Model model,HttpSession session, NotationList notationlist ){
+        try{
+         notationlist = (NotationList) session.getAttribute("notationList");
+         int i=0;
+        for( Notation item : notationlist.getNotations()){
+            
+           if(Objects.equals(rang, item.getRang())){
+               i = notationlist.getNotations().indexOf(item);
+              // notationlist.getNotations().remove(i);
+           }
+        }
+        notationlist.getNotations().remove(i);
+      
+        }catch(NullPointerException e){
+            //return "shownoteByEpreuveOrganisateur";
+        }finally{
+        return "shownoteByEpreuveOrganisateur";
+        }
     }
 
 }

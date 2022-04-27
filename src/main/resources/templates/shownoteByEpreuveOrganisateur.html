@@ -134,6 +134,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 margin-top: 20px;
 
             }
+            
+            
+              input[type="submit"]{
+                    
+                    width:15%;
+                    height: 50px;
+                    border:1px solid;
+                    background: #23a6d5;
+                    border-radius: 25px;
+                    font-size: 18px;
+                    color: #ffffff;
+                    font-weight: 800;
+                    text-align: center;
+                   
+                        
+                    display: block;
+                    position: relative;
+                    margin-left: 35%;
+                    margin-right: auto;
+                   
+                }
         </style>
     </head>
     <body xmlns:th="http://www.thymeleaf.org">
@@ -187,7 +208,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="div2">
             <!--  <div th:if="${not #lists.isEmpty(result)}">-->
             <h2 class="h2">Note </h2>
-            
+            <div><input  type="submit" value="Insert BD"> </div>
            
             <table class="table-dark">
                 <thead>
@@ -197,6 +218,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <th scope="col" class="th">epreuve</th>
                         <th scope="col" class="th">jury</th>
                         <th scope="col" class="th">note </th>
+                        <th scope="col" class="th">Action </th>
                     </tr>   
                 </thead>
 
@@ -209,6 +231,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                      <td class="td1"  th:text="${item2.getNec().getNEpreuve()}"  ></td>
                      <td class="td1"  th:text="${item2.getNIJury.getNomJury()}"  ></td>
                      <td class="td1"  th:text="${item2.note}"  ></td>
+                    <td><a th:href="@{/deletestock/{rang}/delete(rang=${item2.getRang()})}">delete</a> </td>
                     </tr>  
                 </tbody>
             </table>

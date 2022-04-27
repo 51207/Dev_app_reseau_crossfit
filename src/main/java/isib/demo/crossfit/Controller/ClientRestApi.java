@@ -67,7 +67,7 @@ public class ClientRestApi {
 
     public void DeleClientServiceRest(String PreviousUsername) {
 
-        Clients c = rst.getForObject("http://localhost:8081/apijson/DeleteClient/" + PreviousUsername, Clients.class);
+       /* Clients c = rst.getForObject("http://localhost:8081/apijson/DeleteClient/" + PreviousUsername, Clients.class);
         
         ApiClient api = new ApiClient();
         api.setNic(c.getNic());
@@ -79,9 +79,9 @@ public class ClientRestApi {
         api.setCommune(c.getCommune());
         api.setTel(c.getTel());
         api.setUsername(c.getUsername());
-        api.setPassword(c.getPasswordclient());
+        api.setPassword(c.getPasswordclient());*/
 
-        rst.delete("http://localhost:8081/apijson/DeleteClients", api, ApiClient.class);
+        rst.g ("http://localhost:8081/apijson/DeleteClient/"+PreviousUsername,String.class);
 
     }
 }
