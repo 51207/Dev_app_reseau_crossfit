@@ -133,47 +133,55 @@ public class Crossfitclass {
         try {
 
             Optional<Clients> c = clientservice.ForgotPassword(mdp);
+            //prenom = date , nom = nomcompetition mdp = username
             Optional<Integer> comp = competitionService.GetidCompetition(nom, prenom);
+
             // nomuser = mdp;
             if (comp.get() == 0) {
 
                 Optional<Clients> d = clientservice.ForgotPassword(mdp);
                 Optional<Competition> comp2 = competitionService.GetCompetitionByName(nom);
-                if (c.isPresent() && comp.isPresent()) {
 
-                    //  Inscrit i = new Inscrit();
-                    i.setClients(d.get());
-                    i.setCompetition(comp2.get());
-
-                    InscritPK p = new InscritPK();
-
-                    p.setINCompetition(comp2.get().getNCompetition());
-                    p.setINic(d.get().getNic());
-                    p.setIdate(prenom);
-                    i.setInscritPK(p);
-
-                    inscritService.CreateInscription(i);
-
-                    return "success";
-
-                } else {
+                //on recherche pour savoir si cette personne est deja inscrite
+                Inscrit j = inscritService.getInscrit(prenom, d.get().getNic(), comp2.get().getNCompetition());
+                if (j == null) {
 
                     if (c.isPresent() && comp.isPresent()) {
 
-                        // Inscrit i = new Inscrit();
-                        i.setClients(c.get());
-                        i.setCompetition(competitionService.GetCompetitionById(comp.get()).get());
+                        //  Inscrit i = new Inscrit();
+                        i.setClients(d.get());
+                        i.setCompetition(comp2.get());
 
                         InscritPK p = new InscritPK();
 
-                        p.setINCompetition(comp.get());
-                        p.setINic(c.get().getNic());
+                        p.setINCompetition(comp2.get().getNCompetition());
+                        p.setINic(d.get().getNic());
                         p.setIdate(prenom);
                         i.setInscritPK(p);
 
                         inscritService.CreateInscription(i);
 
                         return "success";
+
+                    } else {
+
+                        if (c.isPresent() && comp.isPresent()) {
+
+                            // Inscrit i = new Inscrit();
+                            i.setClients(c.get());
+                            i.setCompetition(competitionService.GetCompetitionById(comp.get()).get());
+
+                            InscritPK p = new InscritPK();
+
+                            p.setINCompetition(comp.get());
+                            p.setINic(c.get().getNic());
+                            p.setIdate(prenom);
+                            i.setInscritPK(p);
+
+                            inscritService.CreateInscription(i);
+
+                            return "success";
+                        }
                     }
                 }
             }
@@ -260,18 +268,17 @@ public class Crossfitclass {
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
 
             if (c.isPresent()) {
-               
-                
-               //***modification du même client dans le service rest (s'il existe)
-              ClientRestApi clientrestapi = new ClientRestApi();
-              clientrestapi.UpdateClientServiceRest(newclient,(String)session.getAttribute("loginusername"));
-               
+
+                //***modification du même client dans le service rest (s'il existe)
+                ClientRestApi clientrestapi = new ClientRestApi();
+                clientrestapi.UpdateClientServiceRest(newclient, (String) session.getAttribute("loginusername"));
+
                 //***modification du client***
                 Clients s;
                 s = newclient;
                 s.setNic(c.get().getNic());
                 clientservice.CreateClients(s);
-                
+
                 return "successupdatepassword";
             } else {
                 return "PageAccueil";
@@ -291,12 +298,12 @@ public class Crossfitclass {
             // 
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
             if (c.isPresent() && c.get() != null) {
-                
+
                 //on supprime dabord le meme client dans le service rest
                 ClientRestApi rs = new ClientRestApi();
-                String username = (String)session.getAttribute("loginusername");
+                String username = (String) session.getAttribute("loginusername");
                 rs.DeleClientServiceRest(username);
-                
+
                 Clients s;
                 s = c.get();
                 s.setNic(c.get().getNic());
@@ -306,15 +313,16 @@ public class Crossfitclass {
                 //rechercher s'il a participer à une compétition
                 inscritService.DeleteAllInscritSelectedById(inscritService.GetAllInscritById(c.get().getNic()));
                 clientservice.DeleteClients(s);
+
+                session.invalidate();
             }
-            return "PageAccueil";
+            return "Accueil";
         } catch (NullPointerException e) {
 
             return "redirect:login";
         }
     }
 
-   
     //****** success ******
     @GetMapping("/success")
     public String success() {

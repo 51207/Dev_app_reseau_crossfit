@@ -201,6 +201,12 @@ public class InscritService {
         }
 
     }
+    
+        public Inscrit getInscrit(String dates, Integer idclients, Integer INcompetition ){
+        
+          Inscrit i = inscritRepository.getInscrit(dates, idclients, INcompetition);
+          return i;
+        }
 
    
     

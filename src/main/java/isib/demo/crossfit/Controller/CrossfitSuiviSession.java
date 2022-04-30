@@ -85,7 +85,7 @@ public class CrossfitSuiviSession {
        }
     }
 
-    //***page qui va permettre l'encodage de la note du client
+    //***page qui va permettre l'encodage de la note du client par l'oganisateur
     @GetMapping("/Notation")
     public String getNotationForClient(@RequestParam String StringVariable, Model model) {
         try {
@@ -105,6 +105,7 @@ public class CrossfitSuiviSession {
                 }
 
             }
+            
             List<String> ListAlljury = juryservice.getAllJury();
             model.addAttribute("Tdates", date);
             model.addAttribute("listClientsInscrit", listAllName);
@@ -132,7 +133,7 @@ public class CrossfitSuiviSession {
             if (c.isPresent() && c.get() != null && e != null && j != null) {
                 Notation notation = new Notation();
                 
-               
+                notation.setDate(notationparameter.getDateCompetition());
                 notation.setNic(c.get());
                 notation.setNec(e);
                 notation.setNIJury(j);

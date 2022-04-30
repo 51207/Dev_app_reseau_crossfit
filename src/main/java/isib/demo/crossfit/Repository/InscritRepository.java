@@ -29,4 +29,7 @@ public interface InscritRepository extends CrudRepository<Inscrit, Integer> {
     @Query(value="select i.inscritPK.iNic from Inscrit i where i.inscritPK.idate=:idate")
     public List<Integer> getAllInscritByDate(@Param("idate") String dates);
     
+      @Query(value="select i   from Inscrit i where i.inscritPK.idate=:idate AND i.inscritPK.iNic=:tnic AND i.inscritPK.iNCompetition = :iNCompetition")
+    public Inscrit getInscrit(@Param("idate") String dates,@Param("tnic") Integer idclients,@Param("iNCompetition") Integer INcompetition );
+    
 }

@@ -210,7 +210,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="div2">
             <!--  <div th:if="${not #lists.isEmpty(result)}">-->
             <h2 class="h2">Note </h2>
-            <form action="#" th:action="@{/InsertNoteBD}" method="POST">  
+            <form action="#" th:action="@{/insertoBDallEpreuve}" method="POST">  
                  <input type="submit" value="Insert BD">
                
           
@@ -219,10 +219,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <thead>
                     <tr>
                        
-                        <th scope="col" class="th">username</th>
-                        <th scope="col" class="th">epreuve</th>
-                        <th scope="col" class="th">jury</th>
-                        <th scope="col" class="th">note </th>
+                        <th scope="col" class="th">Competition</th>
+                        <th scope="col" class="th">Epreuve</th>
                         <th scope="col" class="th">Action </th>
                     </tr>   
                 </thead>
@@ -231,12 +229,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                
                
                         
-                       <tr  th:each="item2 : ${notationList.notations}" class="td">
-                    <td class="td1"  th:text="${item2.getNic().getNom()}"  ></td>
-                     <td class="td1"  th:text="${item2.getNec().getNEpreuve()}"  ></td>
-                     <td class="td1"  th:text="${item2.getNIJury.getNomJury()}"  ></td>
-                     <td class="td1"  th:text="${item2.note}"  ></td>
-                    <td><a th:href="@{/deletestock/{rang}/delete(rang=${item2.getRang()})}">delete</a> </td>
+                       <tr  th:each="item2 : ${addEpreuveList.getListepreuve()}" class="td">
+                    <td class="td1"  th:text="${item2.getCompet().getNomcompetition()}"  ></td>
+                     <td class="td1"  th:text="${item2.getEpreuve().getNEpreuve()}"  ></td>
+                    <td><a th:href="@{/deleteAddEpreuveCompetition/{rang}/delete(rang=${item2.getRang()})}">delete</a> </td>
                     </tr>  
                 </tbody>
             </table>

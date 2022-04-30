@@ -23,6 +23,7 @@ import isib.demo.crossfit.service.EpreuveService;
 import isib.demo.crossfit.service.InscritService;
 import isib.demo.crossfit.service.JuryService;
 import isib.demo.crossfit.service.testService;
+import isib.demo.crossfit.suivisession.NotationList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -76,7 +77,7 @@ public class CrossfiClassement {
         try {
             //on verifie si on s'est bien connecté sinon on va directement dans le catch 
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
-
+            //on met dans le model la date
             model.addAttribute("dateClassement", new dateObject());
 
             return "classementOrganisateur";
@@ -87,14 +88,20 @@ public class CrossfiClassement {
 
     @GetMapping("/Notationclient")
     public String Classement(@ModelAttribute dateObject StringVariable, Model model) {
+        //je recupère la date 
         String date = StringVariable.getStringVariable();
+        //je recupere la liste des notes de tous les clients à une certaine date
         List<Test> listTest = testService.getAllTestByDates(date);
         try {
+            //on verifie que la liste n'est pas null           
             if (listTest != null && !(listTest.isEmpty())) {
+                
+                
                 listNotationClientInscrit listNotationClientInscrit = new listNotationClientInscrit();
                 listNotationClientInscrit.ClearProducts();
+                
                 for (var item : listTest) {
-
+                    //j'initialise les différentes variables
                     NotationClientInscrit Notationclient = new NotationClientInscrit();
                     Notationclient.setDateCompetition(date);
                     Notationclient.setIdJury(item.getTestPK().getTJury());
@@ -109,13 +116,17 @@ public class CrossfiClassement {
                     Notationclient.setUsername(c.getUsername());
                     Notationclient.setNomEpreuve(e.getNEpreuve());
                     Notationclient.setNomjury(j.getNomJury());
+                    //on ajoute dans la liste <<products>>
                     listNotationClientInscrit.setProduct(Notationclient);
 
                 }
+                
+                
                 List<ArrayList> list = listNotationClientInscrit.GetAllNote();
                 //on recupere le classement ici
                 List<ArrayList> secondlist = listNotationClientInscrit.SortAllNote(list);
                 model.addAttribute("listTest", secondlist);
+                //il faut ajouter d'autres variables dans les différentes liste
                 this.methodSort(model, listNotationClientInscrit);
 
                 //il me manque aussi de variable dans la liste getAllNomEpreuve 
@@ -159,12 +170,47 @@ public class CrossfiClassement {
             return "PageAccueilOrganisateur";
         }
     }
+    
+    @PostMapping("/InsertNoteBD")
+    public String InsertTestToBD(HttpSession session,NotationList notationlist){
+        
+        try{
+            notationlist = (NotationList) session.getAttribute("notationList");
+            for( var item : notationlist.getNotations()){
+            
+                Integer IDClient = item.getNic().getNic();
+                Integer IDEpreuve = item.getNec().getNie();
+                Integer IDJury= item.getNIJury().getNIJury();
+                Integer Note = item.getNote();
+                String date = item.getDate();
+                Test t= testService.getAllTestbyAllParameter(date,IDClient,IDEpreuve,IDJury);
+                if( t == null){
+                
+                  Test test=  testService.CreateTestAllParametre(date, item.getNic(), item.getNec(), item.getNIJury(), Note);
+                  testService.CreateNewTest(test);
+                }
+            }
+            notationlist.getNotations().clear();
+           
+           
+            return "PageAccueilOrganisateur";
+            
+        }catch(NullPointerException e){
+            
+            return "redirect:PageAccueilOrganisateur";
+        
+        }
+    
+    
+        
+    }
+    
 
     //On recupere le 
     public void methodSort(Model model, listNotationClientInscrit listNotationClientInscrit) {
-        //on recupere le classement ici
-
+        //on recupere toutes les notes 
         List<ArrayList> list = listNotationClientInscrit.GetAllNote();
+        //on trie ici (en faisant le classement)
         List<ArrayList> secondlist = listNotationClientInscrit.SortAllNote(list);
         model.addAttribute("listTest", secondlist);
 
@@ -174,6 +220,7 @@ public class CrossfiClassement {
         List<String> EnteteTable = listNotationClientInscrit.GetallEpreuveName();
         //index 0
         EnteteTable.add(0, "Username");
+        //
         EnteteTable.add(0, "rang");
         //dernier index
         EnteteTable.add("moyenne");
@@ -190,7 +237,9 @@ public class CrossfiClassement {
     @GetMapping("/SaveClientInRestService")
     public String ServiceRestPost(@ModelAttribute StringMessage nom, Model model) {
         try {
+            //je  recupere tous les clients de la BD
             Iterable<Clients> listclients = clientservice.GetFindAll();
+            
             if (listclients != null) {
 
                 RestTemplate rst = new RestTemplate();
@@ -210,8 +259,10 @@ public class CrossfiClassement {
                     api.setTel(item.getTel());
                     api.setUsername(item.getUsername());
                     api.setPassword(item.getPasswordclient());
+                    //on ajoute dans la liste chaque api
                     list.setList2(api);
                 }
+                //on fait un postMapping 
                 rst.postForObject("http://localhost:8081/apijson/PostClients", list, apiListClient.class);
             }
 
@@ -232,6 +283,7 @@ public class CrossfiClassement {
         try {
             //on verifie si  on est bien connecter avec un nom d'utilisateur qui est stocké dans la session
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
+            //choix de la date pour obtenir le classement
             model.addAttribute("dateclassement", new dateObject());
             return "Classement";
         } catch (NullPointerException e) {
@@ -246,6 +298,7 @@ public class CrossfiClassement {
         String date = StringVariable.getStringVariable();
         List<Test> listTest = testService.getAllTestByDates(date);
         try {
+            //attention: si la liste est null, cvd qu'il n'existe pas dans la BD de crossfit , donc il va aller chercher dans le service rest
             if (listTest != null && !(listTest.isEmpty())) {
                 listNotationClientInscrit listNotationClientInscrit = new listNotationClientInscrit();
                     listNotationClientInscrit.ClearProducts();

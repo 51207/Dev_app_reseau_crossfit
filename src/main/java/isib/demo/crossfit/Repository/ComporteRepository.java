@@ -27,11 +27,17 @@ public interface ComporteRepository extends CrudRepository<Inscrit, Integer> {
         @Query(value= "Select distinct  e.nEpreuve  FROM Inscrit i join  i.competition c  join c.epreuveCollection e   where c.nomcompetition=:nomcompetition AND i.inscritPK.idate=:dates")
         public Optional<List<String>> GetAllEpreuveByCompetition(@Param("nomcompetition")String nomcompetition , @Param("dates") String dates);
         
+        @Query(value="Select c from  Comporte c where c.comportePK.CNCompetition=:idcompetition AND c.comportePK.CNIE=:idepreuve")
+        public Comporte GetComporteByIDCompetition(@Param("idcompetition")Integer numerocompetition,@Param("idepreuve")Integer numeroEpreuve);
+        
+        
         @Query(value="DELETE FROM Comporte c" )
         public void DeleteAlllEpreuveComporte();
         
-        @Query(value="DELETE  From Comporte c")
-        public void Deletesingle(Integer NIC);
+        @Query(value="DELETE  From Comporte c where  c.comportePK.CNCompetition=:idcompetition AND c.comportePK.CNIE=:idepreuve")
+        public void Deletesingle(@Param("idcompetition")Integer numerocompetition,@Param("idepreuve")Integer numeroEpreuve);
+        
+       
         
         
     

@@ -11,6 +11,7 @@ import isib.demo.crossfit.Tables.Competition;
 import isib.demo.crossfit.Tables.Epreuve;
 import isib.demo.crossfit.Tables.Jury;
 import isib.demo.crossfit.Tables.Test;
+import isib.demo.crossfit.Tables.TestPK;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -52,10 +53,29 @@ public class testService {
 
      //create
     public Test CreateNewTest(Test test) {
-
-        return testRepository.save(test);
+          testRepository.save(test);
+        return test;
     }
     
+    public Test CreateTestAllParametre(String date , Clients client, Epreuve epreuve,Jury jury,Integer note ){
+    
+        Test t = new Test();
+        t.setClients(client);
+        t.setEpreuve(epreuve);
+        t.setJury(jury);
+        t.setNote(note);
+        
+        TestPK p = new TestPK();
+        p.setTDates(date);
+        p.setTnic(client.getNic());
+        p.setTnie(epreuve.getNie());
+        p.setTJury(jury.getNIJury());
+        t.setTestPK(p);
+        
+       
+        return t;
+    
+    }
     
     //update 
     public Test UpdateNote(Test test) {

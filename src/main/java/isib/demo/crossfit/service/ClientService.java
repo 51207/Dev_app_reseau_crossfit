@@ -190,7 +190,7 @@ public class ClientService {
     
     
     //recuperer le client qui a comme username:String username
-      public  Optional<Clients> ForgotPassword(@Param("username") String username){
+      public  Optional<Clients> ForgotPassword(String username){
       
        try{
         Clients c = clientRepository.ForgotPassword(username);

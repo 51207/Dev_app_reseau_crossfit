@@ -192,5 +192,18 @@ public class CompetitionService {
             return null;
         }
     }
+     //recuperer le competition qui a comme username:String username
+   public Competition ForgotNameOfCompetition(String nomcompetition){
+
+        try {
+            Competition c = competitionRepository.ForgotNameOfCompetition(nomcompetition);
+        
+
+            return c;
+        } catch (NullPointerException e) {
+
+            return null;
+        }
+    }
 
 }

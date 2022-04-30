@@ -187,6 +187,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                margin-top: 20px;
                               
                            }
+                          
         </style>
     </head>
     <body>
@@ -200,7 +201,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </li>
                         <li >
                             <a href="http://127.0.0.1:8080/Create" title="Creation Tournoi" class="c"><b>Creation Tournoi</b> </a>
-
+                              <div class="sub-menu-1">
+                                        <ul>
+                                             <li><a href="http://127.0.0.1:8080/AddEpreuveInCompetition" title="Connexion" class="connect"><b>AJOUT D'epreuves à une compétition</b> </a></li>
+                                         
+                                          </ul>
+                                        </div>
                         </li>
                          <li >
                             <a href="http://127.0.0.1:8080/PersonnelOrganisateur" title="Données personnelles" class="c"><b>Données personnelles</b> </a>
@@ -220,16 +226,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <li>
                             <a href="http://127.0.0.1:8080/shownoteByEpreuveOrganisateur" title="Stockage" class="c"><b>Stockage</b> </a>
                         </li>
-                        <li class="li"><a class="c" ><b>Login</b> </a> 
+                         <li class="li"><a href="http://127.0.0.1:8080/deconnexion" title="Deconnexion" class="c"><b>Deconnexion</b> </a></li>
+					
+                      <!--  <li class="li"><a class="c" ><b>Login</b> </a> 
 
-                            <!--<a href="http://127.0.0.1:8080/login" title="Login" class="c"><b>Login</b> </a> -->
+                      
                             <div class="sub-menu-1">
                                 <ul>
                                     <li><a href="http://127.0.0.1:8080/login" title="Connexion" class="connect"><b>Connexion</b> </a></li>
                                     <li><a href="http://127.0.0.1:8080/deconnexion" title="Deconnexion" class="connect"><b>Deconnexion</b> </a></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li>-->
 
                     </ul>
 
@@ -244,7 +252,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
        <div class="container">
         <h1>Creation du Tournoi </h1>
        
- <form action="#" th:action="@{/InscriptCreation}" th:object="${tournoi}" method="POST"  >
+ <form action="#"  th:object="${tournoi}"  th:action="@{/InscriptCreation}" method="POST"  >
 
   <div class="input_text">
           <div> <label class="label">Nom Competition:</label></div>
@@ -271,9 +279,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
   </div>
  
 
- <div><input  type="submit" value="Créer"> </div>
-  
- <p class="p" >Avez vous déjà un compte? <a href="http://127.0.0.1:8080/login" title="Login here"><b>Connecter vous </b></a></p>
+ <div ><input  type="submit" value="Créer"  > </div>
+
+ <!--<p class="p" >Avez vous déjà un compte? <a href="http://127.0.0.1:8080/login" title="Login here"><b>Connecter vous </b></a></p>-->
     </form>
  </div>
 

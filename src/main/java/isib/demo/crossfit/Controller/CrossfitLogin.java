@@ -8,6 +8,7 @@ package isib.demo.crossfit.Controller;
  *
  * @author aliou
  */
+import isib.demo.crossfit.OtherClass.AddEpreuveInCompetitionList;
 import isib.demo.crossfit.OtherClass.StringMessage;
 import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Competition;
@@ -79,11 +80,12 @@ public class CrossfitLogin {
 
     @PostMapping("/login")
     public String logins(@ModelAttribute Clients client, Model model, HttpSession session, HttpServletRequest request) {
-        //on verifie si c'est client ou si c'est une compétition ou si c'est un orgranisateur
        
+        
+        //on verifie si c'est client ou si c'est une compétition ou si c'est un orgranisateur
         Clients c = clientservice.GetLogin(client.getUsername(), client.getPasswordclient());
         Competition comp = competitionService.GetLogin(client.getUsername(), client.getPasswordclient());
-       
+        //si c est null, on verifie si c'est un organisateur. si ce n'est pas le cas , un message d'erreur s'affichera
         
       
         if (c != null) {
@@ -99,7 +101,7 @@ public class CrossfitLogin {
             session = request.getSession();
             session.setAttribute("loginusername", comp.getUser());
             session.setAttribute("notationList", new NotationList());
-
+            session.setAttribute("addEpreuveList", new AddEpreuveInCompetitionList());
             return "PageAccueilOrganisateur";
 
         } else {
@@ -189,7 +191,8 @@ public class CrossfitLogin {
             if (c.isPresent() && c.get() != null) {
                 Clients s;
                 s = c.get();
-
+                
+                //On verifie pour savoir si on a encodé le nouveau mot de passe ou s'il est le même que le precedent
                 if (mdp != null && mdp.getNom() != null && mdp.getNom().length() > 0 && !Objects.equals(s.getPasswordclient(), mdp.getNom())) {
                     s.setPasswordclient(mdp.getNom());
                     clientservice.UpdateClients(s);

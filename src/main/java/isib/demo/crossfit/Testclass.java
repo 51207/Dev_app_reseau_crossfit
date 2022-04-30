@@ -11,6 +11,12 @@ import isib.demo.crossfit.service.ClientService;
 import isib.demo.crossfit.service.CompetitionService;
 import isib.demo.crossfit.Controller.ClientRestApi;
 import isib.demo.crossfit.RestAPIclass.apiListTest;
+import isib.demo.crossfit.Tables.Comporte;
+import isib.demo.crossfit.Tables.ComportePK;
+import isib.demo.crossfit.Tables.Inscrit;
+import isib.demo.crossfit.service.ComporteService;
+import isib.demo.crossfit.service.EpreuveService;
+import isib.demo.crossfit.service.InscritService;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -34,43 +40,50 @@ import org.springframework.web.client.RestTemplate;
 @Component
 @Transactional
 public class Testclass implements CommandLineRunner {
-
-   
     
-     @Autowired
+    @Autowired
     private ClientService clientservice;
     
-     @Autowired
+    @Autowired
     private CompetitionService competitionService;
+    @Autowired
+    private ComporteService comporteService;
+     @Autowired
+    private EpreuveService epreuveService;
     
+          @Autowired
+    private InscritService inscritService;
+     
     @PersistenceContext
     EntityManager em;
 
-  
     //  EntityManagerFactory emf = Persistence.createEntityManagerFactory("isib.demo_crossfit_jar_0.0.1-SNAPSHOTPU");
     // EntityManager em = emf.createEntityManager();
-
     @Override
     public void run(String... args) throws Exception {
 
         /**/
-       //testclient();
+        //testclient();
         //UpdateClient_test();
         listeclienttest();
         //System.out.println("=============delete=============");
         //clientservice.DeleteClients(10024);
-      
-        
-        
-     /*   Optional<List<String>> c = clientservice.GetListJury("Traoré","2021-04-11");
+        System.out.println(competitionService.GetFindAll());
+        System.out.println(comporteService.GetAllComporte());
+        System.out.println(comporteService.GetComporteByIDCompetition(1, 1));
+        Inscrit i= inscritService.getInscrit("2022-04-11",10001,02);
+        System.out.println( i );
+       
+       
+
+        /*   Optional<List<String>> c = clientservice.GetListJury("Traoré","2021-04-11");
        if( c.isPresent()){
            System.out.println("liste des jury"+c.get());
        };*/
-        /*String date = "2019-04-11";
+ /*String date = "2019-04-11";
         ClientRestApi api = new ClientRestApi();
         api.GetAlltESTbyDate(date);*/
-        
-      /*  System.out.println("=======================================");
+ /*  System.out.println("=======================================");
         RestTemplate rst = new RestTemplate();
         apiListTest api = rst.getForObject("http://localhost:8081/apijson/listTest/" + date, apiListTest.class);
 
@@ -79,7 +92,6 @@ public class Testclass implements CommandLineRunner {
             System.out.println(item.toString());
         }*/
     }
-    
     
     public void UpdateClient_test() {
 //update , on doit fournir la clé primaire pour modifier
@@ -95,42 +107,37 @@ public class Testclass implements CommandLineRunner {
         c.setUsername("kat");
         c.setPasswordclient("isib");
         clientservice.UpdateClients(c);
-       
-            
-      
+        
     }
-
+    
     public void listeclienttest() {
         int x = 0;
         System.out.println("============findall==============");
         for (Clients item : clientservice.GetFindAll()) {
             x += 1;
-            System.out.println("clients " + x + " : " + item.getNom() + " " + item.getPrenom() + " nic :" + item.getNic()+ " username="+item.getUsername()+ "  a4password: "+item.getPasswordclient());
-
+            System.out.println("clients " + x + " : " + item.getNom() + " " + item.getPrenom() + " nic :" + item.getNic() + " username=" + item.getUsername() + "  a4password: " + item.getPasswordclient());
             
         }
         
-        
         System.out.println("=============findcp=============");
-
+        
         for (Clients item : clientservice.findByCp("1000")) {
 //body of for-each loop
             System.out.println("client habitant dans le code postal  1000 = " + item.getNom());
 //clients.findByCp(em,"1000");
         }
-        
-       /*  Optional<Clients> xq= clientservice.GetLogin("jack1", "isib");
+
+        /*  Optional<Clients> xq= clientservice.GetLogin("jack1", "isib");
      
             if(xq.isPresent()){
                  System.out.println("login : "+ xq.get()+" ");
                   System.out.println("login : "+ xq.get().getNic()+" ");
            System.out.println("login  "+ xq.get().getPrenom() +" "+ xq.get().getNom());
             }*/
-
     }
-
+    
     public void CreateClient_test() {
-
+        
         Clients c = new Clients();
 
         //create 
@@ -146,20 +153,12 @@ public class Testclass implements CommandLineRunner {
         clientservice.CreateClients(c);
     }
     
-    
-     
-     
-     
-     
-     
-
-     public void testclient(){
-     
-     
+    public void testclient() {
+        
         System.out.println("=============list=============");
         listeclienttest();
         System.out.println();
-
+        
         System.out.println("=============insert=============");
         //create 
         CreateClient_test();
@@ -171,19 +170,13 @@ public class Testclass implements CommandLineRunner {
 
         //System.out.println("=============delete=============");
         //clientservice.DeleteClients(10023);
-       
         System.out.println();
-
+        
         System.out.println("=============list modifié=============");
         listeclienttest();
         System.out.println();
-     }
-     
-     
-     
-     
-     
-   
+    }
+    
 }
 
 // EntityManagerFactory emf = Persistence.createEntityManagerFactory("isib.demo_crossfit_jar_0.0.1-SNAPSHOTPU");
@@ -209,4 +202,3 @@ Long  i = clients.findClientsCount(em);
 System.out.println("nombre de client inscrit = "+i.toString());
 }
  */
-

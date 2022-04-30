@@ -46,7 +46,7 @@ public class ClientRestApi {
     }
 
     public void UpdateClientServiceRest(Clients s, String PreviousUsername) {
-
+        //je recupere dabord le client puis je le met dans un ApliClient et enfin je l'envoie au serviceRest pour la modification
         Clients c = rst.getForObject("http://localhost:8081/apijson/UpdateClient/" + PreviousUsername, Clients.class);
 
         ApiClient api = new ApiClient();
@@ -60,28 +60,14 @@ public class ClientRestApi {
         api.setTel(s.getTel());
         api.setUsername(s.getUsername());
         api.setPassword(s.getPasswordclient());
-
+        //requete putmapping vers le service Rest
         rst.put("http://localhost:8081/apijson/UpdateClients", api, ApiClient.class);
 
     }
 
     public void DeleClientServiceRest(String PreviousUsername) {
-
-       /* Clients c = rst.getForObject("http://localhost:8081/apijson/DeleteClient/" + PreviousUsername, Clients.class);
-        
-        ApiClient api = new ApiClient();
-        api.setNic(c.getNic());
-        api.setNom(c.getNom());
-        api.setPrenom(c.getPrenom());
-        api.setRue(c.getRue());
-        api.setNumero(c.getNumero());
-        api.setCp(c.getCp());
-        api.setCommune(c.getCommune());
-        api.setTel(c.getTel());
-        api.setUsername(c.getUsername());
-        api.setPassword(c.getPasswordclient());*/
-
-        rst.g ("http://localhost:8081/apijson/DeleteClient/"+PreviousUsername,String.class);
+        // on veut supprimer un des clients dont son username =PreviousUsername;
+        rst.delete("http://localhost:8081/apijson/DeleteClient/"+PreviousUsername,String.class);
 
     }
 }

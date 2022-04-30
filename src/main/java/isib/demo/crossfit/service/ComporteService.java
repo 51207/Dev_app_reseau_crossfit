@@ -8,15 +8,19 @@ import isib.demo.crossfit.Repository.ComporteRepository;
 import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Competition;
 import isib.demo.crossfit.Tables.Comporte;
+import isib.demo.crossfit.Tables.ComportePK;
 import isib.demo.crossfit.Tables.Epreuve;
 import isib.demo.crossfit.Tables.Inscrit;
 import static java.nio.file.Files.delete;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 /**
@@ -38,7 +42,19 @@ public class ComporteService {
     //context de persistence
     @PersistenceContext
     private EntityManager em;
-
+    
+    
+    //créer un Comporte
+    @Transactional
+    public void CreateComporte(Comporte c){
+    
+        
+        em.persist(c);
+        
+    }
+    
+     
+    
     //Get all competition 
    public  Optional<List<Comporte>> GetAllComporte(){
    
@@ -58,19 +74,10 @@ public class ComporteService {
    
     
      //delete un element dans la table  comporte
-    public void DeleteSingleEpreuveByCompetition(Integer NCNIE) {
-
-        Comporte c = em.find(Comporte.class, NCNIE);
-        try {
-           
-            if (c != null) {
-                comporteRepository.Deletesingle(NCNIE);
-                System.out.println("======");
-                System.out.println("competitions deleted");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void DeleteSingleEpreuveByCompetition(Integer numerocompetition,Integer numeroEpreuve) {
+        
+        comporteRepository.Deletesingle(numerocompetition, numeroEpreuve);
+  
     }
     
     
@@ -82,5 +89,11 @@ public class ComporteService {
     }
     
     
-   
+    public Comporte GetComporteByIDCompetition(Integer numerocompetition,Integer numeroEpreuve){
+    
+     Comporte c =comporteRepository.GetComporteByIDCompetition(numerocompetition,numeroEpreuve);
+    
+    return c;
+    }
+        
 }

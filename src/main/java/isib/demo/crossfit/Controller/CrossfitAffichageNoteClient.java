@@ -10,6 +10,8 @@ package isib.demo.crossfit.Controller;
  */
 import isib.demo.crossfit.OtherClass.Message;
 import isib.demo.crossfit.OtherClass.StringMessage;
+import isib.demo.crossfit.OtherClass.StringParameter;
+import isib.demo.crossfit.OtherClass.dateObject;
 import isib.demo.crossfit.OtherClass.noteclass;
 import isib.demo.crossfit.Tables.Clients;
 import isib.demo.crossfit.Tables.Inscrit;
@@ -80,7 +82,9 @@ public class CrossfitAffichageNoteClient {
             //on verifie si on est bien logger en tant qu'utilisateur
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
 
-            model.addAttribute("output", new StringMessage());
+            // model.addAttribute("output", new StringMessage());
+            model.addAttribute("output", new StringParameter());
+            //la liste de tous les epreuve
             model.addAttribute("nameofcompet", epreuveService.getalldataonEpreuve());
 
             return "affichageResultat";
@@ -90,16 +94,18 @@ public class CrossfitAffichageNoteClient {
     }
 
     @GetMapping("/affichageresulnoteperso")
-    public String Affichageresult(@RequestParam String nom, @RequestParam String prenom, Model model, HttpSession session) {
+    /// public String Affichageresult(@RequestParam String nom, @RequestParam String prenom, Model model, HttpSession session) {
+    public String Affichageresult(@RequestParam String stringVar1, @RequestParam String stringVar2, Model model, HttpSession session) {
         try {
             //en faisant ce optional<clients>c , s'il est null , il va aller directement au catch (ce dernier le redirige vers la page d'accueil
             //Donc en resumé: on verifie si on s'est bien logger (login) ,sinon on se connecte. 
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
 
-            //je recupere toutes les notes du client a comme nom le client qui correspond au username et la date (prenom =date)
-            List<noteclass> list = testService.getAllNote(c.get().getNic(), prenom);
+            //je recupere toutes les notes du client a comme nom le client qui correspond au username et la date (stringVar2 =date)
+            List<noteclass> list = testService.getAllNote(c.get().getNic(), stringVar2);
             //si la liste est vide on affcihe des valeurs par defauts
             if (list.isEmpty()) {
+                //si la liste est vide , on veut afficher ces termes par défaut.
                 noteclass note = new noteclass();
                 note.setNom("#");
                 note.setPrenom("#");
@@ -120,17 +126,21 @@ public class CrossfitAffichageNoteClient {
             return "redirect:login";
         }
     }
+    
+    
+    
 
-    //on veut afficher les notes données par les jury par epreuve
+    //on veut afficher toutes les notes des sportif jugées  par les jury par  epreuve
     @GetMapping("/affichageresultallnote")
-    public String Affichageallresultbyepreuve(@RequestParam String nom, @RequestParam String prenom, Model model, HttpSession session) {
+    public String Affichageallresultbyepreuve(@RequestParam String stringVar1, @RequestParam String stringVar2, Model model, HttpSession session) {
 
         try {
             //on verifie si on est connecté grace à un username de la BD
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
-
-            List<noteclass> list = testService.getAllNotebyepreuve(nom, prenom);
+            //stringVar1 est le nom de l'epreuve
+            List<noteclass> list = testService.getAllNotebyepreuve(stringVar1, stringVar2);
             if (list.isEmpty()) {
+                //si la liste est vide , on veut afficher ces termes par défaut.
                 noteclass note = new noteclass();
                 note.setNom("#");
                 note.setNomepreuve("#");
@@ -143,6 +153,7 @@ public class CrossfitAffichageNoteClient {
                 System.out.println(item.getNom() + "    |    " + item.getPrenom() + "    |    " + item.getNote1() + "     |   " + item.getNote2() + "\n");
 
             }
+            model.addAttribute("nomEpreuve", stringVar1);
             model.addAttribute("noteclass", list);
 
             return "shownoteByEpreuve";

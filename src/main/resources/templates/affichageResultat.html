@@ -386,14 +386,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
   <div class="dropboxAll">  
       <div class="dropbox1">
           <div> <label class="label">Epreuve     </label></div>
-            <select  th:field="*{nom}"  >
+            <select  th:field="*{stringVar1}"  >
                    
                 <option  th:each="items: ${nameofcompet}" th:value="${items}"  th:text="${items}"  ></option>
             </select>     
   </div>
    <div class="dropbox2">
            <div><label class="label">Dates :</label></div>
-            <select  th:field="*{prenom}" >
+            <select  th:field="*{stringVar2}" >
                  <option value="2021-04-11" >2021-04-11</option>
                  <option value="2022-04-11" >2022-04-11</option>
                  <option value="2022-09-11">2022-09-11</option>

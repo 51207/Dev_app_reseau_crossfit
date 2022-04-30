@@ -43,6 +43,9 @@ public interface CompetitionRepository extends CrudRepository<Competition, Integ
   
    @Query(value="Select c from Competition c where c.user=:user")
   public Competition ForgotPassword(@Param("user") String username);
+  
+   @Query(value="Select c from Competition c where c.nomcompetition=:nomcompetition")
+  public Competition ForgotNameOfCompetition(@Param("nomcompetition") String nomcompetition);
 }
 
     
