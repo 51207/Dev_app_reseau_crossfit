@@ -110,8 +110,8 @@ public class CrossfitLoginOrganisateur {
     public String AddEpreuveInCompetition(Model model,HttpSession session) {
          try {
             //on verifie si on est bien logger en tant qu'utilisateur
-            Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
-
+            Optional<Competition> c =  competitionService.ForgotPassword(session.getAttribute("loginusername").toString());
+            
             model.addAttribute("compet", competitionService.GetAllNameofCompetition().get());
             model.addAttribute("nameofepreuve", epreuveService.getalldataonEpreuve());
             model.addAttribute("output", new StringParameter());
@@ -126,7 +126,7 @@ public class CrossfitLoginOrganisateur {
     public String AddInLIST(@ModelAttribute StringParameter valueParameter,Model model,HttpSession session, AddEpreuveInCompetitionList addEpreuveList) {
          try {
             //on verifie si on est bien logger en tant qu'utilisateur
-            Optional<Clients> d = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
+            //Optional<Clients> d = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
              //AddEpreuveInCompetitionList addEpreuveList = new AddEpreuveInCompetitionList();
                
              AddEpreuveInCompetition epreuveIncompetition = new AddEpreuveInCompetition();
@@ -134,6 +134,14 @@ public class CrossfitLoginOrganisateur {
              
              String nomcompetition = valueParameter.getStringVar2();
              String nomEpreuve= valueParameter.getStringVar1();
+             
+             //je recupere le username ici grace au nom de la competition
+             String username = competitionService.GetUserByNameOFcompetition(nomcompetition);
+             //là je verifie est ce que celui qui est connecté est celui qui a crée cette competition? =>si "non" cvd qu'il ne peut pas ajouter des epreuve à cette copetition
+             if(!Objects.equals(username,session.getAttribute("loginusername").toString())){
+                 return "PageAccueilOrganisateur";
+             }else{
+             
             Competition competition = competitionService.ForgotNameOfCompetition(nomcompetition);
             Epreuve epreuve = epreuveService.GetEpreuvebyNomEpreuve(nomEpreuve);
             
@@ -158,7 +166,7 @@ public class CrossfitLoginOrganisateur {
             }
             return "PageAccueilOrganisateur";
           
-            
+             }
             
         } catch (NullPointerException e) {
 

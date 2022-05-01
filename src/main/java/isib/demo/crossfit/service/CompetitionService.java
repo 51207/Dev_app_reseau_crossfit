@@ -72,8 +72,6 @@ public class CompetitionService {
         }
     }
 
-    
-   
     //update 
     public Competition UpdateCompetition(Competition competition) {
         //verifier que le client existe dans la bd
@@ -86,13 +84,14 @@ public class CompetitionService {
             return null;
         }
     }
-    public void  UpdateCompetitions(Competition competition){
-   try {
-        competitionRepository.save(competition);
-   }catch(Exception e){
-       e.printStackTrace();
-   } 
-   }
+
+    public void UpdateCompetitions(Competition competition) {
+        try {
+            competitionRepository.save(competition);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     //nombre de competition crée
     public Long GetCompetitionCount() {
@@ -100,72 +99,61 @@ public class CompetitionService {
         return (Long) em.createNamedQuery("Competition.GetCompetitionCount").getSingleResult();
     }
 
-    
-    
     //obtenir l'objet (ou l'id) competition en encodant le nom de la competition
-    public  Optional<Competition> GetObjectCompetition(String nomcompetition) {
+    public Optional<Competition> GetObjectCompetition(String nomcompetition) {
 
         Competition c = em.createNamedQuery("Competition.findByNomcompetition", Competition.class)
-                        .setParameter(4, nomcompetition).getSingleResult();
+                .setParameter(4, nomcompetition).getSingleResult();
 
         Optional<Competition> result = Optional.of(c);
         return result;
     }
-    
-     //obtenir l'objet  competition en encodant son id de la competition
-    public  Optional<Competition> GetCompetitionById(Integer ncompetition) {
+
+    //obtenir l'objet  competition en encodant son id de la competition
+    public Optional<Competition> GetCompetitionById(Integer ncompetition) {
 
         Competition c = em.createNamedQuery("Competition.findByNCompetition", Competition.class)
-                        .setParameter(1, ncompetition).getSingleResult();
+                .setParameter(1, ncompetition).getSingleResult();
 
         Optional<Competition> result = Optional.of(c);
         return result;
     }
-    
-      //obtenir l'objet competition en encodant le nom de la competition
-   
-    public Optional<Competition> GetCompetitionByName(String nomcompetition){
+
+    //obtenir l'objet competition en encodant le nom de la competition
+    public Optional<Competition> GetCompetitionByName(String nomcompetition) {
         Optional<Competition> c = competitionRepository.GetCompetitionByName(nomcompetition);
 
-       
         return c;
     }
-    
-    
-    
+
     //je veux trouver toutes les competitions qui ont comme nom nomcompetition et qui commence à la date : dates 
     public Optional<Integer> GetidCompetition(String nomcompetition, String dates) {
-         Optional<Integer> result = Optional.of(0);
-        try{
-            Competition c =competitionRepository.GetIDbyCompetition(nomcompetition,dates);
-            
-            
-       result = Optional.of(c.getNCompetition());
-        return result;
-        }catch(NullPointerException e){
-           
-           return result;
+        Optional<Integer> result = Optional.of(0);
+        try {
+            Competition c = competitionRepository.GetIDbyCompetition(nomcompetition, dates);
+
+            result = Optional.of(c.getNCompetition());
+            return result;
+        } catch (NullPointerException e) {
+
+            return result;
         }
-      
 
     }
-      
-    
+
     //trouver toutes les dates de competition
     public Optional<List<String>> GetAllDateOfCompetition() {
         Optional<List<String>> result = competitionRepository.GetAllDateCompetition();
         return result;
     }
 
-    
-    
     //trouver toutes les dates de competition
-    public  Optional<List<String>> GetAllNameofCompetition() {
+    public Optional<List<String>> GetAllNameofCompetition() {
         Optional<List<String>> result = competitionRepository.GetAllNameofCompetition();
-  
-       return result;
+
+        return result;
     }
-    
+
     //recuper l'id à travers le username et le password pour recuperer l'id
     public Competition GetLogin(String username, String password) {
 
@@ -177,10 +165,9 @@ public class CompetitionService {
         }
 
     }
-    
-    
+
     //recuperer le client qui a comme username:String username
-    public Optional<Competition> ForgotPassword( String username) {
+    public Optional<Competition> ForgotPassword(String username) {
 
         try {
             Competition c = competitionRepository.ForgotPassword(username);
@@ -192,18 +179,24 @@ public class CompetitionService {
             return null;
         }
     }
-     //recuperer le competition qui a comme username:String username
-   public Competition ForgotNameOfCompetition(String nomcompetition){
+    //recuperer le competition qui a comme username:String username
+
+    public Competition ForgotNameOfCompetition(String nomcompetition) {
 
         try {
             Competition c = competitionRepository.ForgotNameOfCompetition(nomcompetition);
-        
 
             return c;
         } catch (NullPointerException e) {
 
             return null;
         }
+    }
+    //recuperer le username de celui qui a crée la competition en mettant en parametre le nom de la competition
+    public String GetUserByNameOFcompetition(String nomcompetition) {
+
+        String user = competitionRepository.GetUserByNameOFcompetition(nomcompetition);
+        return user;
     }
 
 }
