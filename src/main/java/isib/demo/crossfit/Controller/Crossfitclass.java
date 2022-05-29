@@ -39,6 +39,7 @@ import isib.demo.crossfit.service.EpreuveService;
 import isib.demo.crossfit.service.InscritService;
 import isib.demo.crossfit.service.testService;
 import java.util.List;
+import java.util.Objects;
 import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
@@ -72,12 +73,13 @@ public class Crossfitclass {
     //****** variable utiliser dans la conservateur du user et du password *******
     public static String nomuser = "";
     public String password = "";
+    public boolean errorLogin = false;
 
     //*****Page d'Accueil******
     @GetMapping("/**")
     public String page(Model model) {
 
-        //return "PageAccueil";
+        
         return "Accueil";
     }
 
@@ -97,8 +99,7 @@ public class Crossfitclass {
 
     @PostMapping("/Inscript")
     public String postInscription(@ModelAttribute Clients newclient, Model model) {
-        //on verifie pour savoir si ce username existe,sion on peut dès lors crée 
-
+        //on verifie pour savoir si ce username existe,sinon on peut dès lors crée 
         if (clientservice.ForgotPassword(newclient.getUsername()) == null) {
             //session.getAttribute("loginusername").toString()
             clientservice.CreateClients(newclient);
@@ -126,66 +127,72 @@ public class Crossfitclass {
     }
 
     @GetMapping("/InscritTournoi")
-    public String postInscritTournoi(@RequestParam String nom, @RequestParam String prenom, @RequestParam String mdp) {
+    public String postInscritTournoi(@RequestParam String nom, @RequestParam String prenom, @RequestParam String mdp, HttpSession session) {
 
         Inscrit i = new Inscrit();
 
         try {
 
             Optional<Clients> c = clientservice.ForgotPassword(mdp);
-            //prenom = date , nom = nomcompetition mdp = username
-            Optional<Integer> comp = competitionService.GetidCompetition(nom, prenom);
+            //on verifie si le nom d'utilisateur encodé n'est pas le même que celui qui s'est connecté
+            if (!Objects.equals(session.getAttribute("loginusername").toString(), mdp)) {
 
-            // nomuser = mdp;
-            if (comp.get() == 0) {
+                return "PageAccueil";
+            } else {
 
-                Optional<Clients> d = clientservice.ForgotPassword(mdp);
-                Optional<Competition> comp2 = competitionService.GetCompetitionByName(nom);
+                //prenom = date , nom = nomcompetition mdp = username
+                Optional<Integer> comp = competitionService.GetidCompetition(nom, prenom);
 
-                //on recherche pour savoir si cette personne est deja inscrite
-                Inscrit j = inscritService.getInscrit(prenom, d.get().getNic(), comp2.get().getNCompetition());
-                if (j == null) {
+                // nomuser = mdp;
+                if (comp.get() == 0) {
 
-                    if (c.isPresent() && comp.isPresent()) {
+                    Optional<Clients> d = clientservice.ForgotPassword(mdp);
+                    Optional<Competition> comp2 = competitionService.GetCompetitionByName(nom);
 
-                        //  Inscrit i = new Inscrit();
-                        i.setClients(d.get());
-                        i.setCompetition(comp2.get());
-
-                        InscritPK p = new InscritPK();
-
-                        p.setINCompetition(comp2.get().getNCompetition());
-                        p.setINic(d.get().getNic());
-                        p.setIdate(prenom);
-                        i.setInscritPK(p);
-
-                        inscritService.CreateInscription(i);
-
-                        return "success";
-
-                    } else {
+                    //on recherche pour savoir si cette personne est deja inscrite
+                    Inscrit j = inscritService.getInscrit(prenom, d.get().getNic(), comp2.get().getNCompetition());
+                    if (j == null) {
 
                         if (c.isPresent() && comp.isPresent()) {
 
-                            // Inscrit i = new Inscrit();
-                            i.setClients(c.get());
-                            i.setCompetition(competitionService.GetCompetitionById(comp.get()).get());
+                           
+                            i.setClients(d.get());
+                            i.setCompetition(comp2.get());
 
                             InscritPK p = new InscritPK();
 
-                            p.setINCompetition(comp.get());
-                            p.setINic(c.get().getNic());
+                            p.setINCompetition(comp2.get().getNCompetition());
+                            p.setINic(d.get().getNic());
                             p.setIdate(prenom);
                             i.setInscritPK(p);
 
                             inscritService.CreateInscription(i);
 
                             return "success";
+
+                        } else {
+
+                            if (c.isPresent() && comp.isPresent()) {
+
+                               
+                                i.setClients(c.get());
+                                i.setCompetition(competitionService.GetCompetitionById(comp.get()).get());
+
+                                InscritPK p = new InscritPK();
+
+                                p.setINCompetition(comp.get());
+                                p.setINic(c.get().getNic());
+                                p.setIdate(prenom);
+                                i.setInscritPK(p);
+
+                                inscritService.CreateInscription(i);
+
+                                return "success";
+                            }
                         }
                     }
                 }
             }
-
         } catch (NullPointerException e) {
 
             return "redirect:login";
@@ -212,7 +219,7 @@ public class Crossfitclass {
                     testService.DeleteAllTestSelectedById(list);
                 }
 
-                //on supprime  toutes ses inscription dans des com
+                //on supprime  toutes ses inscription dans des compétitions
                 Optional<List<Inscrit>> listinscrit = inscritService.GetAllInscritById(c.get().getNic());
                 if (listinscrit.get() != null) {
                     for (var item : listinscrit.get()) {
@@ -234,13 +241,12 @@ public class Crossfitclass {
 
     }
 
-    //********modification du client*********
+    //********lien vers la modification des données du  client*********
     @GetMapping("/Modificationclient")
     public String UpdateClient(Model model, HttpSession session) {
-        //public String UpdateClient(@RequestParam StringMessage mdp, Model model) {
 
         try {
-            // Optional<Clients> c = clientservice.ForgotPassword(nomuser);
+
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
 
             model.addAttribute("userclient", c.get());
@@ -264,7 +270,6 @@ public class Crossfitclass {
 
         try {
 
-            // Optional<Clients> c = clientservice.ForgotPassword(nomuser);
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
 
             if (c.isPresent()) {
@@ -295,7 +300,7 @@ public class Crossfitclass {
         //public String deleteclient(@RequestParam StringMessage mdp)
         //@ModelAttribute("loginusername") String nomuser
         try {
-            // 
+            // on verifie pour savoir si on est bien connecté
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
             if (c.isPresent() && c.get() != null) {
 

@@ -98,7 +98,8 @@ public class CrossfitLoginOrganisateur {
         if (clientservice.ForgotPassword(competition.getUser()) == null) {
             //si c'est un organisateur , alors il peut créer une competiton
             competitionService.CreateCompetition(competition);
-            return "success";
+            //return "successCreation";
+            return "successCreation";
         } else {
 
             return "redirect:Create";
@@ -247,7 +248,7 @@ public class CrossfitLoginOrganisateur {
     
    
     
-    //********modification du client*********
+    //********modification des information de l'organisateur*********
     @GetMapping("/PersonnelOrganisateur")
     public String UpdateOrganisateur( Model model,HttpSession session) {
 
@@ -274,7 +275,7 @@ public class CrossfitLoginOrganisateur {
 
     }
 
-    // update client post
+    // update Organisateur post
     @PostMapping("/MAJOrganisateur")
     public String postUpdateInscrit(@ModelAttribute Competition newclient, HttpSession session) {
 

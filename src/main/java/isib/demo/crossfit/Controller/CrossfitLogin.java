@@ -69,30 +69,27 @@ public class CrossfitLogin {
 
         if (errorLogin == true) {
             model.addAttribute("errorLogin", "le nom d'utilisateur ou le mot de passe est erroné");
-            
+
             this.errorLogin = false;
         } else {
             model.addAttribute("errorLogin", " ");
-           
+
         }
         return "login";
     }
 
     @PostMapping("/login")
     public String logins(@ModelAttribute Clients client, Model model, HttpSession session, HttpServletRequest request) {
-       
-        
+
         //on verifie si c'est client ou si c'est une compétition ou si c'est un orgranisateur
         Clients c = clientservice.GetLogin(client.getUsername(), client.getPasswordclient());
         Competition comp = competitionService.GetLogin(client.getUsername(), client.getPasswordclient());
         //si c est null, on verifie si c'est un organisateur. si ce n'est pas le cas , un message d'erreur s'affichera
-        
-      
+
         if (c != null) {
 
             session = request.getSession();
             session.setAttribute("loginusername", client.getUsername());
-
 
             return "PageAccueil";
 
@@ -110,8 +107,7 @@ public class CrossfitLogin {
 
             return "redirect:login";
         }
-        
-        
+
     }
 
     @GetMapping("/deconnexion")
@@ -128,9 +124,9 @@ public class CrossfitLogin {
     public String DonneePersonnel(HttpSession session) {
 
         try {
-              //on verifie si on est bien logger en tant qu'utilisateur
+            //on verifie si on est bien logger en tant qu'utilisateur
             Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
-            
+
             return "DonneePersonnel";
         } catch (NullPointerException e) {
             return "redirect:login";
@@ -146,7 +142,6 @@ public class CrossfitLogin {
 
     @GetMapping("/Forgot")
     public String forgotPass(Model model) {
-        //String name="";
 
         model.addAttribute("username", new StringMessage());
 
@@ -161,8 +156,8 @@ public class CrossfitLogin {
         //je cherche parmis les clients le client qui a comme username name.getNom()
         try {
             Optional<Clients> c = clientservice.ForgotPassword(name.getNom());
+            nomuser = name.getNom();
 
-          
             if (c.isPresent()) {
 
                 // model.addAttribute("users", c.get());
@@ -185,14 +180,14 @@ public class CrossfitLogin {
 
         try {
             //là aussi on verifie si le user est un client ou un organisateur
-            Optional<Clients> c = clientservice.ForgotPassword(session.getAttribute("loginusername").toString());
-            Optional<Competition> comp = competitionService.ForgotPassword(session.getAttribute("loginusername").toString());
-
+            Optional<Clients> c = clientservice.ForgotPassword(nomuser);
+            Optional<Competition> comp = competitionService.ForgotPassword(nomuser);
+            nomuser = "";
             if (c.isPresent() && c.get() != null) {
                 Clients s;
                 s = c.get();
-                
-                //On verifie pour savoir si on a encodé le nouveau mot de passe ou s'il est le même que le precedent
+
+                //On verifie pour savoir si on a encodé le nouveau mot de passe ou s'il est le même que le precedent,ou s'il n'est pas vide
                 if (mdp != null && mdp.getNom() != null && mdp.getNom().length() > 0 && !Objects.equals(s.getPasswordclient(), mdp.getNom())) {
                     s.setPasswordclient(mdp.getNom());
                     clientservice.UpdateClients(s);
@@ -201,10 +196,11 @@ public class CrossfitLogin {
 
                     return "redirect:login";
                 }
-
+                //dans le cas où le nom d'utlisateur est un organisateur 
             } else if (comp.isPresent() && comp.get() != null) {
                 Competition competition;
                 competition = comp.get();
+                //on check si le mdp n'est pas vide ,s'il n'a pas le même mot de passe que celui du precedant
                 if (mdp != null && mdp.getNom() != null && mdp.getNom().length() > 0 && !Objects.equals(competition.getPassword(), mdp.getNom())) {
                     competition.setPassword(mdp.getNom());
                     competitionService.UpdateCompetition(competition);
@@ -221,7 +217,5 @@ public class CrossfitLogin {
         }
         return "PageAccueil";
     }
-    
-   
 
 }

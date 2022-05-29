@@ -120,15 +120,44 @@ public class CrossfitSuiviSession {
         }
     }
 
-    //*****on vet ajouter un element dans la liste qui concerne le suivi de session
+    //*****on veut ajouter un element dans la liste qui concerne le suivi de session
     @PostMapping("/NotationClientAdd")
     public String AddNotation(@ModelAttribute GetNotationParameter notationparameter, Model model, HttpSession session, HttpServletRequest request,NotationList notationList) {
-
+        //dans un premier temps on stocke tous les users de la listenotatlion.getNotations() dans une liste
+        List<String> idOfInscrit = new ArrayList<String>();
+        for(var it :notationList.getNotations() ){
+            
+            if(!idOfInscrit.contains(it.getNic().getUsername())){
+              idOfInscrit.add(it.getNic().getUsername());
+            }
+        }
+       
         try {
-            //recherche du client ,de l'epreuve et du jury
+          int count = 0; 
+          //on verifie le nombre de fois qu'on a noté sur une matière un participant ne depasse pas 2
+          for(var item2 :idOfInscrit) {
+             
+             if(Objects.equals( notationparameter.getUsername(),item2)){
+                  
+                 for(var item : notationList.getNotations()){
+                   
+                     if(Objects.equals( item.getNic().getUsername(),item2) && Objects.equals(notationparameter.getNomEpreuve(),item.getNec().getNEpreuve()) ){
+                     count++;
+                     }
+                 }
+                
+                
+             }
+          }
+          
+          //recherche du client ,de l'epreuve et du jury
             Optional<Clients> c = clientservice.ForgotPassword(notationparameter.getUsername());
             Epreuve e = epreuveservice.GetEpreuvebyNomEpreuve(notationparameter.getNomEpreuve());
             Jury j = juryservice.GetIDJurybyNomJury(notationparameter.getNomjury());
+            
+            //on verifie aussi le nombre de fois qu'on a noté ce partipant à cette matiere dans la BD
+          count= count + CheckNumberOfEpreuve(c.get().getNic(),e.getNie(),notationparameter.getDateCompetition() );
+          if(count <2){
 
             if (c.isPresent() && c.get() != null && e != null && j != null) {
                 Notation notation = new Notation();
@@ -139,24 +168,32 @@ public class CrossfitSuiviSession {
                 notation.setNIJury(j);
                 notation.setNote(notationparameter.getNote());
                 
-                //notation.setRang((notationList.getNotations().)));
-                //on ajoute dans la liste notationList qui conserve ce qu'on ajoute
-               // NotationList notationList = (NotationList) session.getAttribute("notationList");
+               
                notation.setRang(++positionOfNotationInList);
                notationList.addNotation(notation);
                 
-               // session.setAttribute("notationList", notationlist);
-
-                //model.addAttribute("notationList",notationList);
+           
+                count=0;
                 return "shownoteByEpreuveOrganisateur";
+                
             }
-
+          }
             return "PageAccueilOrganisateur";
         } catch (NullPointerException e) {
             return "redirect:login";
         }
 
     }
+    
+    public Integer CheckNumberOfEpreuve(Integer nclient,Integer idEpreuve,String date ){
+        //renvoie le nombre de fois qu'on a noté ce participant à une epreuve  dans la base de données.
+       Integer count = 0;
+       count = testService.checkNumberOfEpreuve(nclient, idEpreuve, date);
+        
+        return count;
+    }
+    
+    
 
     //***affichage du contenu du suivi de session
     @GetMapping("/shownoteByEpreuveOrganisateur")
@@ -171,6 +208,9 @@ public class CrossfitSuiviSession {
        }
     }
     
+    
+    
+    //on veut supprimer la ligne qu'on a ajouté dans notationlist.getNotations() en appuyant sur delete
       @GetMapping("/deletestock/{rang}/delete")
     public String DeleteElementOfStockage(@PathVariable Integer rang,Model model,HttpSession session, NotationList notationlist ){
         try{
@@ -180,13 +220,13 @@ public class CrossfitSuiviSession {
             
            if(Objects.equals(rang, item.getRang())){
                i = notationlist.getNotations().indexOf(item);
-              // notationlist.getNotations().remove(i);
+            
            }
         }
         notationlist.getNotations().remove(i);
       
         }catch(NullPointerException e){
-            //return "shownoteByEpreuveOrganisateur";
+       
         }finally{
         return "shownoteByEpreuveOrganisateur";
         }

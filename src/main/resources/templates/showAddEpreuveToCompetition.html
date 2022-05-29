@@ -49,7 +49,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 font-size: 50px;
                 color:black;
                 margin-top: 150px;
-                margin-left: 550px;
+                margin-left: 520px;
             }
 
 
@@ -155,6 +155,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     margin-right: auto;
                    
                 }
+                inup{
+                  margin-left: 520px;
+                    
+                }
         </style>
     </head>
     <body xmlns:th="http://www.thymeleaf.org">
@@ -209,7 +213,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
         <div class="div2">
             <!--  <div th:if="${not #lists.isEmpty(result)}">-->
-            <h2 class="h2">Note </h2>
+            <h2 class="h2">Epreuves </h2>
+            
             <form action="#" th:action="@{/insertoBDallEpreuve}" method="POST">  
                  <input type="submit" value="Insert BD">
                
@@ -235,9 +240,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <td><a th:href="@{/deleteAddEpreuveCompetition/{rang}/delete(rang=${item2.getRang()})}">delete</a> </td>
                     </tr>  
                 </tbody>
+               
             </table>
+              
             </form>
-                 
-        </div>   
+             <p></p>
+             <span class="inup"> <a  href="http://127.0.0.1:8080/AddEpreuveInCompetition" title="AJOUT D'epreuves à une compétition"><b>retour</b></a></span>       
+            
+        </div>
+        
     </body>
 </html>

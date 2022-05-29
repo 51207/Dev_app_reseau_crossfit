@@ -355,6 +355,19 @@ public class testService {
         }
     }
 
+        //permet d'obtenir le nombre de fois qu'on a noté un client à une matière. 
+   public Integer checkNumberOfEpreuve(Integer idclient,Integer idpreuve ,String  date){
+       Integer count = 0;     
+       try{
+           
+         count = testRepository.checkNumberOfEpreuve(idclient, idpreuve, date);
+         return count;
+         
+       }catch(NullPointerException e){
+           return 0;
+       }
+    }
+       
 
 
 }

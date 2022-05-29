@@ -41,4 +41,7 @@ public interface TestRepository  extends CrudRepository<Test, String> {
        
        @Query(value="select t from Test t where t.testPK.tDates=:dates")
        public List<Test> getAllTestByDates(@Param("dates") String  date);
+       
+       @Query(value="select count(t) from Test t where t.testPK.tDates=:dates and t.testPK.tnie=:tnie and t.testPK.tnic=:tnic")
+       public Integer checkNumberOfEpreuve(@Param("tnic") Integer idclient,@Param("tnie")Integer idpreuve ,@Param("dates") String  date);
 }
